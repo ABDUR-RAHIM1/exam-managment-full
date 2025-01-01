@@ -20,6 +20,11 @@ const getPaymentHsitoryWithCourse = "/user/course/get-purchase-payment"
 const getMyblog = "/user/blog/me";
 const putBlogStatus = "/user/blog/status/"
 const deleteBlog = "/user/blogs/"
+const createOpinion = "/user/opinion/create"
+const getMyOpinion = "/user/opinion/view"
+const getAllOpinion = "/user/opinion/view/all"
+const deleteMyOpinion = "/user/opinion/delete/"
+const updateMyOpinion = "/user/opinion/update/"
 
 // admins 
 const adminLogin = "/admin/auth/login"   //  admin-auth
@@ -46,6 +51,7 @@ export {
 
     // user start 
     getMyProfileInfo, purchaseCourse, purchaseCourseAll, purchaseCourseMe, getPaymentHsitoryWithCourse, getMyblog, putBlogStatus, deleteBlog,
+    createOpinion, getMyOpinion, getAllOpinion, deleteMyOpinion, updateMyOpinion,
     // user end 
 
 

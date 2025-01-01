@@ -21,6 +21,7 @@ moderator :
 
 
 tasks:
+profile jokhn mobile view a thake tokhn toast navabr ar niche hide hoye jay . ata thik
 11 . purchase data gulo user er jonno authenticated o  admin er jonno adminAuth diye dekhate hbe
 result index management -> correactAns(index) vs selectAns(index) compaire
 0000000 . akta question barbar exam dewa jabe na / backend logic likhte hbe 

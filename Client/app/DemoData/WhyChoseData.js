@@ -1,34 +1,42 @@
+import { slider1, slider2, slider3, slider4 } from "./DemoImg";
+
 const whyChooseUsData = [
     {
         id: 1,
-        title: "Expert Guidance",
-        description: "Our team comprises industry experts with years of experience in job exam preparation. We provide personalized guidance to help you navigate through the complexities of various exams."
+        title: "বিশেষজ্ঞ নির্দেশনা",
+        description: "আমাদের টিমে রয়েছেন চাকরি পরীক্ষার প্রস্তুতিতে বছরের পর বছরের অভিজ্ঞতা সম্পন্ন বিশেষজ্ঞরা। আমরা আপনাকে বিভিন্ন পরীক্ষার জটিলতাগুলি সহজভাবে পার করতে ব্যক্তিগত নির্দেশনা প্রদান করি।",
+        image: slider4,
     },
     {
         id: 2,
-        title: "Comprehensive Resources",
-        description: "We offer a wide range of study materials, mock tests, and practice papers tailored specifically for bank job, BCS, and NTRC exams, ensuring you have everything you need to succeed."
+        title: "সম্পূর্ণ রিসোর্স",
+        description: "ব্যাংক চাকরি, বিসিএস, এবং এনটিআরসি পরীক্ষার জন্য বিশেষভাবে তৈরি স্টাডি মেটেরিয়াল, মক টেস্ট এবং প্র্যাকটিস পেপার সহ বিস্তৃত রিসোর্স সরবরাহ করি, যাতে আপনার সফলতার জন্য সবকিছু প্রস্তুত থাকে।",
+        image: slider3,
     },
     {
         id: 3,
-        title: "Flexible Learning",
-        description: "Our courses are designed to be flexible, allowing you to learn at your own pace. Whether you're a busy professional or a student, you can fit our programs into your schedule."
+        title: "নমনীয় শেখার পদ্ধতি",
+        description: "আমাদের কোর্সগুলি এমনভাবে ডিজাইন করা হয়েছে যাতে আপনি নিজের সুবিধামতো শিখতে পারেন। আপনি ব্যস্ত পেশাদার বা শিক্ষার্থী যাই হোন না কেন, আমাদের প্রোগ্রাম আপনার সময়সূচির সাথে মানানসই।",
+        image: slider1,
     },
     {
         id: 4,
-        title: "Success Rate",
-        description: "With a proven track record of successful candidates, our programs have helped numerous students achieve their dream jobs in various sectors. Your success is our priority."
+        title: "সফলতার হার",
+        description: "সফল প্রার্থীদের একটি প্রমাণিত রেকর্ড সহ, আমাদের প্রোগ্রামগুলি বিভিন্ন ক্ষেত্রে অনেক শিক্ষার্থীকে তাদের স্বপ্নের চাকরি অর্জনে সহায়তা করেছে। আপনার সফলতা আমাদের অগ্রাধিকার।",
+        image: slider2,
     },
     {
         id: 5,
-        title: "Supportive Community",
-        description: "Join a thriving community of learners and mentors. Our support extends beyond the classroom, providing networking opportunities and peer collaboration."
+        title: "সহায়ক কমিউনিটি",
+        description: "শিক্ষার্থী এবং পরামর্শকদের একটি সমৃদ্ধ কমিউনিটিতে যোগ দিন। আমাদের সহায়তা ক্লাসরুমের বাইরে গিয়েও সম্প্রসারিত, যেখানে নেটওয়ার্কিং সুযোগ এবং সহপাঠীদের সাথে সহযোগিতার সুযোগ পাবেন।",
+        image: slider3,
     },
     {
         id: 6,
-        title: "Up-to-Date Content",
-        description: "We continuously update our course materials to reflect the latest exam patterns and trends, ensuring that you are always prepared for any changes in the examination process."
+        title: "আপডেটেড কন্টেন্ট",
+        description: "আমরা ধারাবাহিকভাবে আমাদের কোর্স মেটেরিয়াল আপডেট করি, যাতে সর্বশেষ পরীক্ষার প্যাটার্ন এবং প্রবণতাগুলোর সাথে আপনি সবসময় প্রস্তুত থাকেন।",
+        image: slider4,
     }
 ];
 
-export default whyChooseUsData
+export default whyChooseUsData;

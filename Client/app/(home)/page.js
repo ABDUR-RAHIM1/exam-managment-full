@@ -5,8 +5,16 @@ import Services from '../components/Home/Services/Services'
 import WhyChose from '../components/Home/WhyChoose/WhyChose'
 import Testimonial from '../components/Home/Testimonial/Testimonial'
 import Marque from '../components/Home/Marque'
+import { getDataHandler } from '../actions/users/getData'
+import { getAllOpinion } from '../constans/constans'
 
-export default function HomePage() {
+export default async function HomePage() {
+  // const { status, result } = await getDataHandler(getAllOpinion);
+  const [testimonials] = await Promise.all([
+    getDataHandler(getAllOpinion)
+  ])
+
+
   return (
     <div className='bgGradient' >
       <Slider />
@@ -14,7 +22,7 @@ export default function HomePage() {
       <Notice />
       <Services />
       <WhyChose />
-      <Testimonial />
+      <Testimonial testimonialsData={testimonials} />
 
 
     </div>

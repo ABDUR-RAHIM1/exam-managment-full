@@ -24,15 +24,21 @@ const ProfileItems = [
     //     icon: "Icon",
     //     path: "/profile/course-enrolment"
     // },
-    {
-        item: "Profile Settings",
-        icon: "Icon",
-        path: "/profile/settings"
-    },
+
     {
         item: "Payment History",
         icon: "Icon",
         path: "/profile/payment-history"
+    },
+    {
+        item: "Your Opinions",
+        icon: "Icon",
+        path: "/profile/opinion"
+    },
+    {
+        item: "Profile Settings",
+        icon: "Icon",
+        path: "/profile/settings"
     },
 ]
 

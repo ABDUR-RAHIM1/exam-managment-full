@@ -1,37 +1,46 @@
+import { slider1, slider2, slider3, slider4 } from "./DemoImg";
+
 const servicesData = [
     {
-        title: "Bank Job Preparation",
-        description: "Comprehensive training programs designed to equip you with the skills and knowledge needed for bank job examinations. Our courses cover quantitative aptitude, reasoning, and English language proficiency, ensuring you're well-prepared for success."
+        title: "ব্যাংক চাকরি প্রস্তুতি",
+        description: "ব্যাংক চাকরির পরীক্ষার জন্য প্রয়োজনীয় দক্ষতা ও জ্ঞান অর্জনের জন্য ব্যাপক প্রশিক্ষণ প্রোগ্রাম। আমাদের কোর্সে গাণিতিক দক্ষতা, যুক্তি এবং ইংরেজি ভাষার দক্ষতার উপর জোর দেওয়া হয়, যা আপনাকে সফলতার জন্য প্রস্তুত করে।",
+        image: slider1,
     },
     {
-        title: "BCS Exam Coaching",
-        description: "Specialized coaching for the Bangladesh Civil Service (BCS) exam, focusing on the syllabus, interview preparation, and mock tests. Our expert instructors provide guidance and resources to help you excel in the competitive selection process."
+        title: "বিসিএস পরীক্ষার কোচিং",
+        description: "বাংলাদেশ সিভিল সার্ভিস (বিসিএস) পরীক্ষার জন্য বিশেষায়িত কোচিং, যেখানে সিলেবাস, ইন্টারভিউ প্রস্তুতি এবং মক টেস্টের উপর জোর দেওয়া হয়। আমাদের বিশেষজ্ঞ প্রশিক্ষকরা আপনাকে প্রতিযোগিতামূলক নির্বাচনী প্রক্রিয়ায় সফল হতে সহায়তা করেন।",
+        image: slider2,
     },
     {
-        title: "NTRCA Exam Preparation",
-        description: "Targeted preparation courses for the Non-Government Teachers' Registration and Certification Authority (NTRCA) exam. Our program includes study materials, practice tests, and personalized mentoring to boost your chances of passing."
+        title: "এনটিআরসিএ পরীক্ষার প্রস্তুতি",
+        description: "অ-সরকারি শিক্ষক নিবন্ধন ও সার্টিফিকেশন কর্তৃপক্ষ (NTRCA) পরীক্ষার জন্য লক্ষ্যভিত্তিক প্রস্তুতি কোর্স। আমাদের প্রোগ্রামে স্টাডি মেটিরিয়াল, প্র্যাকটিস টেস্ট এবং ব্যক্তিগত পরামর্শ অন্তর্ভুক্ত রয়েছে, যা আপনাকে সফলতার সম্ভাবনা বাড়াতে সাহায্য করে।",
+        image: slider3,
     },
     {
-        title: "Banking and Finance Courses",
-        description: "In-depth courses covering essential topics in banking and finance, including risk management, investment strategies, and financial analysis. Ideal for those looking to enhance their understanding and career prospects in the finance sector."
+        title: "ব্যাংকিং ও ফিন্যান্স কোর্স",
+        description: "ব্যাংকিং ও ফিন্যান্সের গুরুত্বপূর্ণ বিষয়গুলোর উপর গভীরতর কোর্স, যেমন ঝুঁকি ব্যবস্থাপনা, বিনিয়োগ কৌশল এবং আর্থিক বিশ্লেষণ। এটি তাদের জন্য আদর্শ যারা ফিন্যান্স সেক্টরে তাদের ক্যারিয়ারের সম্ভাবনা উন্নত করতে চান।",
+        image: slider4,
     },
     {
-        title: "Government Job Exam Training",
-        description: "Training sessions tailored for various government job exams, with a focus on general knowledge, current affairs, and relevant subject matter. Join us to stay updated and improve your performance in competitive exams."
+        title: "সরকারি চাকরি পরীক্ষার প্রশিক্ষণ",
+        description: "বিভিন্ন সরকারি চাকরি পরীক্ষার জন্য বিশেষভাবে তৈরি প্রশিক্ষণ সেশন, যেখানে সাধারণ জ্ঞান, সাম্প্রতিক ঘটনা এবং প্রাসঙ্গিক বিষয়ের উপর জোর দেওয়া হয়। প্রতিযোগিতামূলক পরীক্ষায় আপনার পারফরম্যান্স উন্নত করতে আমাদের সাথে যোগ দিন।",
+        image: slider1,
     },
     {
-        title: "Exam Strategy Workshops",
-        description: "Interactive workshops designed to help candidates develop effective exam strategies, time management skills, and stress reduction techniques. Learn how to approach exams with confidence and achieve your goals."
+        title: "পরীক্ষার কৌশল কর্মশালা",
+        description: "ইন্টারেক্টিভ কর্মশালা যা প্রার্থীদের কার্যকর পরীক্ষা কৌশল, সময় ব্যবস্থাপনা দক্ষতা এবং চাপ হ্রাস কৌশল বিকাশে সহায়তা করে। পরীক্ষার জন্য আত্মবিশ্বাস নিয়ে এগিয়ে যাওয়ার জন্য আমাদের সাথে শিখুন।",
+        image: slider3,
     },
     {
-        title: "Interview Preparation Programs",
-        description: "Programs focusing on interview skills for various job sectors. Gain insights into common interview questions, body language, and effective communication strategies to make a lasting impression."
+        title: "ইন্টারভিউ প্রস্তুতি প্রোগ্রাম",
+        description: "বিভিন্ন চাকরি সেক্টরের জন্য ইন্টারভিউ দক্ষতার উপর ভিত্তি করে প্রোগ্রাম। সাধারণ ইন্টারভিউ প্রশ্ন, শরীরের ভাষা এবং কার্যকর যোগাযোগ কৌশল সম্পর্কে অন্তর্দৃষ্টি অর্জন করুন, যা একটি স্থায়ী প্রভাব ফেলে।",
+        image: slider2,
     },
     {
-        title: "Online Mock Tests",
-        description: "Access a series of online mock tests simulating real exam conditions. Track your progress, identify strengths and weaknesses, and refine your skills to enhance your performance on the actual exam day."
+        title: "অনলাইন মক টেস্ট",
+        description: "বাস্তব পরীক্ষা শর্ত অনুকরণ করে একটি অনলাইন মক টেস্টের সিরিজ অ্যাক্সেস করুন। আপনার অগ্রগতি ট্র্যাক করুন, শক্তি এবং দুর্বলতা সনাক্ত করুন এবং পরীক্ষার দিন আপনার পারফরম্যান্স উন্নত করার জন্য দক্ষতা পরিমার্জন করুন।",
+        image: slider4,
     }
 ];
 
-
-export default servicesData
+export default servicesData;

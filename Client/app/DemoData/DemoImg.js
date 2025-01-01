@@ -11,9 +11,17 @@ const demoProfilePhoto = "https://img.freepik.com/free-vector/smiling-young-man-
 import routineeImg from "@/public/Images/routinee.jpg"
 import noImg from "@/public/Images/no-image.png"
 import logo from "@/public/Images/logo.png"
+
+import slider1 from "@/public/Images/sliders/sl1.jpg"
+import slider2 from "@/public/Images/sliders/sl2.jpg"
+import slider3 from "@/public/Images/sliders/sl3.jpg"
+import slider4 from "@/public/Images/sliders/sl4.jpg"
+
+
 export {
     demoImg, demoImg2, demoImg3, dummyPdf, demoProfilePhoto,
 
     // imported
-    routineeImg, noImg, logo
+    routineeImg, noImg, logo,
+    slider1, slider2, slider3, slider4
 }

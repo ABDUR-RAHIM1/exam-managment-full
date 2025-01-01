@@ -3,12 +3,13 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 
 import userRouter from './route/users/userRoute.js';
-import blogRouter from './route/users/blogRoute.js'; 
+import blogRouter from './route/users/blogRoute.js';
 import adminRouter from './route/admin/adminAuthRoute.js';
 import courseRouter from './route/admin/adminCourseRoute.js';
 import questionRouter from './route/admin/adminQuestionRoute.js';
 import resultRouter from './route/admin/resultRoute.js';
 import purchaseRouter from './route/users/purchaseRoute.js';
+import opinionRouter from './route/users/opinionRoute.js';
 
 dotenv.config();
 
@@ -24,11 +25,12 @@ app.get("/", (req, res) => {
     res.send("Welcome to the API Home Page!");
 });
 
- 
+
 // User Routes
 app.use("/api/user", userRouter);
-app.use("/api/user", blogRouter); 
-app.use("/api/user/course" , purchaseRouter);
+app.use("/api/user", blogRouter);
+app.use("/api/user/course", purchaseRouter);
+app.use("/api/user/opinion", opinionRouter);
 
 
 // admin course route

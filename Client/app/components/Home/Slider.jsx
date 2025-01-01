@@ -3,44 +3,65 @@ import React from 'react'
 import { Fade } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
 
-
 import Image from 'next/image';
+import { slider1, slider2, slider3, slider4 } from '@/app/DemoData/DemoImg';
 
 export default function Slider() {
 
-
     const slideImages = [
         {
-            url: "/Images/1.png",
-            caption: "Bank Job Preparation"
+            url: slider4,
+            caption: "Bank Job Preparation",
+            buttonText: "Learn More"
         },
         {
-            url: "/Images/2.png",
-            caption: " NTRC Job Preparation"
+            url: slider2,
+            caption: "NTRC Job Preparation",
+            buttonText: "Explore Now"
         },
         {
-            url: "/Images/3.png",
-            caption: "BCS Job Preparation"
-        }
+            url: slider3,
+            caption: "BCS Job Preparation",
+            buttonText: "Start Today"
+        },
+        {
+            url: slider1,
+            caption: "BCS Job Preparation",
+            buttonText: "Start Today"
+        },
     ];
 
     return (
         <div className="w-full z-[-1]">
             <Fade>
                 {slideImages.map((fadeImage, index) => (
-                    <div key={index} className='relative h-[50vh] md:h-[80vh] lg:h-[90vh]'>
-                        {/* Responsive image */}
-                        <Image
-                            src={fadeImage.url}
-                            alt={fadeImage.caption}
-                            width={500}
-                            height={500}
-                            className='w-full h-full object-cover z-[-1]'
-                        />
-                        {/* Caption */}
-                        <div className='absolute bottom-5 left-5 bg-black bg-opacity-50 text-white p-2 rounded'>
-                            <h2 className='text-lg md:text-2xl lg:text-3xl'>{fadeImage.caption}</h2>
+                    <div
+                        key={index}
+                        className='relative flex flex-col md:flex-row h-[35vh] md:h-[70vh] bg-gray-200'
+                    >
+                        {/* Image Section (70%) */}
+                        <div className="w-full  h-full">
+                            <Image
+                                src={fadeImage.url}
+                                alt={fadeImage.caption}
+                                width={1000}
+                                height={1000}
+                                className='w-full h-full '
+                            />
                         </div>
+
+                        {/* Text Section (30%) */}
+                        {/* <div className="w-full md:w-[30%] h-full flex flex-col justify-center items-start bg-gray-200 text-white p-5">
+                            <h2 className="text-lg md:text-2xl lg:text-3xl font-bold mb-4">
+                                {fadeImage.caption}
+                            </h2>
+                            <p className="text-sm md:text-base lg:text-lg mb-6">
+                                Unlock your potential with professional preparation. Start your journey now!
+                            </p>
+                            <button className="px-4 py-2 bg-blue-500 hover:bg-blue-600 rounded">
+                                {fadeImage.buttonText}
+                            </button>
+                        </div> */}
                     </div>
                 ))}
             </Fade>

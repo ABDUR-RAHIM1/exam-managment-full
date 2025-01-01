@@ -13,6 +13,7 @@ export const getDataHandler = async (endpoint) => {
         const API = `${API_URL + endpoint}`;
         const response = await fetch(API, {
             cache: "no-store",
+            // next: { revalidate: 3},
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${token}`,
