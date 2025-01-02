@@ -8,33 +8,15 @@ import { toast } from "react-toastify";
 import { v4 as uuidv4 } from 'uuid';  // Import uuid to generate unique IDs
 
 export default function AddQuestion() {
+    const { manageData } = useContext(contextApi)
     const getClientDataHandler = useClientDataHandler();
     const [title, setTitle] = useState(""); // filter title from backend
     const [courseData, setCourseData] = useState(null);
     const [loading, setLoading] = useState(false)
-    // const [questionData, setQuestionData] = useState({
-    //     questionCategory: "",
-    //     questionTitle: "",
-    //     questionId: "",
-    //     examDate: "",
-    //     examTime: "",
-    //     sl: 1,
-    //     qus: "",
-    //     opt: "",
-    //     ans: ""
-    // });
-    // const [questions, setQuestions] = useState([]); // State to store all questions
-    // const { manageData } = useContext(contextApi)
 
-    // const isUpdated = manageData && Object.keys(manageData).length > 0;
-    // 
+    console.log(manageData)
 
-    // // / set Editable data in  form state
-    // useEffect(() => {
-    //     if (isUpdated) {
-    //         setQuestionData(manageData)
-    //     }
-    // }, [])
+    const isEditablePaper = manageData && Object.keys(manageData).length > 0
 
 
     /// select course data fecting 
@@ -48,29 +30,9 @@ export default function AddQuestion() {
     }, []);
 
 
-    // const handleSubmitPaper = async () => {
-    //     setLoading(true)
-    //     try {
-    //         const formData = {
-    //             ...questionData,
-    //             questions,
-    //         };
-    //         const { status, result } = await postDataHandler(formData, "POST", questionAdd)
 
-    //         if (status === 201) {
-    //             toast.success(result.message)
-    //         } else if (status !== 200 || status !== 201) {
-    //             toast.error(result.message)
-    //         }
 
-    //     } catch (error) {
-    //         console.log(error)
-    //         toast.error("Added Failed!")
-    //     } finally {
-    //         setLoading(false)
-    //     }
-    // };
-
+    // <====== Set Question Categorie , title and _id based On title Filtering  ==========>
     useEffect(() => {
         const filterByTitle = courseData?.find(
             (f1) => f1.title.toLocaleLowerCase() === title.toLocaleLowerCase()
@@ -85,10 +47,9 @@ export default function AddQuestion() {
     }, [title]);
 
 
-    // ======================
-    // new
-    // ======================
-
+    // ==================================
+    //  Questions Header / utils
+    // ==================================
     const [quesHeader, setQuesHeader] = useState({
         questionCategory: "",
         questionTitle: "",
@@ -98,11 +59,15 @@ export default function AddQuestion() {
         examDuration: ""
     })
 
-
     const handleQuesHeader = (e) => {
         const { name, value } = e.target;
         setQuesHeader((prev) => ({ ...prev, [name]: value }))
     }
+    // ==================================
+    //  Questions Header / utils End
+    // ==================================
+
+
 
     const [questions, setQuestions] = useState([]);
     const [newQuestion, setNewQuestion] = useState({
@@ -113,6 +78,7 @@ export default function AddQuestion() {
         correctAns: '',
         clarification: ""
     });
+
     const [editingIndex, setEditingIndex] = useState(null);  // Track which question is being edited
     // Handle input changes for question text and other fields
     const handleInputChange = (e) => {
@@ -148,7 +114,7 @@ export default function AddQuestion() {
                 { ...newQuestion, questionId: uuidv4() }, // Use uuidv4() to generate a unique ID
             ]);
         }
-        // Reset the new question state
+        // <=========== Reset the new question state =============>
         setNewQuestion({
             questionId: '',
             questionText: '',
@@ -159,13 +125,41 @@ export default function AddQuestion() {
         });
     };
 
-    // Edit a question
+    // <===========   Edit a Single question ==================>
     const handleEditQuestion = (index) => {
         setNewQuestion(questions[index]);
         setEditingIndex(index); // Set the index of the question being edited
     };
-    console.log(quesHeader)
-    // Submit the data
+
+
+    //  <========= Edit Question Paper With Question _Id ===============>
+    //     questionCategory: "",
+    // questionTitle: "",
+    // courseId: "",
+    // examDate: "",
+    // examTime: "",
+    // examDuration: ""
+    useEffect(() => {
+        if (isEditablePaper) {
+            setQuesHeader({
+                ...quesHeader,
+                questionCategory: manageData.questionCategory,
+                questionTitle: manageData.questionTitle,
+                courseId: manageData.courseId,
+                examDate: manageData.examDate,
+                examTime: manageData.examTime,
+                examDuration: manageData.examDuration,
+            })
+            setQuestions(manageData.questions)
+        }
+    }, [])
+
+    console.log(quesHeader, questions)
+
+
+
+
+    // <============= Questions Submit Handler ===================>
     const handleQuestionSubmit = async () => {
         setLoading(true)
         const dataToSend = {
@@ -186,6 +180,37 @@ export default function AddQuestion() {
             } else if (status !== 200 || status !== 201) {
                 toast.error(result.message)
             }
+        } catch (error) {
+            console.error('Error:', error);
+        } finally {
+            setLoading(false)
+        }
+    };
+
+    // <============= Questions Update Handler ===================>
+    const handleQuestionUpdate = async () => {
+        setLoading(true)
+        const dataToSend = {
+            questionCategory: quesHeader.questionCategory,
+            questionTitle: quesHeader.questionTitle,
+            courseId: quesHeader.courseId,
+            examDate: quesHeader.examDate,
+            examTime: quesHeader.examTime,
+            examDuration: quesHeader.examDuration,
+            questions: questions
+        };
+
+        try {
+            // const { status, result } = await postDataHandler(dataToSend, "POST", questionAdd)
+
+            // if (status === 201) {
+            //     toast.success(result.message)
+            // } else if (status !== 200 || status !== 201) {
+            //     toast.error(result.message)
+            // }
+            alert("Working For The Functionality")
+
+            console.log(dataToSend)
         } catch (error) {
             console.error('Error:', error);
         } finally {
@@ -342,10 +367,10 @@ export default function AddQuestion() {
                 )}
             </div>
 
-            <div onClick={handleQuestionSubmit} className="my-5">
+            <div onClick={isEditablePaper ? handleQuestionUpdate : handleQuestionSubmit} className="my-5">
                 <button className="w-full py-3 bg-blue-500 text-white font-bold rounded-md">
                     {
-                        loading ? "Uploading . . . " : "Submit Question Paper"
+                        loading ? "Uploading . . . " : isEditablePaper ? "Update Question Paper" : "Submit Question Paper"
                     }
                 </button>
             </div>

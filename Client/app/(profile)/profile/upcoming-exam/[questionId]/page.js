@@ -8,25 +8,38 @@ export default function ExamPage({ params }) {
     const { questionId } = params
     const [formData, setFormData] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [totalQuesCount, setTotalQuesCount] = useState(0)
+    const [selectQuesCount, setSelectQuesCount] = useState(0)
+    console.log(totalQuesCount, selectQuesCount);
 
     useEffect(() => {
         const getData = async () => {
             const { status, result } = await getSingleQuestion(questionId);
             setFormData(result);
+            setTotalQuesCount(result.questions.length)
         }
 
         getData()
     }, [])
 
+
+
     const handleChange = (selectedAnsIndex, questionId) => {
         const selectedAns = selectedAnsIndex + 1;
-        console.log(selectedAns , selectedAnsIndex)
         const updatedQuestions = formData.questions.map((q) =>
             q.questionId === questionId ? { ...q, selectedAns } : q
         );
 
+        // Use updatedQuestions to count selected answers
+        const selectedQuestions = updatedQuestions.filter((q) => q.selectedAns !== "");
+
+
         // Update formData with the new questions array
         setFormData({ ...formData, questions: updatedQuestions });
+
+        // Update total questions count
+        setTotalQuesCount(updatedQuestions.length);
+        setSelectQuesCount(selectedQuestions.length);
     }
 
     const handleQuestionSubmit = async () => {
@@ -39,7 +52,7 @@ export default function ExamPage({ params }) {
             options: q.options,
             selectedAns: q.selectedAns,
             correctAns: q.correctAns,
-            clarification: q.clarification, /// afer delete decription
+            clarification: q.clarification,
             isCorrect: Number(q.selectedAns) === Number(q.correctAns) //  akhane protita isCorrect compire kore true false store korce
         }));
 
@@ -68,7 +81,7 @@ export default function ExamPage({ params }) {
             } else {
                 toast.error(result.message)
             }
-        } catch (error) { 
+        } catch (error) {
             toast.error('Error saving result');
         } finally {
             setLoading(false)
@@ -82,8 +95,21 @@ export default function ExamPage({ params }) {
 
 
     return (
-        <div className="p-6  min-h-screen flex items-center justify-center">
-            <div className="bg-white shadow-lg rounded-lg p-8 max-w-4xl w-full">
+        <div className=" min-h-screen flex items-center justify-center relative">
+
+            {/* <============ Questions Counter Selected / total ================> */}
+            <div className=' w-auto py-5 md:py-10 px-2 md:px-5 bg-gray-900 bg-opacity-95 rounded-md fixed top-[50%] right-0'>
+                <div className='hidden md:block'>
+                    <p className='text-blue-600 text-sm'><strong>Total Questions : </strong>{totalQuesCount}</p>
+                    <p className='text-green-600 text-sm'><strong>Selected Questions : </strong>{selectQuesCount}</p>
+                </div>
+                <div className='block md:hidden'>
+                    <p className='text-blue-600 text-sm'><strong>TQ : </strong>{totalQuesCount}</p>
+                    <p className='text-green-600 text-sm'><strong>SQ : </strong>{selectQuesCount}</p>
+                </div>
+            </div>
+
+            <div className="bg-white shadow-lg rounded-lg  max-w-4xl w-full">
                 <h1 className="text-4xl font-bold text-gray-800 mb-8 text-center">
                     Question Paper
                 </h1>
@@ -103,10 +129,7 @@ export default function ExamPage({ params }) {
                     </p>
                     <p className="mb-2">
                         <span className="font-semibold">Duration:</span> {formData.examDuration} minute
-                    </p>
-                    <p className="mb-2">
-                        <span className="font-semibold">Complated ?:</span> {formData.isComplete} minute
-                    </p>
+                    </p> 
                 </div>
 
                 <div>

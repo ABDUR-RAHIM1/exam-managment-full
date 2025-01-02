@@ -9,7 +9,7 @@ import { getDataHandler } from '../actions/users/getData'
 import { getAllOpinion } from '../constans/constans'
 
 export default async function HomePage() {
-  // const { status, result } = await getDataHandler(getAllOpinion);
+ 
   const [testimonials] = await Promise.all([
     getDataHandler(getAllOpinion)
   ])

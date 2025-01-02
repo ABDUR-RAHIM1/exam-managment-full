@@ -108,7 +108,15 @@ body {
   .servicesCard2 button {
     @apply bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600
   }
-
+.dashboardCard{
+  @apply bg-white rounded-lg shadow-md p-6 flex items-center flex-col justify-center
+}
+.dashboardCard h2{
+  @apply text-lg font-semibold
+}
+.dashboardCard p{
+  @apply mt-4 text-3xl font-bold text-blue-600
+}
   /*  common css End here*/
 }
 

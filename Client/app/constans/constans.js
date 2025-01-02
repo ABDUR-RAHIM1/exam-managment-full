@@ -12,6 +12,7 @@ export const adminTokenName = "_artickmaq#UAdmin@accees/token"
 const publicCourseGet = "/admin/course/all"
 
 /// user (use token)
+const getAlluser = "/user/all"
 const getMyProfileInfo = "/user/me"
 const purchaseCourse = "/user/course/purchase"
 const purchaseCourseAll = "/user/purchase"  // admin dashboard - page -(course/purchase)
@@ -50,6 +51,7 @@ export {
     // public end
 
     // user start 
+    getAlluser,
     getMyProfileInfo, purchaseCourse, purchaseCourseAll, purchaseCourseMe, getPaymentHsitoryWithCourse, getMyblog, putBlogStatus, deleteBlog,
     createOpinion, getMyOpinion, getAllOpinion, deleteMyOpinion, updateMyOpinion,
     // user end 

@@ -69,9 +69,8 @@ export default function BlogTable({ blogs }) {
     // Columns for Data Table
     const columns = [
         {
-            name: "ID",
-            selector: (row, index) => <span>{index + 1}</span>,
-            sortable: true,
+            name: "#SL",
+            selector: (row, index) => <span>{index + 1}</span>, 
         },
         {
             name: "Photo",
@@ -124,17 +123,6 @@ export default function BlogTable({ blogs }) {
             sortable: true,
         },
         {
-            name: "Author",
-            selector: (row) => <p>
-                {row.author?.name} <small>({row.author?.role})</small>
-            </p>,
-        },
-        {
-            name: "Created At",
-            selector: (row) => new Date(row.createdAt).toLocaleDateString(),
-            sortable: true,
-        },
-        {
             name: "Delete",
             selector: (row) => (
                 <button
@@ -148,6 +136,18 @@ export default function BlogTable({ blogs }) {
         },
     ];
 
+    const ExpandedComponent = ({ data }) => (
+        <div className="py-4 px-3 bg-gray-200">
+            <p> <strong>Author :</strong>  {data.author?.name} <small>({data.author?.role})</small> </p>
+            <p> <strong>Posted :</strong>  {new Date(data.createdAt).toLocaleString()}  </p>
+            <h3 className=" my-3">{data.title}</h3>
+            <p className=" text-sm">
+                {data.description}
+            </p>
+        </div>
+    )
+
+
     return (
         <div>
             {loading && <p>Loading...</p>}
@@ -158,6 +158,8 @@ export default function BlogTable({ blogs }) {
                 highlightOnHover
                 responsive
                 subHeader
+                expandableRows
+                expandableRowsComponent={ExpandedComponent}
             />
         </div>
     );

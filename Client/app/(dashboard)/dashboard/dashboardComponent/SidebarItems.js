@@ -8,7 +8,7 @@ import { BsClipboardDataFill, BsFillPeopleFill } from "react-icons/bs";
 import { GrCertificate } from "react-icons/gr";
 import { CiSettings } from "react-icons/ci";
 import { GrUserAdmin } from "react-icons/gr";
-
+import { VscFeedback } from "react-icons/vsc";
 const items = [
     {
         parentItem: "Home",
@@ -44,6 +44,7 @@ const items = [
             { icon: <MdAdd />, item: "Add Modaretor", path: "/dashboard/people/add-modaretor" },
             { icon: <GrUserAdmin />, item: "Modaretor List", path: "/dashboard/people/modaretor-list " },
             { icon: <BsFillPeopleFill />, item: "Users", path: "/dashboard/people/users-list " },
+            { icon: <VscFeedback />, item: "Testimonials", path: "/dashboard/people/testimonials " },
         ],
     },
     {

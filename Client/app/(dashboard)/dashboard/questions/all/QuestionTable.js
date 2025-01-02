@@ -24,9 +24,9 @@ export default function QuestionTable({ data }) {
 
     // Define edit handler
     const handleEdit = (questionData) => {
-        // setManageData(questionData)
-        // router.push("/dashboard/questions/add")
-        alert("Under Proccesing . . .")
+        setManageData(questionData)
+        router.push("/dashboard/questions/add")
+        // alert("Under Proccesing . . .")
     };
 
     // Define delete handler
@@ -109,7 +109,7 @@ export default function QuestionTable({ data }) {
                 highlightOnHover
                 striped
                 responsive
-               
+
             />
         </div>
     );

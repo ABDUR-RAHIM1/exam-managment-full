@@ -47,12 +47,7 @@ const menuItems = [
             { name: "Certificate", path: "/dashboard/results/certificate" }
         ]
     },
-    // {
-    //     name: "Analytics",
-    //     path: "/dashboard/analytics",
-    //     icon: <FaChartBar className="mr-3 text-lg" />,
-    //     subItems: []
-    // },
+
     {
         name: "Settings",
         path: "/dashboard/settings",

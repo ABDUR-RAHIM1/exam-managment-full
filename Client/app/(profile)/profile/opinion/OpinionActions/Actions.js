@@ -23,8 +23,7 @@ export default function Actions({ id, opinion }) {
 
     //  <============ Delete Opinions ================>
     const handleDeleteOpinion = async (id) => {
-        try {
-            console.log("delete click", id)
+        try { 
             const deleteApi = deleteMyOpinion + id
 
             const { status, result } = await deleteHandler(deleteApi);
