@@ -65,9 +65,12 @@ export default function ProfileSidebar({ profileInfo }) {
                             <Link
                                 href={item.path}
                                 key={index}
-                                className={`w-full inline-block hover:bg-gray-700 px-4 py-2 rounded text-center md:text-left font-[500] capitalize text-yellow-50 ${path === item.path ? "bg-gray-500" : ""
+                                className={`w-full  hover:bg-gray-700 px-4 py-2 rounded text-center md:text-left font-[500] lowercase tracking-wider flex items-center gap-3 text-yellow-50 ${path === item.path ? "bg-gray-500" : ""
                                     }`}
                             >
+                                <span className=' text-2xl text-blue-600'>
+                                    {item.icon}
+                                </span>
                                 {item.item}
                             </Link>
                         ))}

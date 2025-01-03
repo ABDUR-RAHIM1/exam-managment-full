@@ -7,8 +7,7 @@ import ProfileSIdebar from "./ProfileComponents/ProfileSIdebar";
 import { getDataHandler } from "../actions/users/getData";
 import { getMyProfileInfo } from "../constans/constans";
 import ProfileSidebarMobile from "./ProfileComponents/ProfileSidebarMobile";
-import NotFound from "../components/Globals/NotFound";
-import MobileNavbar from "../components/Globals/Navbar/Navbar";
+import Cookies from "js-cookie";
 
 export const metadata = {
     title: "Profile Online-exam",
@@ -16,9 +15,8 @@ export const metadata = {
 };
 
 export default async function ProfileLayout({ children }) {
-    const api = getMyProfileInfo;
-    const { status, result } = await getDataHandler(api);
-
+   
+    const { status, result } = await getDataHandler(getMyProfileInfo);
 
     return (
         <html lang="en">
@@ -39,7 +37,7 @@ export default async function ProfileLayout({ children }) {
                         </div>
 
                         {/* Main Content */}
-                        <main className="w-full z-[50] md:flex-1 p-5 md:p-10 bg-white rounded-md overflow-y-scroll"> 
+                        <main className="w-full z-[50] md:flex-1 p-5 md:p-10 bg-white rounded-md overflow-y-scroll">
                             {children}
                             <div className="h-10"></div>
                         </main>

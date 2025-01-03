@@ -1,43 +1,41 @@
+import { CiViewBoard , CiBoxList , CiSettings } from "react-icons/ci";
+import { MdUpcoming , MdOutlinePayments , MdSpeakerNotes } from "react-icons/md";
+import { VscOutput } from "react-icons/vsc";
 const ProfileItems = [
     {
         item: "Profile Overview",
-        icon: "Icon",
+        icon: <CiViewBoard />,
         path: "/profile"
     },
     {
         item: "Course Lists",
-        icon: "Icon",
+        icon: <CiBoxList />,
         path: "/profile/course-list"
     },
     {
         item: "Upcoming Exam",
-        icon: "Icon",
+        icon: <MdUpcoming />,
         path: "/profile/upcoming-exam"
     },
     {
         item: "My Exams",
-        icon: "Icon",
+        icon: <VscOutput />,
         path: "/profile/my-exams"
     },
-    // {
-    //     item: "Course Enrollment",
-    //     icon: "Icon",
-    //     path: "/profile/course-enrolment"
-    // },
 
     {
         item: "Payment History",
-        icon: "Icon",
+        icon: <MdOutlinePayments />,
         path: "/profile/payment-history"
     },
     {
         item: "Your Opinions",
-        icon: "Icon",
+        icon: <MdSpeakerNotes />,
         path: "/profile/opinion"
     },
     {
         item: "Profile Settings",
-        icon: "Icon",
+        icon: <CiSettings />,
         path: "/profile/settings"
     },
 ]

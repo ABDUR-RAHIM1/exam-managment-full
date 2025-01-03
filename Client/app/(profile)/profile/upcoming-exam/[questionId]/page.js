@@ -3,14 +3,15 @@ import React, { useEffect, useState } from 'react'
 import getSingleQuestion from '../GetSIngleQuestion';
 import { toast } from 'react-toastify';
 import { postDataHandler } from '@/app/actions/users/postData';
+import { useRouter } from 'next/navigation';
 
 export default function ExamPage({ params }) {
+    const router = useRouter()
     const { questionId } = params
     const [formData, setFormData] = useState(null);
     const [loading, setLoading] = useState(false);
     const [totalQuesCount, setTotalQuesCount] = useState(0)
     const [selectQuesCount, setSelectQuesCount] = useState(0)
-    console.log(totalQuesCount, selectQuesCount);
 
     useEffect(() => {
         const getData = async () => {
@@ -64,6 +65,7 @@ export default function ExamPage({ params }) {
         const totalMark = plusMark - minusMark;
 
         const resultData = {
+            questionId: formData._id,
             questionCategory: formData.questionCategory,
             questionTitle: formData.questionTitle,
             courseId: formData.courseId,
@@ -78,6 +80,7 @@ export default function ExamPage({ params }) {
 
             if (status === 201) {
                 toast.success(result.message)
+                router.refresh()
             } else {
                 toast.error(result.message)
             }
@@ -129,7 +132,7 @@ export default function ExamPage({ params }) {
                     </p>
                     <p className="mb-2">
                         <span className="font-semibold">Duration:</span> {formData.examDuration} minute
-                    </p> 
+                    </p>
                 </div>
 
                 <div>
