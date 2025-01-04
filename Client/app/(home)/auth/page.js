@@ -5,13 +5,17 @@ import { useToken } from '@/app/hooks/useToken';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
+import { BiShowAlt } from "react-icons/bi";
 import { toast } from 'react-toastify';
+import ForgateForm from './ForgateForm';
 
 const RegistrationPage = () => {
     const [loading, setLoading] = useState(false);
-    const [isClick, setIsClick] = useState(false); // Determines Login or Signup
+    const [isClick, setIsClick] = useState(false);
+    const [openForgatForm, setOpenForgatForm] = useState(false)
     const router = useRouter();
     const token = useToken();
+    const [passwordType, setPasswordType] = useState(false)
 
     useEffect(() => {
         if (token) {
@@ -40,7 +44,7 @@ const RegistrationPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        const apiEndpoint = isClick ? "/user/login" : "/user/register";
+        const apiEndpoint = !isClick ? "/user/login" : "/user/register";
 
         try {
 
@@ -67,7 +71,7 @@ const RegistrationPage = () => {
                     toast.error("Token not found!")
                 }
                 Cookies.set("userToken", result.token);
-                router.refresh();
+                // router.refresh();
                 router.push("/profile");
                 setIsClick(!isClick);
 
@@ -81,15 +85,38 @@ const RegistrationPage = () => {
         }
     };
 
+    // <<<<<<<<<<<<< Register / login form naviagete  >>>>>>>>>>>>>>>>>>>>
+    const handleNaviagteForm = (btnText) => {
+        if (btnText === "register") {
+            setIsClick(true)
+        } else {
+            setIsClick(false)
+        }
+    }
+
+    const handleShowPassword = () => {
+        setPasswordType(!passwordType);
+    }
+
+
+    //  handleForgat Password 
+    const handleForgotPassword = () => {
+        setOpenForgatForm(true)
+    }
+
 
     return (
         <div className="min-h-screen py-20 flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600">
             <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg">
-                <h1 className="text-4xl font-extrabold text-center text-gray-800 mb-6">
+                {/* <h1 className="text-4xl font-extrabold text-center text-gray-800 mb-6">
                     {isClick ? "Login" : "Sign Up"}
-                </h1>
+                </h1> */}
+                <div className=' my-4 w-full rounded-full overflow-hidden '>
+                    <button onClick={() => handleNaviagteForm("register")} className={`${isClick ? "bg-purple-300 " : "bg-purple-600 "} w-[50%] py-3 px-4 font-medium text-white uppercase`}>Register</button>
+                    <button onClick={() => handleNaviagteForm("login")} className={` ${!isClick ? "bg-blue-300" : "bg-blue-500"} w-[50%] py-3 px-4 font-medium text-white uppercase`}>Login</button>
+                </div>
                 <form onSubmit={handleSubmit} className="space-y-6">
-                    {!isClick && (
+                    {isClick && (
                         <>
                             <div className="mb-4">
                                 <label className="block text-gray-700 font-medium mb-2">Name:</label>
@@ -106,7 +133,7 @@ const RegistrationPage = () => {
                         </>
                     )}
                     <div className="mb-4">
-                        <label className="block text-gray-700 font-medium mb-2">Email/Phone:</label>
+                        <label className="block text-gray-700 font-medium mb-2">Email / Phone:</label>
                         <input
                             type="text"
                             name="emailPhone"
@@ -117,10 +144,10 @@ const RegistrationPage = () => {
                             placeholder="Enter your email or phone"
                         />
                     </div>
-                    <div className="mb-4">
+                    <div className="mb-4 relative">
                         <label className="block text-gray-700 font-medium mb-2">Password:</label>
                         <input
-                            type="password"
+                            type={passwordType ? "text" : "password"}
                             name="password"
                             value={formData.password}
                             onChange={handleChange}
@@ -128,6 +155,9 @@ const RegistrationPage = () => {
                             required
                             placeholder="******"
                         />
+                        <div onClick={handleShowPassword} className=" text-2xl absolute inset-y-0 top-8 right-0 flex items-center pr-3 text-gray-500 cursor-pointer">
+                            <BiShowAlt />
+                        </div>
                     </div>
                     <button
                         type="submit"
@@ -136,17 +166,30 @@ const RegistrationPage = () => {
                     >
                         {loading ? "Loading..." : (isClick ? "Login" : "Signup")}
                     </button>
+
+                    <div className="my-3 text-center">
+                        <p className="text-gray-600 text-sm">
+                            Forgot your password?
+                            <span
+                                className="text-blue-500 mx-2 font-semibold cursor-pointer hover:underline"
+                                onClick={handleForgotPassword}
+                            >
+                                Reset here
+                            </span>
+                        </p>
+                    </div>
+
+
                 </form>
-                <p className="text-center text-gray-600 mt-4">
-                    {isClick ? "Don't have an account?" : "Already have an account?"}
-                    <span
-                        onClick={() => setIsClick(!isClick)}
-                        className=" mx-2 underline cursor-pointer transition-all hover:text-blue-600"
-                    >
-                        {isClick ? "Sign Up Here" : "Login Here"}
-                    </span>
-                </p>
+
             </div>
+
+            {
+                openForgatForm &&
+                <ForgateForm
+                  setState={setOpenForgatForm}
+                />
+            }
         </div>
     );
 };

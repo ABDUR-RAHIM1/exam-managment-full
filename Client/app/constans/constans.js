@@ -1,6 +1,6 @@
 
-export const API_URL = "http://localhost:8500/api";
-// export const API_URL = "https://tickmarkq-server.onrender.com/api";
+// export const API_URL = "http://localhost:8500/api";
+export const API_URL = "https://tickmarkq-server.onrender.com/api";
 
 /// <============== tokens name  =============>
 // 1. userToken name ======>
@@ -12,6 +12,7 @@ export const adminTokenName = "_artickmaq#UAdmin@accees/token"
 const publicCourseGet = "/admin/course/all"
 
 /// user (use token)
+const resetUserPass = "/user/reset"
 const getAlluser = "/user/all"
 const getMyProfileInfo = "/user/me"
 const purchaseCourse = "/user/course/purchase"
@@ -51,6 +52,7 @@ export {
     // public end
 
     // user start 
+    resetUserPass,
     getAlluser,
     getMyProfileInfo, purchaseCourse, purchaseCourseAll, purchaseCourseMe, getPaymentHsitoryWithCourse, getMyblog, putBlogStatus, deleteBlog,
     createOpinion, getMyOpinion, getAllOpinion, deleteMyOpinion, updateMyOpinion,
