@@ -4,6 +4,7 @@ import getSingleQuestion from '../GetSIngleQuestion';
 import { toast } from 'react-toastify';
 import { postDataHandler } from '@/app/actions/users/postData';
 import { useRouter } from 'next/navigation';
+import Loading from '@/app/components/Globals/Loading';
 
 export default function ExamPage({ params }) {
     const router = useRouter()
@@ -93,7 +94,7 @@ export default function ExamPage({ params }) {
 
 
     if (formData === null) {
-        return <p className="text-center mt-4">Loading questions...</p>;
+        return <Loading />
     }
 
 
@@ -102,14 +103,14 @@ export default function ExamPage({ params }) {
 
             {/* <============ Questions Counter Selected / total ================> */}
             <div className=' w-auto py-5 md:py-10 px-2 md:px-5 bg-gray-900 bg-opacity-95 rounded-md fixed top-[50%] right-0'>
-                <div className='hidden md:block'>
-                    <p className='text-blue-600 text-sm'><strong>Total Questions : </strong>{totalQuesCount}</p>
-                    <p className='text-green-600 text-sm'><strong>Selected Questions : </strong>{selectQuesCount}</p>
-                </div>
-                <div className='block md:hidden'>
-                    <p className='text-blue-600 text-sm'><strong>TQ : </strong>{totalQuesCount}</p>
-                    <p className='text-green-600 text-sm'><strong>SQ : </strong>{selectQuesCount}</p>
-                </div>
+                {/* <p className='text-blue-600 text-sm'><strong>  </strong>{totalQuesCount}</p>
+                <p className='text-green-600 text-sm'><strong>Selected Questions : </strong>{selectQuesCount}</p> */}
+                <h3 className=' text-gray-300 flex items-center gap-2'>
+                    <span>{selectQuesCount}</span>
+                    <strong className=' text-blue-500'>/</strong>
+                    {totalQuesCount}
+                </h3>
+
             </div>
 
             <div className="bg-white shadow-lg rounded-lg  max-w-4xl w-full">
@@ -117,23 +118,32 @@ export default function ExamPage({ params }) {
                     Question Paper
                 </h1>
                 <div className="border-b-2 pb-4 mb-8 text-gray-700">
-                    <p className="mb-2">
-                        <span className="font-semibold">Category:</span> {formData.questionCategory}
-                    </p>
-                    <p className="mb-2">
-                        <span className="font-semibold">Course:</span> {formData.questionTitle}
-                    </p>
-                    <p className="mb-2">
-                        <span className="font-semibold">Exam Date:</span>{" "}
-                        {new Date(formData.examDate).toLocaleDateString("en-US")}
-                    </p>
-                    <p className="mb-2">
-                        <span className="font-semibold">Exam Time:</span> {formData.examTime}
-                    </p>
-                    <p className="mb-2">
-                        <span className="font-semibold">Duration:</span> {formData.examDuration} minute
-                    </p>
+                    <table className="table-auto w-full text-left border-collapse border border-gray-300 rounded-md">
+                        <tbody>
+                            <tr className="border-b border-gray-200">
+                                <td className="font-semibold py-2 px-4 border-r border-gray-200">Category:</td>
+                                <td className="py-2 px-4">{formData.questionCategory}</td>
+                            </tr>
+                            <tr className="border-b border-gray-200">
+                                <td className="font-semibold py-2 px-4 border-r border-gray-200">Course:</td>
+                                <td className="py-2 px-4">{formData.questionTitle}</td>
+                            </tr>
+                            <tr className="border-b border-gray-200">
+                                <td className="font-semibold py-2 px-4 border-r border-gray-200">Exam Date:</td>
+                                <td className="py-2 px-4">{new Date(formData.examDate).toLocaleDateString("en-US")}</td>
+                            </tr>
+                            <tr className="border-b border-gray-200">
+                                <td className="font-semibold py-2 px-4 border-r border-gray-200">Exam Time:</td>
+                                <td className="py-2 px-4">{formData.examTime}</td>
+                            </tr>
+                            <tr>
+                                <td className="font-semibold py-2 px-4 border-r border-gray-200">Duration:</td>
+                                <td className="py-2 px-4">{formData.examDuration} minutes</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
+
 
                 <div>
                     {formData !== null &&

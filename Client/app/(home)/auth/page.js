@@ -1,5 +1,6 @@
 "use client"
 import { AuthPostHandler } from '@/app/actions/users/authPostHandler';
+import { isValidEmailPhone, isValidPassword } from '@/app/helpers/Checker';
 import { useToken } from '@/app/hooks/useToken';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
@@ -29,6 +30,7 @@ const RegistrationPage = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
+
         setFormData({
             ...formData,
             [name]: value,
@@ -42,11 +44,24 @@ const RegistrationPage = () => {
 
         try {
 
+            const isValid = isValidEmailPhone(formData.emailPhone);
+            const isValidPass = isValidPassword(formData.password);
+
+            if (!isValid) {
+                setLoading(false);
+                toast.error("Invalid email or phone number!");
+                return;
+            }
+            if (!isValidPass) {
+                setLoading(false);
+                toast.error("Password must be at least 6 characters long!");
+                return;
+            }
+
             // Make API call using `AuthPostHandler`
             const { result, status } = await AuthPostHandler(formData, apiEndpoint);
             if (status === 200 || status === 201) {
                 toast.success(result.message);
-                console.log(result)
                 // Cookies.set("userToken", result.token, { expires: 2 / 24 });
                 if (!result.token) {
                     toast.error("Token not found!")
@@ -54,7 +69,7 @@ const RegistrationPage = () => {
                 Cookies.set("userToken", result.token);
                 router.refresh();
                 router.push("/profile");
-                // setIsClick(!isClick);
+                setIsClick(!isClick);
 
             } else {
                 toast.error(result.message); // Handle failure case

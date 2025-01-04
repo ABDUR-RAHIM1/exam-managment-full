@@ -9,7 +9,7 @@ export default function ResultTable({ data }) {
     useEffect(() => {
         setIsClient(!isClient)
     }, [])
-  
+
 
     const columns = [
         {
@@ -21,40 +21,39 @@ export default function ResultTable({ data }) {
             selector: row => row.questionTitle
         },
         {
-            name: "isComplete",
-            selector: row => row.isComplete,
-            cell: row => (
-                <span className={`${row.isComplete ? "bg-green-600" : "bg-red-600"} p-1 text-white`}>
-                    {row.isComplete ? "Yes" : "No"}
-                </span>
-            ),
-        },
-        {
             name: "Right A",
-            selector: row => row.rightAnswers
+            selector: row => <p className=' text-green-600 bg-green-100 px-2 font-bold'>
+                {row.rightAnswers}
+            </p>
         },
         {
             name: "Wrong A",
-            selector: row => row.wrongAnswers
+            selector: row => <p className=' text-red-600 bg-red-100 px-2 font-bold'>
+                {row.wrongAnswers}
+            </p>
         },
         {
             name: "Total Q",
-            selector: row => row.wrongAnswers + row.rightAnswers
+            selector: row => <p className=' text-blue-600 bg-blue-100 px-2  font-bold'>
+                {row.wrongAnswers + row.rightAnswers}
+            </p>
         },
         {
             name: "Total Mark",
-            selector: row => row.totalMark ? row.totalMark : "N/A"
+            selector: row => <p className='text-yellow-600 bg-yellow-200 px-2 font-bold'>
+                {row.totalMark ? row.totalMark : "N/A"}
+            </p>
         },
         {
             name: "View",
-            selector: row => <Link href={`/results/${row._id}`} className=' inline-block py-2 px-3 bg-blue-700 text-white rounded-md font-bold'>
+            selector: row => <Link href={`/results/${row._id}`} className=' inline-block py-1 px-2 bg-blue-700 text-white rounded-sm'>
                 Details
             </Link>
         },
         {
             name: "Download",
-            selector: row => <Link href={`/results/pdf/${row._id}`} className=' flex items-center gap-1 py-2 px-3 bg-blue-500 text-white rounded-md font-bold'>
-                PDF <MdDownload className=' text-xl' />
+            selector: row => <Link href={`/results/pdf/${row._id}`} className=' flex items-center gap-1 py-1 px-2 bg-blue-500 text-white rounded-sm'>
+                PDF <MdDownload className='' />
             </Link>
         },
     ]

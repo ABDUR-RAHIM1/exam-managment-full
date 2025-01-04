@@ -37,7 +37,7 @@ export default async function ProfileLayout({ children }) {
                         </div>
 
                         {/* Main Content */}
-                        <main className="w-full z-[50] md:flex-1 p-5 md:p-10 bg-white rounded-md overflow-y-scroll">
+                        <main className="w-full z-[50] md:flex-1 p-2 md:p-10 bg-white rounded-md overflow-y-scroll">
                             {children}
                             <div className="h-10"></div>
                         </main>

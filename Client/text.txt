@@ -21,15 +21,16 @@ moderator :
 
 
 tasks:
+0000000 . akta question barbar exam dewa jabe na / backend logic likhte hbe - done
+result index management -> correactAns(index) vs selectAns(index) compaire - done
+.........  user profile a blog data upodate Ui problem - done
+2 . user login page er nicher btn ti thik korte hbe - done
+1. user login success hole naviagte kore profile dashboard a niye jabe - done
+3 . dashboard protected korte hbe - done
+
 profile jokhn mobile view a thake tokhn toast navabr ar niche hide hoye jay . ata thik
 11 . purchase data gulo user er jonno authenticated o  admin er jonno adminAuth diye dekhate hbe
-result index management -> correactAns(index) vs selectAns(index) compaire
-0000000 . akta question barbar exam dewa jabe na / backend logic likhte hbe 
 bkash theke payment newar por seta  user model a push korte hbe payment status hisebe , jate dahsboar a total earning gulo dekhano jay.
-.........  user profile a blog data upodate Ui problem
-1. user login success hole naviagte kore profile dashboard a niye jabe
-2 . user login page er nicher btn ti thik korte hbe
-3 . dashboard protected korte hbe
 4. upocming exam page a jediner exam date ace se onujayi ajker date compire kore time er shathe compire kore match kore koto time baki ace seta dekhate hbe . ba je time a exam ace seta animantion kore dekhate hbe , abong oi time a sei question ti open hbe
 5. dashboard layhout ti resposive korte hbe (pore)
 6 . user er payment method add korte hbe se onujayi access dite hbe 

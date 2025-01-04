@@ -86,7 +86,7 @@ export default function AddOpinion() {
                         className='input'
                     />
                 </div>
-                <button type="submit" className={`${loading ? "bg-yellow-600" : "bg-blue-600"}  w-full py-4 px-5  text-white rounded-md my-4 text-xl font-medium`}>
+                <button type="submit" className={`${loading ? "bg-yellow-600" : "bg-blue-600"}  w-full py-2 px-3 md:py-4 md:px-5  text-white rounded-md my-4 text-xl font-medium`}>
                     {
                         loading ? "Loading..." : isEdit ? "Update" : "Submit"
                     }

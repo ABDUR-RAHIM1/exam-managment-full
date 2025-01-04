@@ -78,6 +78,7 @@ export default function ProfileSidebarMobile({ profileInfo }) {
                     {ProfileItems &&
                         ProfileItems.map((item, index) => (
                             <Link
+                                onClick={() => setIsOpen(false)}
                                 href={item.path}
                                 key={index}
                                 className={`w-full inline-block hover:bg-gray-700 px-4 py-2 rounded text-center md:text-left font-[500] capitalize text-yellow-50 ${path === item.path ? "bg-gray-500" : ""

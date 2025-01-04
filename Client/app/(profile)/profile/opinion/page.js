@@ -15,7 +15,7 @@ export default async function Opinion() {
     }
 
     return (
-        <div className=' w-full'>
+        <div className=' w-full my-10 px-3'>
             <AddOpinion />
 
             <div className=' my-10 flex justify-between flex-wrap'>
