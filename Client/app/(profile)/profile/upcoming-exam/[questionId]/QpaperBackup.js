@@ -15,69 +15,12 @@ export default function ExamPage({ params }) {
     const [selectQuesCount, setSelectQuesCount] = useState(0);
     const [timeLeft, setTimeLeft] = useState(0); // Store remaining time
 
-    // check exam date match , past , future
-    const [dateStatus, setDateStatus] = useState(""); // Possible values: "match", "past", "future"
-
-    const [timeStatus, setTimeStatus] = useState("")
-
-    const [examAtATime, setExamAtATime] = useState(true);
-
-
     useEffect(() => {
         const getData = async () => {
             const { status, result } = await getSingleQuestion(questionId);
             setFormData(result);
             setTotalQuesCount(result.questions.length);
             setTimeLeft(result.examDuration * 60); // Convert exam duration to seconds
-
-            // <========= New ==================>
-            // Step 1: Get current date and time
-            const currentDate = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
-            const currentTime = Date.now(); // Current timestamp
-
-            const examtDate = new Date(result.examDate).toISOString().split("T")[0]; // Extract exam date (only YYYY-MM-DD)
-            const examTime = new Date(result.examDate).getTime(); // Exam start time (in milliseconds)
-            const examDurationInMilliseconds = Number(result.examDuration) * 60 * 1000; // Convert duration to milliseconds
-            const examEndTime = examTime + examDurationInMilliseconds; // Exam end time (in milliseconds)
-
-            let canAccessExam = true; // Assume access is granted unless proven otherwise
-
-            // Compare the current date with the exam date
-            if (currentDate !== examtDate) {
-
-                if (currentDate < examtDate) {
-                    // If current date is before the exam date
-                    setDateStatus("future");
-                    toast.error("Exam date is yet to come.");
-                    canAccessExam = false;
-                } else {
-                    // If current date is after the exam date
-                    setDateStatus("past");
-                    toast.error("Exam date has passed.");
-                    canAccessExam = false;
-                }
-            } else {
-                // If the current date matches the exam date, check the time
-
-                if (currentTime < examTime) {
-                    // If current time is before the exam start time
-                    setTimeStatus("future");
-                    toast.error("The exam has not started yet.");
-                    canAccessExam = false;
-                } else if (currentTime > examEndTime) {
-                    // If current time is after the exam end time
-                    setTimeStatus("past");
-                    toast.error("The exam time has ended.");
-                    canAccessExam = false;
-                } else {
-                    // If the current time is within the exam start and end time
-                    setTimeStatus("match");
-                    toast.success("You can access the exam now.");
-                }
-            }
-
-            setExamAtATime(canAccessExam);
-            // <========= New End ==================>
         };
 
         getData();
@@ -95,7 +38,6 @@ export default function ExamPage({ params }) {
         // Cleanup timer on unmount
         return () => clearInterval(timer);
     }, [questionId]);
-
 
     const handleChange = (selectedAnsIndex, questionId) => {
         const selectedAns = selectedAnsIndex + 1;
@@ -184,24 +126,6 @@ export default function ExamPage({ params }) {
 
             <div className="bg-white shadow-lg rounded-lg max-w-4xl w-full">
                 <h1 className="text-4xl font-bold text-gray-800 mb-8 text-center">Question Paper</h1>
-
-                <div className=" my-3 text-center">
-
-                    {
-                        // Check for date and time conditions and display appropriate message
-                        dateStatus === "past" ?
-                            <p className=" text-red-500 fadeIn animate-delay-1s">পরিক্ষার নির্ধারিত তারিখ শেষ হয়েছে!</p> :
-                            dateStatus === "future" ?
-                                <p className=" text-yellow-600 fadeIn animate-delay-1s">পরিক্ষার তারিখ এখনো আসেনি!</p> :
-                                timeStatus === "past" ?
-                                    <p className=" text-red-500 fadeIn animate-delay-1s">পরিক্ষার সময় শেষ হয়ে গেছে!</p> :
-                                    timeStatus === "future" ?
-                                        <p className=" text-yellow-500 fadeIn animate-delay-1s">পরিক্ষার সময় এখনো আসেনি!</p> :
-                                        <p className=" text-green-800 fadeIn animate-delay-1s">আপনি এখন পরীক্ষায় অংশগ্রহণ করতে পারবেন।</p>
-                    }
-
-                </div>
-
                 <div className="border-b-2 pb-4 mb-8 text-gray-700">
                     <table className="table-auto w-full text-left border-collapse border border-gray-300 rounded-md">
                         <tbody>
@@ -258,17 +182,11 @@ export default function ExamPage({ params }) {
                 </div>
 
                 <button
-                    disabled={dateStatus === "future" || timeStatus === "future"}
                     onClick={handleQuestionSubmit}
-                    className={`mt-6 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold py-3 px-6 rounded-lg shadow-md transform transition duration-300 w-full ${dateStatus === "future" || timeStatus === "future" ? 'cursor-not-allowed opacity-50' : 'hover:shadow-lg hover:scale-105'}`}
+                    className="mt-6 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition duration-300 w-full"
                 >
-                    {loading
-                        ? "Loading . . . "
-                        : (dateStatus === "future" || timeStatus === "future")
-                            ? "অপেক্ষা করুন"
-                            : "সাবমিট করুন"}
+                    {loading ? "Loading . . . " : "Submit Answer"}
                 </button>
-
             </div>
         </div>
     );

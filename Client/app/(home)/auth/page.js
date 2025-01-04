@@ -155,8 +155,8 @@ const RegistrationPage = () => {
                             required
                             placeholder="******"
                         />
-                        <div onClick={handleShowPassword} className=" text-2xl absolute inset-y-0 top-8 right-0 flex items-center pr-3 text-gray-500 cursor-pointer">
-                            <BiShowAlt />
+                        <div onClick={handleShowPassword} className=" text-2xl absolute inset-y-0 top-8 right-0 flex items-center pr-3  cursor-pointer">
+                            <BiShowAlt className={`${passwordType ? "text-blue-600" : "text-gray-500"}`} />
                         </div>
                     </div>
                     <button
@@ -164,20 +164,22 @@ const RegistrationPage = () => {
                         className="loginBtn"
                         disabled={loading}
                     >
-                        {loading ? "Loading..." : (isClick ? "Login" : "Signup")}
+                        {loading ? "Loading..." : (isClick ? "Register" : "Login")}
                     </button>
 
-                    <div className="my-3 text-center">
-                        <p className="text-gray-600 text-sm">
-                            Forgot your password?
-                            <span
-                                className="text-blue-500 mx-2 font-semibold cursor-pointer hover:underline"
-                                onClick={handleForgotPassword}
-                            >
-                                Reset here
-                            </span>
-                        </p>
-                    </div>
+                    {
+                        !isClick &&
+                        <div className="my-3 text-center">
+                            <p className="text-gray-600 text-sm">
+                                Forgot your password?
+                                <span
+                                    className="text-blue-500 mx-2 font-semibold cursor-pointer hover:underline"
+                                    onClick={handleForgotPassword}
+                                >
+                                    Reset here
+                                </span>
+                            </p>
+                        </div>}
 
 
                 </form>
@@ -187,7 +189,7 @@ const RegistrationPage = () => {
             {
                 openForgatForm &&
                 <ForgateForm
-                  setState={setOpenForgatForm}
+                    setState={setOpenForgatForm}
                 />
             }
         </div>
