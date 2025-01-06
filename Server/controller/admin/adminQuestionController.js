@@ -57,6 +57,20 @@ const getAllQuestion = async (req, res) => {
     }
 };
 
+
+//  get all free questions
+const getAllFreeQuestion = async (req, res) => {
+    try {
+        const freeQuestions = await QuestionModel.find({ questionCategory: { $in: ["free", "FREE"] } });
+        res.status(200).json(freeQuestions);
+    } catch (error) {
+        res.status(500).json({
+            message: "Failed to Fatch!"
+        })
+    }
+}
+
+
 const getQuestionById = async (req, res) => {
     try {
         const { id } = req.params;
@@ -132,6 +146,7 @@ const deleteQuestion = async (req, res) => {
 export {
     createQuestion,
     getAllQuestion,
+    getAllFreeQuestion,
     getQuestionById,
     updateQuestion,
     deleteQuestion

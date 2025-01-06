@@ -36,6 +36,8 @@ const adminUpdateCourse = "/admin/course/update/"
 const courseDelete = "/admin/course/delete/"
 const questionAdd = "/admin/question/add"
 const questionGetAll = "/admin/question/all"
+const freeQuestionGetAll = "/admin/question/free/all"
+
 const questionDetailsById = "/admin/question/details/"
 const questionDelete = "/admin/question/delete/"
 const getAdminModaretorBlogs = "/user/blog/admin/me"
@@ -66,6 +68,7 @@ export {
     courseDelete,
     questionAdd,
     questionGetAll,
+    freeQuestionGetAll,
     questionDetailsById,
     questionDelete,
     getAdminModaretorBlogs,

@@ -16,10 +16,8 @@ export default function ExamPage({ params }) {
     const [timeLeft, setTimeLeft] = useState(0); // Store remaining time
 
     // check exam date match , past , future
-    const [dateStatus, setDateStatus] = useState(""); // Possible values: "match", "past", "future"
-
+    const [dateStatus, setDateStatus] = useState("");
     const [timeStatus, setTimeStatus] = useState("")
-
     const [examAtATime, setExamAtATime] = useState(true);
 
     useEffect(() => {
@@ -29,56 +27,56 @@ export default function ExamPage({ params }) {
             setTotalQuesCount(result.questions.length);
             setTimeLeft(result.examDuration * 60); // Convert exam duration to seconds
 
-            // <========= New ==================>
-            const currentDate = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
-            const currentTime = Date.now(); 
+            //  ========= New Start ==========
 
-            const examtDate = new Date(result.examDate).toISOString().split("T")[0];
-            const examTime = new Date(result.examDate).getTime(); 
-            const examDurationInMilliseconds = Number(result.examDuration) * 60 * 1000; 
-            const examEndTime = examTime + examDurationInMilliseconds; 
+            const examDate = new Date(result.examDate).toLocaleDateString()
+            const [examHour, examMinute] = result.examTime.split(":").map(Number)
+            const examDuration = result.examDuration;
+            const convertExamDuratinnToSeconds = Number(examDuration) * 60;
+
+            const examStartTime = examHour * 3600 + examMinute * 60; // convert in seconds
+            const examEndTime = examStartTime + convertExamDuratinnToSeconds
+
+            // date and time now Start
+            const date = new Date();
+            const newDate = date.toLocaleDateString();
+            const currentHour = date.getHours();
+            const currentMinutes = date.getMinutes();
+            const currentSeconds = date.getSeconds();
+
+            const currentTime = currentHour * 3600 + currentMinutes * 60 + currentSeconds;
+            // date and time now End
 
 
-             console.log(currentTime , examTime ,examEndTime)
-
-            let canAccessExam = true; 
-
-            // Compare the current date with the exam date
-            if (currentDate !== examtDate) {
-
-                if (currentDate < examtDate) {
-                    // If current date is before the exam date
-                    setDateStatus("future");
-                    toast.error("Exam date is yet to come.");
-                    canAccessExam = false;
-                } else {
-                    // If current date is after the exam date
-                    setDateStatus("past");
-                    toast.error("Exam date has passed.");
-                    canAccessExam = false;
-                }
+            // < ======== compare Start ==========>
+            let isAtAtime = false
+            if (newDate > examDate) {
+                setDateStatus("past")
+                isAtAtime = false
+            } else if (newDate > examDate) {
+                setDateStatus("past")
+                isAtAtime = false
             } else {
-                // If the current date matches the exam date, check the time
-
-                if (currentTime < examTime) {
-                    // If current time is before the exam start time
-                    setTimeStatus("future");
-                    toast.error("The exam has not started yet.");
-                    canAccessExam = false;
+                setDateStatus("match")
+                /// checing the time match or not
+                if (currentTime < examStartTime) {
+                    setTimeStatus("future")
+                    isAtAtime = false
                 } else if (currentTime > examEndTime) {
-                    // If current time is after the exam end time
-                    setTimeStatus("past");
-                    toast.error("The exam time has ended.");
-                    canAccessExam = false;
+                    setTimeStatus("past")
+                    isAtAtime = false
                 } else {
-                    // If the current time is within the exam start and end time
-                    setTimeStatus("match");
-                    toast.success("You can access the exam now.");
+                    setTimeStatus("match")
+                    isAtAtime = true
                 }
             }
+            setExamAtATime(isAtAtime)
+            // <========= compare End ============>
 
-            setExamAtATime(canAccessExam);
-            // <========= New End ==================>
+
+            //  ========= New End ==========
+
+
         };
 
         getData();
@@ -146,7 +144,7 @@ export default function ExamPage({ params }) {
             totalMark: totalMark,
             atATime: examAtATime
         };
-
+    
         try {
             const { status, result } = await postDataHandler(resultData, "POST", "/results/submit_question");
 
@@ -200,10 +198,12 @@ export default function ExamPage({ params }) {
                                 dateStatus === "future" ?
                                     <p className=" text-yellow-600 fadeIn animate-delay-1s">পরিক্ষার তারিখ এখনো আসেনি!</p> :
                                     timeStatus === "past" ?
-                                        <p className=" text-red-500 fadeIn animate-delay-1s">পরিক্ষার সময় শেষ হয়ে গেছে!</p> :
+                                        <p className=" text-red-500 fadeIn animate-delay-1s">পরিক্ষার সময় শেষ হয়ে গেছে! </p> :
                                         timeStatus === "future" ?
-                                            <p className=" text-yellow-500 fadeIn animate-delay-1s">পরিক্ষার সময় এখনো আসেনি!</p> :
-                                            <p className=" text-green-800 fadeIn animate-delay-1s">আপনি এখন পরীক্ষায় অংশগ্রহণ করতে পারবেন।</p>
+                                            <p className=" text-yellow-500 fadeIn animate-delay-1s">পরিক্ষার সময় এখনো আসেনি!  <span className=" text-red-600 font-bold">
+                                                {formData?.examTime} এ পরীক্ষা শুরু হবে।
+                                            </span> </p> :
+                                            <p className=" text-green-800 fadeIn animate-delay-1s"> পরীক্ষা চলছে</p>
                         }
 
                     </div>

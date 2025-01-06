@@ -21,6 +21,7 @@ moderator :
 
 
 tasks:
+free exam dewa sesh hole jeno seta UI theke hide hoy
 0000000 . akta question barbar exam dewa jabe na / backend logic likhte hbe - done
 result index management -> correactAns(index) vs selectAns(index) compaire - done
 .........  user profile a blog data upodate Ui problem - done

@@ -6,3 +6,6 @@ time check korar khettre prothome examTime (H:M format) ke split(:) kore [hour ,
 ai basic proccess gulo sesh korar por useState use kore isDateMatch("") , isTimeMatch("") , atATime(false) name niyechi jate er upor vitti kore data dekhano jay .
 
 otopor ami first time a date ta check korechi jekhane date  , currentDate > examDate tahole isDateMatch("past") , atATime(false) o currentDate < examDate("future")  atATime(false) , mile gele isDateMatch("match")  hisebe set korechi o ai condition er moddhe time check korechi akoi vabe isTimeMatch("past/future/match") korei , time match hole at atATime(true)korechi . 
+
+
+date format ke toLocaleDateString() a convert kore sudhu date niye time etc bad dite hbe

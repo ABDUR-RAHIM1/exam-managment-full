@@ -1,6 +1,6 @@
 import { getDataHandler } from "@/app/actions/users/getData";
 import NoDataFound from "@/app/components/Globals/NoDataFound";
-import { purchaseCourseMe } from "@/app/constans/constans";
+import { freeQuestionGetAll, purchaseCourseMe } from "@/app/constans/constans";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -8,8 +8,12 @@ import React from "react";
 
 async function UpcomingExamPage() {
 
-    const { status, result } = await getDataHandler(purchaseCourseMe)
+    const [myQuestion, freeQuestion] = await Promise.all([
+        getDataHandler(purchaseCourseMe),
+        getDataHandler(freeQuestionGetAll)
+    ])
 
+    const { status, result } = myQuestion
     const { course, questions } = result
 
     if (status !== 200 || !result) {
@@ -35,20 +39,26 @@ async function UpcomingExamPage() {
                         <span className="text-sm text-gray-500">Books: {course?.books.join(", ")}</span>
                     </div>
                 </div>
-                <div className="mt-4 w-full h-auto">
+                <div className=" mt-4  w-full h-auto">
                     <Image
                         width={1000}
                         height={1000}
                         src={course.schedule}
                         alt="Schedule"
-                        className="rounded-lg w-auto h-auto shadow-md"
+                        className="rounded-lg w-auto h-auto m-auto shadow-md"
                     />
                 </div>
             </div>
 
             {/* Questions List */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="flex items-center justify-between flex-wrap gap-3 md:gap-6">
                 {questions?.map((question) => (
+                    <QuestionCard key={question._id} question={question} />
+                ))}
+            </div>
+            <hr className=" my-5" />
+            <div className=" my-5 flex items-center justify-between flex-wrap gap-3 md:gap-6">
+                {freeQuestion.result?.map((question) => (
                     <QuestionCard key={question._id} question={question} />
                 ))}
             </div>
@@ -60,7 +70,7 @@ async function UpcomingExamPage() {
 function QuestionCard({ question }) {
 
     return (
-        <div className="bg-white shadow-md rounded-lg p-6 flex flex-col justify-between">
+        <div className="w-[48%] md:w-[22%] lg:w-[31%] my-3 md:my-0 bg-gray-100 shadow-md rounded-lg p-6 flex flex-col justify-between">
             <h2 className="text-xl font-bold text-gray-800">{question.questionTitle}</h2>
             <p className="text-gray-600 mt-2">Category: {question.questionCategory}</p>
             <p className="text-sm text-gray-500 mt-2">

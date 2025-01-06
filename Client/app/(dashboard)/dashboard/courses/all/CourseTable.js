@@ -23,7 +23,7 @@ export default function CourseTable({ courseData }) {
     };
 
     const onDelete = async (data) => {
-   
+
         try {
             const deleleApi = `${courseDelete + data._id}`
             const { status, result } = await deleteHandler(deleleApi);
@@ -53,13 +53,6 @@ export default function CourseTable({ courseData }) {
             name: 'Title',
             selector: row => row.title,
             sortable: true,
-        },
-        {
-            name: 'Description',
-            selector: row => <p>
-                {row.desc && row.desc.length > 30 ? row.desc.slice(0, 30) : row.desc}
-            </p>,
-            sortable: false,
         },
         {
             name: 'Sold',
@@ -114,7 +107,7 @@ export default function CourseTable({ courseData }) {
 
     return (
         <div className="p-4 rounded shadow-md">
-            <h2 className="text-xl font-bold mb-4">Course Table</h2>
+            <h2 className="text-xl font-bold mb-4">Courses List</h2>
             <DataTable
                 columns={columns}
                 data={courseData}

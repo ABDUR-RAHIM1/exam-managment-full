@@ -173,6 +173,7 @@ export default function AddQuestion() {
         };
 
         try {
+
             const { status, result } = await postDataHandler(dataToSend, "POST", questionAdd)
 
             if (status === 201) {
@@ -270,11 +271,11 @@ export default function AddQuestion() {
                         <h4 className="my-2 font-bold">Exam Duration</h4>
                         <input
                             onChange={handleQuesHeader}
-                            type="text"
+                            type="number"
                             name="examDuration"
                             value={quesHeader.examDuration}
                             required
-                            placeholder="Exam Duration"
+                            placeholder="Ex : 20 (in Minute)"
                             className="input"
                         />
                     </div>
@@ -307,12 +308,12 @@ export default function AddQuestion() {
                     <div className="my-3">
                         <h4 className="my-2 font-bold">Correct Answer</h4>
                         <input
-                            type="text"
+                            type="number"
                             name="correctAns"
                             value={newQuestion.correctAns}
                             onChange={handleInputChange}
                             className="input"
-                            placeholder="Enter Correct Answer"
+                            placeholder="Option Number"
                             required
                         />
                     </div>

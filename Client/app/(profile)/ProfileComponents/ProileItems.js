@@ -1,5 +1,5 @@
-import { CiViewBoard , CiBoxList , CiSettings } from "react-icons/ci";
-import { MdUpcoming , MdOutlinePayments , MdSpeakerNotes } from "react-icons/md";
+import { CiViewBoard, CiBoxList, CiSettings } from "react-icons/ci";
+import { MdUpcoming, MdOutlinePayments, MdSpeakerNotes } from "react-icons/md";
 import { VscOutput } from "react-icons/vsc";
 const ProfileItems = [
     {
@@ -11,7 +11,7 @@ const ProfileItems = [
         item: "Course Lists",
         icon: <CiBoxList />,
         path: "/profile/course-list"
-    },
+    }, 
     {
         item: "Upcoming Exam",
         icon: <MdUpcoming />,

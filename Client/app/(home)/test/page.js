@@ -59,7 +59,7 @@ export default function TestPage() {
 
         const xExam = new Date(exacExamDate); // Creating Date object for exam date
         const yNow = new Date(exacNowDate); // Creating Date object for current date
-
+        console.log("now", xExam)
         // Comparing the dates
         if (yNow > xExam) {
             setDateMatch('past')

@@ -1,19 +1,31 @@
 "use client"
+import Loading from '@/app/components/Globals/Loading'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component'
 import { MdDownload } from 'react-icons/md'
 
 export default function ResultsTable({ data }) {
-    const [resultData, setResultData] = useState(null)
+    const [status, setStatus] = useState("atATime")
+    const [resultData, setResultData] = useState([])
+    const [filteredData, setFilteredData] = useState([])
 
     useEffect(() => {
         setResultData(data)
     }, [])
 
-    if (resultData === null) {
-        return "Loading . . ."
-    }
+    useEffect(() => {
+        if (status === "atATime") {
+            const isAtAtime = resultData && resultData.filter(result => result.atATime);
+            setFilteredData(isAtAtime);
+        } else if (status === "late") {
+            const isNotAtime = resultData && resultData.filter(result => !result.atATime);
+            setFilteredData(isNotAtime);
+        } else if (status === "all" || status === "") {
+            setFilteredData(resultData);
+        }
+    }, [status, resultData]);
+
 
     const columns = [
         {
@@ -30,25 +42,33 @@ export default function ResultsTable({ data }) {
         },
         {
             name: "Right A",
-            selector: row => row.rightAnswers
+            selector: row => <p className=' text-green-600 bg-green-100 px-2 font-bold'>
+                {row.rightAnswers}
+            </p>
         },
         {
             name: "Wrong A",
-            selector: row => row.wrongAnswers
+            selector: row => <p className=' text-red-600 bg-red-100 px-2 font-bold'>
+                {row.wrongAnswers}
+            </p>
         },
         {
             name: "Total Q",
-            selector: row => row.wrongAnswers + row.rightAnswers
+            selector: row => <p className=' text-blue-600 bg-blue-100 px-2  font-bold'>
+                {row.wrongAnswers + row.rightAnswers}
+            </p>
         },
         {
             name: "Total Mark",
-            selector: row => row.totalMark ? row.totalMark : "N/A"
+            selector: row => <p className='text-yellow-600 bg-yellow-200 px-2 font-bold'>
+                {row.totalMark ? row.totalMark : "N/A"}
+            </p>
         },
         {
-            name: "Complete",
-            selector: row => <span className={`${row.isComplete ? "bg-green-500" : " bg-red-500"} p-1 text-white`}>
+            name: "Status",
+            selector: row => <span className={`${row.atATime ? "bg-green-500" : " bg-red-500"} p-1 text-white`}>
                 {
-                    row.isComplete ? "Yes" : "No"
+                    row.atATime ? "Yes" : "No"
                 }
             </span>
         },
@@ -67,10 +87,20 @@ export default function ResultsTable({ data }) {
     ]
     return (
         <div className="p-4  rounded shadow-md">
-            <h2 className="text-xl font-bold mb-4">All Results</h2>
+            <div className=' flex items-center justify-between my-5 flex-wrap gap-3'>
+                <h2 className="text-xl font-bold mb-4">All Results</h2>
+                <div className=' w-full md:w-[40%]'>
+                    <select onChange={(e) => setStatus(e.target.value)} name="status" id="status" className='input'>
+                        <option value="">Filter On Status</option>
+                        <option value="atATime">On Time Completed</option>
+                        <option value="late">Late Completion</option>
+                        <option value="all">All</option>
+                    </select>
+                </div>
+            </div>
             <DataTable
                 columns={columns}
-                data={resultData}
+                data={filteredData}
                 pagination
                 highlightOnHover
                 striped
