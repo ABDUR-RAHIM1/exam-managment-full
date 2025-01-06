@@ -22,7 +22,6 @@ export default function ExamPage({ params }) {
 
     const [examAtATime, setExamAtATime] = useState(true);
 
-
     useEffect(() => {
         const getData = async () => {
             const { status, result } = await getSingleQuestion(questionId);
@@ -31,16 +30,18 @@ export default function ExamPage({ params }) {
             setTimeLeft(result.examDuration * 60); // Convert exam duration to seconds
 
             // <========= New ==================>
-            // Step 1: Get current date and time
             const currentDate = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
-            const currentTime = Date.now(); // Current timestamp
+            const currentTime = Date.now(); 
 
-            const examtDate = new Date(result.examDate).toISOString().split("T")[0]; // Extract exam date (only YYYY-MM-DD)
-            const examTime = new Date(result.examDate).getTime(); // Exam start time (in milliseconds)
-            const examDurationInMilliseconds = Number(result.examDuration) * 60 * 1000; // Convert duration to milliseconds
-            const examEndTime = examTime + examDurationInMilliseconds; // Exam end time (in milliseconds)
+            const examtDate = new Date(result.examDate).toISOString().split("T")[0];
+            const examTime = new Date(result.examDate).getTime(); 
+            const examDurationInMilliseconds = Number(result.examDuration) * 60 * 1000; 
+            const examEndTime = examTime + examDurationInMilliseconds; 
 
-            let canAccessExam = true; // Assume access is granted unless proven otherwise
+
+             console.log(currentTime , examTime ,examEndTime)
+
+            let canAccessExam = true; 
 
             // Compare the current date with the exam date
             if (currentDate !== examtDate) {
@@ -143,6 +144,7 @@ export default function ExamPage({ params }) {
             rightAnswers: rightAnswers, // Total correct answers
             wrongAnswers: wrongAnswers, // Total wrong answers
             totalMark: totalMark,
+            atATime: examAtATime
         };
 
         try {

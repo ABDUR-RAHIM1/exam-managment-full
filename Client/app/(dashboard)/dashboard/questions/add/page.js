@@ -232,6 +232,9 @@ export default function AddQuestion() {
                             required
                             className="input"
                         >
+                            <option value="">
+                                Select a Course
+                            </option>
                             {courseData &&
                                 courseData.map((c, index) => (
                                     <option key={index} value={c.title}>

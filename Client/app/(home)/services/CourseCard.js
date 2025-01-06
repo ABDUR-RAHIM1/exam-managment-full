@@ -1,6 +1,7 @@
 "use client";
 import CourseActions from '@/app/(profile)/profile/course-list/CourseActions';
 import EnrolBtn from '@/app/components/Globals/EnrolBtn';
+import Link from 'next/link';
 import React, { useState } from 'react';
 
 // CourseCard Component
@@ -11,6 +12,12 @@ const CourseCard = (props) => {
     const toggleShowMore = () => {
         setShowMore(prev => !prev);
     };
+
+
+    const isFree = category && category.toLowerCase() === "free";
+
+    console.log(isFree)
+
 
     return (
         <div className="w-full md:w-[48%] p-4">
@@ -78,7 +85,15 @@ const CourseCard = (props) => {
                     </div>
 
                     {/* Enroll Button */}
-                    <EnrolBtn courseData={props.courseData} />
+                    {
+                        isFree
+                            ?
+                            <Link href={"/free-exam"} className=' inline-block w-full py-2 px-3 rounded-md bg-green-700 hover:shadow-none shadow-xl transition-all text-white font-medium text-sm text-center'>
+                                পরীক্ষা দিন
+                            </Link>
+                            :
+                            <EnrolBtn courseData={props.courseData} />
+                    }
                 </div>
             </div>
         </div>

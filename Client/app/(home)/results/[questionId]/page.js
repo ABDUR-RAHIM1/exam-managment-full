@@ -1,11 +1,9 @@
 import { getDataById } from '@/app/actions/globals/getDataById'
 import NoDataFound from '@/app/components/Globals/NoDataFound'
 import { getResultById } from '@/app/constans/constans'
-import Image from 'next/image'
 import React from 'react'
 import { FaCheck } from 'react-icons/fa'
 import { MdClose } from 'react-icons/md'
-import { GrDatabase } from "react-icons/gr";
 import Logo from '@/app/components/Globals/Logo'
 
 export default async function ResultsDetails({ params }) {
@@ -38,8 +36,8 @@ export default async function ResultsDetails({ params }) {
                             </div>
 
                             {/* Title */}
-                            <h2 className="font-extrabold my-4 text-3xl sm:text-4xl md:text-5xl text-center text-indigo-700 tracking-wide flex items-center justify-center">
-                                <span className='text-4xl sm:text-5xl md:text-6xl'><GrDatabase /></span> Result Sheet
+                            <h2 className="font-extrabold my-4 text-3xl sm:text-4xl md:text-5xl text-center text-indigo-700 tracking-wide ">
+                                Result Sheet
                             </h2>
 
                             <div className="bg-gradient-to-r my-5 from-blue-50 to-indigo-100 p-6 rounded-lg shadow-md flex items-center justify-between flex-wrap">
@@ -56,7 +54,7 @@ export default async function ResultsDetails({ params }) {
 
                                     {/* Minus Mark */}
                                     <h4 className="text-lg md:text-xl font-medium text-red-500 my-2">
-                                        <span className="text-gray-600">Minus Mark:</span> {minusMark} per Wrong Answer
+                                        <span className="text-gray-600">Minus Mark:</span> {minusMark}
                                     </h4>
 
                                     {/* Total Mark */}
@@ -67,15 +65,15 @@ export default async function ResultsDetails({ params }) {
 
                                 <div className='flex-1 flex items-center flex-col gap-4'>
                                     <div className='flex items-center gap-2'>
-                                        <p>Correct Answer :</p>
+                                        <p>Correct:</p>
                                         <span className='w-[20px] h-[20px] inline-block rounded-full bg-green-600' />
                                     </div>
                                     <div className='flex items-center gap-2'>
-                                        <p>Wrong Answer :</p>
+                                        <p>Wrong:</p>
                                         <span className='w-[20px] h-[20px] inline-block rounded-full bg-red-600' />
                                     </div>
                                     <div className='flex items-center gap-2'>
-                                        <p>Suggest Answer :</p>
+                                        <p>Suggest:</p>
                                         <span className='w-[20px] h-[20px] inline-block rounded-full bg-blue-600' />
                                     </div>
                                 </div>
