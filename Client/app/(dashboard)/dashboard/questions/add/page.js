@@ -4,6 +4,7 @@ import { publicCourseGet, questionAdd, questionUpdate } from "@/app/constans/con
 import { contextApi } from "@/app/contextApi/Context";
 import useClientDataHandler from "@/app/Handler/usersHandler/useClientDataHandler";
 import { formatDateForInput } from "@/app/helpers/FormatedDate";
+import { SymbolsKey } from "@/app/helpers/SymbolsKey";
 import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { v4 as uuidv4 } from 'uuid';  // Import uuid to generate unique IDs
@@ -14,6 +15,7 @@ export default function AddQuestion() {
     const [title, setTitle] = useState(""); // filter title from backend
     const [courseData, setCourseData] = useState([]);
     const [loading, setLoading] = useState(false)
+    const [symbolsShow, setSymbolsShow] = useState(false)
 
     const isEditablePaper = manageData && Object.keys(manageData).length > 0
 
@@ -243,7 +245,7 @@ export default function AddQuestion() {
     return (
         <div className=" bg-gray-100  px-8 py-5 rounded-md">
 
-            <div className="w-[90%] mx-auto px-5 py-10 rounded-md bg-white" >
+            <div className=" relative w-[90%] mx-auto px-5 py-10 rounded-md bg-white" >
                 <div>
                     {
                         isEditablePaper ?
@@ -370,6 +372,18 @@ export default function AddQuestion() {
                     >
                         {editingIndex !== null ? 'Update Question' : 'Add New Question'}
                     </button>
+                </div>
+
+                {/*  Math Symbols Show And Hide */}
+                <div className=" px-4 py-2 fixed top-[50%] right-0 ">
+                    <button onClick={() => setSymbolsShow(!symbolsShow)} className="py-2 px-3 font-bold bg-blue-600 text-white text-sm"> Symbols</button>
+
+                    {
+                        symbolsShow &&
+                        <SymbolsKey setHide={setSymbolsShow} setNewQuestion={setNewQuestion} />
+                    }
+
+
                 </div>
 
             </div>

@@ -13,19 +13,31 @@ export default function ExamPage({ params }) {
     const [loading, setLoading] = useState(false);
     const [totalQuesCount, setTotalQuesCount] = useState(0);
     const [selectQuesCount, setSelectQuesCount] = useState(0);
-    const [timeLeft, setTimeLeft] = useState(0); // Store remaining time
+    const [remainingTime, setRemainingTime] = useState(0)
+    const [isExamEnd, setIsExamEnd] = useState(false);
 
     // check exam date match , past , future
     const [dateStatus, setDateStatus] = useState("");
     const [timeStatus, setTimeStatus] = useState("")
     const [examAtATime, setExamAtATime] = useState(true);
 
+    console.log(remainingTime)
+    //  auto submit question paper after Remaining Time
+    useEffect(() => {
+        // Trigger auto-submit when the exam time ends
+        if (remainingTime <= 0 && isExamEnd) {
+            handleQuestionSubmit();
+            setIsExamEnd(true); // Set isExamEnd to true so that the exam doesn't resubmit
+        }
+    }, [remainingTime, isExamEnd]);
+
+    
+
     useEffect(() => {
         const getData = async () => {
             const { status, result } = await getSingleQuestion(questionId);
             setFormData(result);
             setTotalQuesCount(result.questions.length);
-            setTimeLeft(result.examDuration * 60); // Convert exam duration to seconds
 
             //  ========= New Start ==========
 
@@ -47,6 +59,10 @@ export default function ExamPage({ params }) {
             const currentTime = currentHour * 3600 + currentMinutes * 60 + currentSeconds;
             // date and time now End
 
+            // <========= Exam Sesh hote koto shomoy baki ace seta count korbe ===========>
+            const limitOfTime = examEndTime - currentTime;
+            setRemainingTime(limitOfTime)
+            // <======= Exam Sesh hote koto shomoy baki ace seta count korbe (end) ===========>
 
             // < ======== compare Start ==========>
             let isAtAtime = false
@@ -65,12 +81,16 @@ export default function ExamPage({ params }) {
                 } else if (currentTime > examEndTime) {
                     setTimeStatus("past")
                     isAtAtime = false
-                } else {
+                } else if (currentTime === examEndTime) {
+                    setIsExamEnd(true)
+                }
+                else {
                     setTimeStatus("match")
                     isAtAtime = true
                 }
             }
             setExamAtATime(isAtAtime)
+            console.log(currentTime, examEndTime)
             // <========= compare End ============>
 
 
@@ -83,18 +103,20 @@ export default function ExamPage({ params }) {
 
         // Timer for exam countdown
         const timer = setInterval(() => {
-            setTimeLeft((prevTime) => {
-                if (prevTime === 0) {
-                    clearInterval(timer); // Stop the timer when time is up
+            setRemainingTime((prevTime) => {
+                if (prevTime <= 0) {
+                    clearInterval(timer); // Stop the timer when time is up 
+                    return 0; // Ensure it doesn't go below zero
                 }
-                return prevTime - 1;
+                return prevTime - 1; // Decrement remaining time by 1 minute
             });
-        }, 1000);
+        }, 1000); // Update every seconds
 
         // Cleanup timer on unmount
         return () => clearInterval(timer);
     }, [questionId]);
-
+    console.log(isExamEnd)
+    // console.log(remainingTime)
 
     const handleChange = (selectedAnsIndex, questionId) => {
         const selectedAns = selectedAnsIndex + 1;
@@ -144,7 +166,7 @@ export default function ExamPage({ params }) {
             totalMark: totalMark,
             atATime: examAtATime
         };
-    
+
         try {
             const { status, result } = await postDataHandler(resultData, "POST", "/results/submit_question");
 
@@ -165,8 +187,8 @@ export default function ExamPage({ params }) {
         return <Loading />;
     }
 
-    const minutes = Math.floor(timeLeft / 60);
-    const seconds = timeLeft % 60;
+    const minutes = Math.floor(remainingTime / 60);
+    const seconds = remainingTime % 60;
 
     return (
         <div>
