@@ -11,16 +11,14 @@ import { toast } from "react-toastify";
 
 export default function QuestionTable({ data }) {
     const { setManageData } = useContext(contextApi)
+    const [questionData, setQuestionData] = useState([])
     const [isClient, setIsClient] = useState(true);
     const router = useRouter();
 
     useEffect(() => {
-        setIsClient(!isClient);
+        setQuestionData(data)
     }, []);
 
-    if (isClient) {
-        return "Data Not Found!";
-    }
 
     // Define edit handler
     const handleEdit = (questionData) => {
@@ -104,7 +102,7 @@ export default function QuestionTable({ data }) {
             <h2 className="text-2xl font-bold mb-4">Question Table</h2>
             <DataTable
                 columns={columns}
-                data={data}
+                data={questionData}
                 pagination
                 highlightOnHover
                 striped

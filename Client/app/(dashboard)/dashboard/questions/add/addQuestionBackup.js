@@ -1,8 +1,9 @@
- "use client";
+"use client";
 import { postDataHandler } from "@/app/actions/users/postData";
 import { publicCourseGet, questionAdd } from "@/app/constans/constans";
 import { contextApi } from "@/app/contextApi/Context";
 import useClientDataHandler from "@/app/Handler/usersHandler/useClientDataHandler";
+import { formatDateForInput } from "@/app/helpers/FormatedDate";
 import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { v4 as uuidv4 } from 'uuid';  // Import uuid to generate unique IDs
@@ -11,13 +12,11 @@ export default function AddQuestion() {
     const { manageData } = useContext(contextApi)
     const getClientDataHandler = useClientDataHandler();
     const [title, setTitle] = useState(""); // filter title from backend
-    const [courseData, setCourseData] = useState(null);
+    const [courseData, setCourseData] = useState([]);
     const [loading, setLoading] = useState(false)
 
-    console.log(manageData)
 
     const isEditablePaper = manageData && Object.keys(manageData).length > 0
-
 
     /// select course data fecting 
     useEffect(() => {
@@ -28,9 +27,7 @@ export default function AddQuestion() {
 
         fetchData();
     }, []);
-
-
-
+console.log(courseData)
 
     // <====== Set Question Categorie , title and _id based On title Filtering  ==========>
     useEffect(() => {
@@ -44,7 +41,7 @@ export default function AddQuestion() {
             questionTitle: filterByTitle?.title,
             courseId: filterByTitle?._id,
         });
-    }, [title]);
+    }, [title , courseData]);
 
 
     // ==================================
@@ -78,6 +75,7 @@ export default function AddQuestion() {
         correctAns: '',
         clarification: ""
     });
+
     const [editingIndex, setEditingIndex] = useState(null);  // Track which question is being edited
     // Handle input changes for question text and other fields
     const handleInputChange = (e) => {
@@ -132,15 +130,33 @@ export default function AddQuestion() {
 
 
     //  <========= Edit Question Paper With Question _Id ===============>
+    //     questionCategory: "",
+    // questionTitle: "",
+    // courseId: "",
+    // examDate: "",
+    // examTime: "",
+    // examDuration: ""
+    useEffect(() => {
+
+        if (isEditablePaper) {
+            setQuesHeader({
+                ...quesHeader,
+                questionCategory: manageData.questionCategory,
+                questionTitle: manageData.questionTitle,
+                courseId: manageData.courseId,
+                examDate: formatDateForInput(manageData.examDate), // import from helpers
+                examTime: manageData.examTime,
+                examDuration: manageData.examDuration,
+            })
+            setQuestions(manageData.questions)
+        }
+    }, []);
+
     useEffect(() => {
         if (isEditablePaper) {
-            setQuestions(manageData)
+            setTitle(manageData.questionTitle); // পূর্বের title সেট হচ্ছে
         }
-    }, [])
-
-    console.log(questions)
-
-
+    }, [isEditablePaper, manageData]);
 
 
     // <============= Questions Submit Handler ===================>
@@ -157,6 +173,7 @@ export default function AddQuestion() {
         };
 
         try {
+
             const { status, result } = await postDataHandler(dataToSend, "POST", questionAdd)
 
             if (status === 201) {
@@ -164,6 +181,36 @@ export default function AddQuestion() {
             } else if (status !== 200 || status !== 201) {
                 toast.error(result.message)
             }
+        } catch (error) {
+            console.error('Error:', error);
+        } finally {
+            setLoading(false)
+        }
+    };
+
+    // <============= Questions Update Handler ===================>
+    const handleQuestionUpdate = async () => {
+        setLoading(true)
+        const dataToSend = {
+            questionCategory: quesHeader.questionCategory,
+            questionTitle: quesHeader.questionTitle,
+            courseId: quesHeader.courseId,
+            examDate: quesHeader.examDate,
+            examTime: quesHeader.examTime,
+            examDuration: quesHeader.examDuration,
+            questions: questions
+        };
+        console.log(dataToSend)
+        try {
+            // const { status, result } = await postDataHandler(dataToSend, "POST", questionAdd)
+
+            // if (status === 201) {
+            //     toast.success(result.message)
+            // } else if (status !== 200 || status !== 201) {
+            //     toast.error(result.message)
+            // }
+            alert("Working For The Functionality")
+ 
         } catch (error) {
             console.error('Error:', error);
         } finally {
@@ -184,7 +231,11 @@ export default function AddQuestion() {
                             name="questionTitle"
                             required
                             className="input"
+                            value={title || ""}
                         >
+                            <option value="">
+                                Select a Course
+                            </option>
                             {courseData &&
                                 courseData.map((c, index) => (
                                     <option key={index} value={c.title}>
@@ -220,11 +271,11 @@ export default function AddQuestion() {
                         <h4 className="my-2 font-bold">Exam Duration</h4>
                         <input
                             onChange={handleQuesHeader}
-                            type="text"
+                            type="number"
                             name="examDuration"
                             value={quesHeader.examDuration}
                             required
-                            placeholder="Exam Duration"
+                            placeholder="Ex : 20 (in Minute)"
                             className="input"
                         />
                     </div>
@@ -257,12 +308,12 @@ export default function AddQuestion() {
                     <div className="my-3">
                         <h4 className="my-2 font-bold">Correct Answer</h4>
                         <input
-                            type="text"
+                            type="number"
                             name="correctAns"
                             value={newQuestion.correctAns}
                             onChange={handleInputChange}
                             className="input"
-                            placeholder="Enter Correct Answer"
+                            placeholder="Option Number"
                             required
                         />
                     </div>
@@ -283,7 +334,7 @@ export default function AddQuestion() {
                         onClick={handleAddQuestion}
                         className="w-full py-3 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 transition duration-200"
                     >
-                        {editingIndex !== null ? 'Update Question' : 'Add Question'}
+                        {editingIndex !== null ? 'Update Question' : 'Add New Question'}
                     </button>
                 </div>
 
@@ -320,10 +371,10 @@ export default function AddQuestion() {
                 )}
             </div>
 
-            <div onClick={handleQuestionSubmit} className="my-5">
+            <div onClick={isEditablePaper ? handleQuestionUpdate : handleQuestionSubmit} className="my-5">
                 <button className="w-full py-3 bg-blue-500 text-white font-bold rounded-md">
                     {
-                        loading ? "Uploading . . . " : "Submit Question Paper"
+                        loading ? "Uploading . . . " : isEditablePaper ? "Update Question Paper" : "Submit Question Paper"
                     }
                 </button>
             </div>

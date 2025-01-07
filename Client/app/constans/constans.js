@@ -40,6 +40,7 @@ const freeQuestionGetAll = "/admin/question/free/all"
 
 const questionDetailsById = "/admin/question/details/"
 const questionDelete = "/admin/question/delete/"
+const questionUpdate = "/admin/question/update/"
 const getAdminModaretorBlogs = "/user/blog/admin/me"
 
 // result / questions
@@ -70,6 +71,7 @@ export {
     questionGetAll,
     freeQuestionGetAll,
     questionDetailsById,
+    questionUpdate,
     questionDelete,
     getAdminModaretorBlogs,
 
