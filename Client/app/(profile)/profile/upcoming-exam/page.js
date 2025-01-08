@@ -15,7 +15,7 @@ async function UpcomingExamPage() {
 
     const { status, result } = myQuestion
     const { course, questions } = result
-
+    console.log(freeQuestion)
     if (status !== 200 || !result) {
         return <NoDataFound />;
     }
@@ -57,10 +57,18 @@ async function UpcomingExamPage() {
                 ))}
             </div>
             <hr className=" my-5" />
-            <div className=" my-5 flex items-center justify-between flex-wrap gap-3 md:gap-6">
-                {freeQuestion.result?.map((question) => (
-                    <QuestionCard key={question._id} question={question} />
-                ))}
+            <div>
+                <h3 className=" text-center my-3"> Free Questions</h3>
+                <div className=" my-5 flex items-center justify-between flex-wrap gap-3 md:gap-6">
+                    {
+                        freeQuestion.status === 404 ?
+                            <p>{freeQuestion.result?.message}</p>
+                            :
+                            freeQuestion.result?.map((question) => (
+                                <QuestionCard key={question._id} question={question} />
+                            ))
+                    }
+                </div>
             </div>
         </div>
     );

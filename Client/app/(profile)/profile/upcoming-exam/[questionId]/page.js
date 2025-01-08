@@ -6,11 +6,13 @@ import { postDataHandler } from "@/app/actions/users/postData";
 import { useRouter } from "next/navigation";
 import Loading from "@/app/components/Globals/Loading";
 import { contextApi } from "@/app/contextApi/Context";
+import Spinner from "@/app/helpers/Spinner";
 
 export default function ExamPage({ params }) {
     const { setExamTimeMatch } = useContext(contextApi)
     const router = useRouter();
     const { questionId } = params;
+    const [result, setResult] = useState(null)
     const [formData, setFormData] = useState(null);
     const [loading, setLoading] = useState(false);
     const [totalQuesCount, setTotalQuesCount] = useState(0);
@@ -26,20 +28,21 @@ export default function ExamPage({ params }) {
 
     //  auto submit question paper after Remaining Time
     useEffect(() => {
-        if (remainingTime <= 0 && isExamEnd) {
+        if (remainingTime <= 0 && isExamEnd || examDuration === 0) {
             handleQuestionSubmit();
             setTimeout(() => {
                 setDateStatus("past");
-                setExamTimeMatch("")
+                setExamTimeMatch("");
             }, 500);
         }
-    }, [remainingTime, isExamEnd]);
+    }, [remainingTime, examDuration, isExamEnd]);
 
     //  only fetch Data from databsae
     useEffect(() => {
         const getData = async () => {
             const { status, result } = await getSingleQuestion(questionId);
             setFormData(result);
+            setResult(result)
             setTotalQuesCount(result.questions.length);
         }
         getData()
@@ -50,11 +53,11 @@ export default function ExamPage({ params }) {
     // date and time conditionaly get / set
     useEffect(() => {
 
-        if (!formData) return;
+        if (!result) return;
 
-        const examDate = new Date(formData.examDate).toLocaleDateString()
-        const [examHour, examMinute] = formData.examTime.split(":").map(Number)
-        const examDuration = formData.examDuration;
+        const examDate = new Date(result.examDate).toLocaleDateString()
+        const [examHour, examMinute] = result.examTime.split(":").map(Number)
+        const examDuration = result.examDuration;
         const convertExamDuratinnToSeconds = Number(examDuration) * 60;
 
         setExamDuration(convertExamDuratinnToSeconds)
@@ -75,7 +78,7 @@ export default function ExamPage({ params }) {
         // <========= Exam Sesh hote koto shomoy baki ace seta count korbe ===========>
         const remianTime = examEndTime - currentTime;
         setRemainingTime(remianTime)
-        console.log(remianTime)
+
         // <======= Exam Sesh hote koto shomoy baki ace seta count korbe (end) ===========>
 
         // < ======== compare Start ==========>
@@ -83,8 +86,8 @@ export default function ExamPage({ params }) {
         if (newDate > examDate) {
             setDateStatus("past")
             isAtAtime = false
-        } else if (newDate > examDate) {
-            setDateStatus("past")
+        } else if (newDate < examDate) {
+            setDateStatus("future")
             isAtAtime = false
         } else {
             setDateStatus("match")
@@ -110,14 +113,18 @@ export default function ExamPage({ params }) {
 
         // <========= compare End ============>
 
-    }, [formData, remainingTime]);
-
+    }, [result, remainingTime]);
 
     // time counDown for Remaing  Time
     useEffect(() => {
         // Set a timer for countdown
-        const timer = setInterval(() => {
-            if (timeStatus === "past") {
+
+        let timer;
+
+        if (timeStatus === "past") {
+
+            timer = setInterval(() => {
+
                 setExamDuration((prevTime) => {
                     if (prevTime <= 0) {
                         clearInterval(timer);
@@ -125,7 +132,10 @@ export default function ExamPage({ params }) {
                     }
                     return prevTime - 1;
                 });
-            } else {
+            }, 1000)
+        } else {
+            timer = setInterval(() => {
+
                 setRemainingTime((prevTime) => {
                     if (prevTime <= 0) {
                         clearInterval(timer);
@@ -133,11 +143,12 @@ export default function ExamPage({ params }) {
                     }
                     return prevTime - 1;
                 });
-            }
+            }, 1000)
+        }
 
-        }, 1000);
+
         return () => clearInterval(timer);
-    }, [timeStatus]); 
+    }, [timeStatus]);
 
 
     const handleChange = (selectedAnsIndex, questionId) => {
@@ -158,7 +169,13 @@ export default function ExamPage({ params }) {
     };
 
     const handleQuestionSubmit = async () => {
+
         // Prepare the result data to send to the server
+
+        if (!formData) {
+            return
+        }
+
         setLoading(true);
         const result = formData.questions.map((q) => ({
             questionId: q.questionId,
@@ -195,6 +212,7 @@ export default function ExamPage({ params }) {
             if (status === 201) {
                 toast.success(result.message);
                 router.refresh();
+                router.push("/profile/my-exams")
             } else {
                 toast.error(result.message);
             }
@@ -294,8 +312,8 @@ export default function ExamPage({ params }) {
                         {
 
                             dateStatus === "future" || timeStatus === "future" ?
-                                <div className=" w-full min-h-[50vh] flex items-center justify-center">
-                                    <h2 className=" text-red-500">প্রশ্ন নির্ধারিত সময়ে চলে আসবে</h2>
+                                <div className=" w-full min-h-[25vh] flex items-center justify-center">
+                                    <h2 className=" text-[18px] md:text-[22px] text-red-500">প্রশ্ন নির্ধারিত সময়ে চলে আসবে</h2>
                                 </div>
                                 :
 
@@ -332,7 +350,7 @@ export default function ExamPage({ params }) {
                         className={`mt-6 bg-gradient-to-r from-blue-500 to-blue-400 text-white font-semibold py-3 px-6 rounded-lg shadow-md transform transition duration-300 w-full ${dateStatus === "future" || timeStatus === "future" ? 'cursor-not-allowed opacity-50' : 'hover:shadow-lg hover:scale-105'}`}
                     >
                         {loading
-                            ? "Loading . . . "
+                            ? <Spinner />
                             : (dateStatus === "future" || timeStatus === "future")
                                 ? "অপেক্ষা করুন"
                                 : "সাবমিট করুন"}

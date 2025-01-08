@@ -9,3 +9,9 @@ otopor ami first time a date ta check korechi jekhane date  , currentDate > exam
 
 
 date format ke toLocaleDateString() a convert kore sudhu date niye time etc bad dite hbe
+
+
+
+
+2. setInterval value start theke abar suru hoto jokhn input change hoto :
+  karon : input er onchange a formData update kora hoccilo ar je useEffect er moddhe real time data change / update kora hoto sekhaner dependancy hisebe formData chilo tai onchange a formData update howar fole barbar interVal Value initial theke suru hoto

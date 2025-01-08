@@ -6,9 +6,9 @@ import React from 'react'
 
 export default async function FreeExam() {
     const { status, result } = await getDataHandler(freeQuestionGetAll);
-
+  
     if (status !== 200 || !result) {
-        return <NoDataFound />;
+        return <NoDataFound text={result?.message || "No Free Questions Available for You!"} />;
     }
     return (
         <div className='w-full min-h-screen p-5 md:p-10 bg-gray-200'>
