@@ -21,13 +21,14 @@ export default function ExamPage({ params }) {
     const [timeStatus, setTimeStatus] = useState("")
     const [examAtATime, setExamAtATime] = useState(true);
 
-
     //  auto submit question paper after Remaining Time
     useEffect(() => {
-        if (isExamEnd) {
-            handleQuestionSubmit()
+        // Trigger auto-submit when the exam time ends
+        if (remainingTime <= 0 && isExamEnd) {
+            handleQuestionSubmit();
+            setIsExamEnd(true); // Set isExamEnd to true so that the exam doesn't resubmit
         }
-    }, [isExamEnd])
+    }, [remainingTime, isExamEnd]);
 
 
     useEffect(() => {
@@ -78,12 +79,16 @@ export default function ExamPage({ params }) {
                 } else if (currentTime > examEndTime) {
                     setTimeStatus("past")
                     isAtAtime = false
-                } else {
+                } else if (currentTime === examEndTime) {
+                    setIsExamEnd(true)
+                }
+                else {
                     setTimeStatus("match")
                     isAtAtime = true
                 }
             }
             setExamAtATime(isAtAtime)
+            console.log(currentTime, examEndTime)
             // <========= compare End ============>
 
 
@@ -98,8 +103,7 @@ export default function ExamPage({ params }) {
         const timer = setInterval(() => {
             setRemainingTime((prevTime) => {
                 if (prevTime <= 0) {
-                    clearInterval(timer); // Stop the timer when time is up
-                    setIsExamEnd(true)
+                    clearInterval(timer); // Stop the timer when time is up 
                     return 0; // Ensure it doesn't go below zero
                 }
                 return prevTime - 1; // Decrement remaining time by 1 minute

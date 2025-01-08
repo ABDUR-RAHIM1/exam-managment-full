@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import ActionsBtn from "./ActionBtn";
 import { demoProfilePhoto } from "@/app/DemoData/DemoImg";
 import { MdClose, MdMenu } from "react-icons/md";
@@ -8,8 +8,10 @@ import ProfileItems from "./ProileItems";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Cart from "@/app/components/Globals/Cart";
+import { contextApi } from "@/app/contextApi/Context";
 
 export default function ProfileSidebarMobile({ profileInfo }) {
+    const { examTimeMatch } = useContext(contextApi)
     const [isOpen, setIsOpen] = useState(false);
     const path = usePathname();
 
@@ -17,8 +19,11 @@ export default function ProfileSidebarMobile({ profileInfo }) {
         setIsOpen(!isOpen);
     };
 
+
+    const coursorStyle = examTimeMatch === "match" ? "cursor-not-allowed pointer-events-none" : "cursor-pointer";
+
     return (
-        <div className="w-full py-5 px-5 bg-gray-800 flex items-center justify-between">
+        <div className={` ${coursorStyle} w-full py-5 px-5 bg-gray-800 flex items-center justify-between`}>
             {/* Profile Section */}
             <div className="flex gap-4 items-center z-[999]">
                 <div className="w-16 h-16 my-3 m-auto relative">

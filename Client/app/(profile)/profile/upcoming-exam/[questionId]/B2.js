@@ -115,8 +115,8 @@ export default function ExamPage({ params }) {
 
     // time counDown for Remaing  Time
     useEffect(() => {
-        // Set a timer for countdown
         const timer = setInterval(() => {
+
             if (timeStatus === "past") {
                 setExamDuration((prevTime) => {
                     if (prevTime <= 0) {
@@ -135,9 +135,12 @@ export default function ExamPage({ params }) {
                 });
             }
 
-        }, 1000);
+        }, 1000); // Update every seconds
+
+        // Cleanup timer on unmount
         return () => clearInterval(timer);
-    }, [timeStatus]); 
+    }, [timeStatus])
+    console.log(remainingTime, dateStatus, timeStatus, examAtATime, isExamEnd)
 
 
     const handleChange = (selectedAnsIndex, questionId) => {

@@ -1,6 +1,6 @@
 "use client"
 import Link from 'next/link';
-import React from 'react';
+import React, { useContext } from 'react';
 import Image from 'next/image';
 import ActionsBtn from './ActionBtn';
 import ProfileSidebarMobile from './ProfileSidebarMobile';
@@ -8,9 +8,10 @@ import ProfileItems from './ProileItems';
 import UserLogOutBtn from './UserLogOutBtn';
 import { usePathname } from 'next/navigation';
 import Cart from '@/app/components/Globals/Cart';
+import { contextApi } from '@/app/contextApi/Context';
 
 export default function ProfileSidebar({ profileInfo }) {
-
+    const { examTimeMatch, setExamTimeMatch } = useContext(contextApi)
     const path = usePathname()
 
     const profilePhoto = profileInfo?.photo ? (
@@ -27,9 +28,11 @@ export default function ProfileSidebar({ profileInfo }) {
         </div>
     );
 
+    const coursorStyle = examTimeMatch === "match" ? "cursor-not-allowed pointer-events-none" : "cursor-pointer"
+
     return (
         <>
-            <div className="w-full hidden md:block overflow-y-auto py-10">
+            <div className={` ${coursorStyle} w-full hidden md:block overflow-y-auto py-10`}>
 
                 {/* <=========== userInfo and edit Btn =============> */}
                 <div className="my-5">
@@ -65,7 +68,7 @@ export default function ProfileSidebar({ profileInfo }) {
                             <Link
                                 href={item.path}
                                 key={index}
-                                className={`w-full  hover:bg-gray-700 px-4 py-2 rounded text-center md:text-left font-[500] lowercase tracking-wider flex items-center gap-3 text-yellow-50 ${path === item.path ? "bg-gray-500" : ""
+                                className={`${coursorStyle} w-full  hover:bg-gray-700 px-4 py-2 rounded text-center md:text-left font-[500] lowercase tracking-wider flex items-center gap-3 text-yellow-50 ${path === item.path ? "bg-gray-500 " : ""
                                     }`}
                             >
                                 <span className=' text-2xl text-blue-600'>
