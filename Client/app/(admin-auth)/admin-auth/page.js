@@ -1,22 +1,27 @@
 "use client";
 import { postDataHandler } from "@/app/actions/users/postData";
 import { adminLogin } from "@/app/constans/constans";
+import { isValidPassword } from "@/app/helpers/Checker";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { BiShowAlt } from "react-icons/bi";
 import { toast } from "react-toastify";
 
 export default function AdminAuth() {
 
     const router = useRouter();
     const [loading, setLoading] = useState(false);
+    const [passwordType, setPasswordType] = useState(false)
     const [formData, setFormData] = useState({
         email: "",
         role: "admin", // Default role
         password: "",
     });
 
-
+    const handleShowPassword = () => {
+        setPasswordType(!passwordType);
+    }
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -30,6 +35,16 @@ export default function AdminAuth() {
         e.preventDefault();
         setLoading(true);
         try {
+
+            const isValidPass = isValidPassword(formData.password);
+
+
+            if (!isValidPass) {
+                setLoading(false);
+                toast.error("Password must be at least 6 characters long!");
+                return;
+            }
+
             const { result, status } = await postDataHandler(formData, "POST", adminLogin);
 
             if (status === 200) {
@@ -94,20 +109,20 @@ export default function AdminAuth() {
                             <option value="moderator">Moderator</option>
                         </select>
                     </div>
-                    <div>
-                        <label htmlFor="password" className="block text-sm font-semibold mb-1">
-                            Password
-                        </label>
+                    <div className="mb-4 relative">
+                        <label className="block text-gray-700 font-medium mb-2">Password:</label>
                         <input
-                            type="password"
-                            id="password"
+                            type={passwordType ? "text" : "password"}
                             name="password"
                             value={formData.password}
                             onChange={handleInputChange}
-                            className="input w-full"
-                            placeholder="Enter your password"
+                            className="input"
                             required
+                            placeholder="******"
                         />
+                        <div onClick={handleShowPassword} className=" text-2xl absolute inset-y-0 top-8 right-0 flex items-center pr-3  cursor-pointer">
+                            <BiShowAlt className={`${passwordType ? "text-blue-600" : "text-gray-500"}`} />
+                        </div>
                     </div>
                     <button type="submit" className="loginBtn">
                         {loading ? "Loading ..." : "Login"}

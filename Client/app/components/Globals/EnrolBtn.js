@@ -4,8 +4,6 @@ import React, { useContext } from 'react'
 
 export default function EnrolBtn({ courseData }) {
     const { setCart } = useContext(contextApi);
-    console.log("e", courseData)
-
 
     const handleClick = () => {
         const course = {
@@ -21,7 +19,7 @@ export default function EnrolBtn({ courseData }) {
     return (
         <button
             onClick={() => handleClick(courseData)}
-            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
+            className="w-full bg-blue-600 text-white py-2 font-bold tracking-wider rounded-lg hover:bg-blue-700"
         >
             Enroll Now
         </button>

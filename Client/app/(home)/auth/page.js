@@ -8,6 +8,7 @@ import React, { useEffect, useState } from 'react';
 import { BiShowAlt } from "react-icons/bi";
 import { toast } from 'react-toastify';
 import ForgateForm from './ForgateForm';
+import Spinner from '@/app/helpers/Spinner';
 
 const RegistrationPage = () => {
     const [loading, setLoading] = useState(false);
@@ -73,8 +74,6 @@ const RegistrationPage = () => {
                 Cookies.set("userToken", result.token);
                 // router.refresh();
                 router.push("/profile");
-                setIsClick(!isClick);
-
             } else {
                 toast.error(result.message); // Handle failure case
             }
@@ -164,7 +163,7 @@ const RegistrationPage = () => {
                         className="loginBtn"
                         disabled={loading}
                     >
-                        {loading ? "Loading..." : (isClick ? "Register" : "Login")}
+                        {loading ? <Spinner /> : (isClick ? "Register" : "Login")}
                     </button>
 
                     {

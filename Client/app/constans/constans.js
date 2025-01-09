@@ -32,6 +32,7 @@ const updateMyOpinion = "/user/opinion/update/"
 const adminLogin = "/admin/auth/login"   //  admin-auth
 const adminRegister = "/admin/auth/register"   //  admin-auth
 const adminCreateCourse = "/admin/course/create"  //admin/course/add (page)
+const getCourseById = "/admin/course/"
 const adminUpdateCourse = "/admin/course/update/"
 const courseDelete = "/admin/course/delete/"
 const questionAdd = "/admin/question/add"
@@ -65,6 +66,7 @@ export {
     adminLogin,
     adminRegister,
     adminCreateCourse,
+    getCourseById,
     adminUpdateCourse,
     courseDelete,
     questionAdd,

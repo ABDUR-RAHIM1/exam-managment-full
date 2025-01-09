@@ -114,7 +114,9 @@ export default function ExamPage({ params }) {
         // <========= compare End ============>
 
     }, [result, remainingTime]);
-
+    console.log("dateStatus", dateStatus)
+    console.log("timeStatus", timeStatus)
+    console.log("AtATime", examAtATime)
     // time counDown for Remaing  Time
     useEffect(() => {
         // Set a timer for countdown
