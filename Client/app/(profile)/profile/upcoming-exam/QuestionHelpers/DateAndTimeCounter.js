@@ -21,6 +21,8 @@ export const dateAndTimeCounters = (examTimers) => {
     // Checking date and time
     const isSameDate = newExamDate.toDateString() === currentDate.toDateString();
     const isSameTime = totalExamStartTime === totalCurrentTime;
+    const remainingTime = Math.max(0, examEndTime - totalCurrentTime); // Prevent negative values
+
 
     let dateStatus = ""; // Status for date
     let timeStatus = ""; // Status for time
@@ -37,13 +39,12 @@ export const dateAndTimeCounters = (examTimers) => {
     // Determine time status (only if the date is a match)
     if (isSameDate) {
         if (totalExamStartTime > totalCurrentTime) {
-            timeStatus = "future"
+            timeStatus = "future";
         } else if (totalCurrentTime > examEndTime) {
-            timeStatus = "past"
+            timeStatus = "past";
         } else {
-            timeStatus = "match"
+            timeStatus = "match";
         }
-
     } else {
         timeStatus = null; // No time comparison if the date doesn't match
     }
@@ -53,5 +54,6 @@ export const dateAndTimeCounters = (examTimers) => {
     return {
         dStatus: dateStatus,
         tStatus: timeStatus,
+        remainingTime: remainingTime
     };
 };

@@ -7,8 +7,7 @@ import { useRouter } from "next/navigation";
 import Loading from "@/app/components/Globals/Loading";
 import { contextApi } from "@/app/contextApi/Context";
 import Spinner from "@/app/helpers/Spinner";
-import DataTimeCounter from "../QuestionHelpers/DataTimeCounter";
-import { dateAndTimeCounters } from "../QuestionHelpers/DateAndTimeCounter2";
+import { dateAndTimeCounters } from "../QuestionHelpers/DateAndTimeCounter";
 
 export default function ExamPage({ params }) {
 
@@ -23,14 +22,14 @@ export default function ExamPage({ params }) {
     const [totalQuesCount, setTotalQuesCount] = useState(0);
     const [selectQuesCount, setSelectQuesCount] = useState(0);
     const [examDuration, setExamDuration] = useState(0)
-    const [remainingTime, setRemainingTime] = useState(0)
+
     const [isExamEnd, setIsExamEnd] = useState(false);
 
     // check exam date match , past , future
     const [dateStatus, setDateStatus] = useState("");
     const [timeStatus, setTimeStatus] = useState("")
     const [examAtATime, setExamAtATime] = useState(true);
-
+    const [remainingTime, setRemainingTime] = useState(0)
 
     useEffect(() => {
         if (result) {
@@ -40,31 +39,37 @@ export default function ExamPage({ params }) {
                     examTime: result.examTime || null,
                     examDuration: result.examDuration || null,
                 };
-                const { dStatus, tStatus } = dateAndTimeCounters(examTimers);
+                const { dStatus, tStatus, remainingTime } = dateAndTimeCounters(examTimers);
                 setDateStatus(dStatus);
-                setTimeStatus(tStatus); 
-            }, 1000); // প্রতি সেকেন্ডে ফাংশনটি কল হবে
+                setTimeStatus(tStatus);
+                setRemainingTime(remainingTime)
+                if (remainingTime <= 0) {
+                    clearInterval(interval); // Stop the interval
+                }
+
+            }, 1000); // for real time update
 
             // Cleanup function
+
             return () => clearInterval(interval);
+
         }
     }, [result]);
- 
 
-    // const { count } = DataTimeCounter(examTimers);
-
+    let remainMinute = Math.floor(remainingTime / 60);
+    let remainSeconds = remainingTime % 60;
 
 
     //  auto submit question paper after Remaining Time
-    // useEffect(() => {
-    //     if (remainingTime <= 0 && isExamEnd || examDuration === 0) {
-    //         handleQuestionSubmit();
-    //         setTimeout(() => {
-    //             setDateStatus("past");
-    //             setExamTimeMatch("");
-    //         }, 500);
-    //     }
-    // }, [remainingTime, examDuration, isExamEnd]);
+    useEffect(() => {
+        if (remainingTime <= 0 && timeStatus === "match") {
+            handleQuestionSubmit();
+            setTimeout(() => {
+                setDateStatus("past");
+                setExamTimeMatch("");
+            }, 500);
+        }
+    }, [remainingTime, timeStatus]);
 
     //  only fetch Data from databsae
 
@@ -164,7 +169,20 @@ export default function ExamPage({ params }) {
     return (
         <div>
             < div className="min-h-screen flex items-center justify-center relative">
-
+                {/* Exam Timer */}
+                {
+                    dateStatus === "future" || timeStatus === "future" ? null :
+                        < div className="w-auto py-5 md:py-10 px-2 md:px-5 bg-gray-900 bg-opacity-95 rounded-md fixed top-[50%] right-0">
+                            <h3 className="text-gray-300 flex items-center gap-2">
+                                <span>{selectQuesCount}</span>
+                                <strong className="text-blue-500">/</strong>
+                                {totalQuesCount}
+                            </h3>
+                            <h4 className="text-xl text-gray-300 mt-3">
+                                {remainMinute}:{remainSeconds < 10 ? `0${remainSeconds}` : remainSeconds} <span className="mx-1">M</span>
+                            </h4>
+                        </div>
+                }
 
                 <div className="bg-white shadow-lg rounded-lg max-w-4xl w-full">
                     <h1 className="text-4xl font-bold text-gray-800 mb-8 text-center">Question Paper</h1>
