@@ -4,7 +4,6 @@ import { publicCourseGet, questionAdd, questionUpdate } from "@/app/constans/con
 import { contextApi } from "@/app/contextApi/Context";
 import useClientDataHandler from "@/app/Handler/usersHandler/useClientDataHandler";
 import { formatDateForInput } from "@/app/helpers/FormatedDate";
-import { SymbolsKey } from "@/app/helpers/SymbolsKey";
 import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { v4 as uuidv4 } from 'uuid';  // Import uuid to generate unique IDs
@@ -97,21 +96,92 @@ export default function AddQuestion() {
     // Handle input changes for question text and other fields
     const handleInputChange = (e) => {
         const { name, value } = e.target;
+
+        // ফরম্যাটেড ইনপুট তৈরি করা
+        const formattedValue = value
+            // সাবস্ক্রিপ্টের জন্য `_` রূপান্তর
+            .replace(/_(\d+)/g, (_, match) =>
+                match
+                    .split("")
+                    .map((num) => String.fromCharCode(8320 + parseInt(num, 10))) // সাবস্ক্রিপ্ট (U+2080)
+                    .join("")
+            )
+            // সুপারস্ক্রিপ্টের জন্য `^` রূপান্তর
+            .replace(/\^(\d+)/g, (_, match) =>
+                match
+                    .split("")
+                    .map((num) => {
+                        const superscriptMap = {
+                            0: "⁰",
+                            1: "¹",
+                            2: "²",
+                            3: "³",
+                            4: "⁴",
+                            5: "⁵",
+                            6: "⁶",
+                            7: "⁷",
+                            8: "⁸",
+                            9: "⁹",
+                        };
+                        return superscriptMap[num] || num;
+                    })
+                    .join("")
+            )
+            // `r3` এর মতো ইনপুট হলে `√3` এ রূপান্তর
+            .replace(/r(\d+)/g, (_, match) => `√${match}`);
+
+        // `newQuestion` এর মধ্যে `formattedValue` সেট করা
         setNewQuestion((prev) => ({
             ...prev,
-            [name]: value,
+            [name]: formattedValue, // এখানে formattedValue ব্যবহার করা হয়েছে
         }));
     };
 
-    // Handle changes for option inputs
+
     const handleOptionChange = (index, value) => {
+        const formattedValue = value
+            // sub _
+            .replace(/_(\d+)/g, (_, match) =>
+                match
+                    .split("")
+                    .map((num) => String.fromCharCode(8320 + parseInt(num, 10)))
+                    .join("")
+            )
+            // super ^
+            .replace(/\^(\d+)/g, (_, match) =>
+                match
+                    .split("")
+                    .map((num) => {
+                        const superscriptMap = {
+                            0: "⁰",
+                            1: "¹",
+                            2: "²",
+                            3: "³",
+                            4: "⁴",
+                            5: "⁵",
+                            6: "⁶",
+                            7: "⁷",
+                            8: "⁸",
+                            9: "⁹",
+                        };
+                        return superscriptMap[num] || num;
+                    })
+                    .join("")
+            )
+            // Root r
+            .replace(/r(\d+)/g, (_, match) => `√${match}`);
+
         const updatedOptions = [...newQuestion.options];
-        updatedOptions[index] = value;
+
+        updatedOptions[index] = formattedValue;
+
         setNewQuestion((prev) => ({
             ...prev,
             options: updatedOptions,
         }));
     };
+
+
 
     // Add or update a question
     const handleAddQuestion = () => {
@@ -142,17 +212,11 @@ export default function AddQuestion() {
     // <===========   Edit a Single question ==================>
     const handleEditQuestion = (index) => {
         setNewQuestion(questions[index]);
-        setEditingIndex(index); // Set the index of the question being edited
+        setEditingIndex(index); // Set the index of th equestion being edited
     };
 
 
     //  <========= Edit Question Paper With Question _Id ===============>
-    //     questionCategory: "",
-    // questionTitle: "",
-    // courseId: "",
-    // examDate: "",
-    // examTime: "",
-    // examDuration: ""
     useEffect(() => {
 
         if (isEditablePaper) {
@@ -372,18 +436,6 @@ export default function AddQuestion() {
                     >
                         {editingIndex !== null ? 'Update Question' : 'Add New Question'}
                     </button>
-                </div>
-
-                {/*  Math Symbols Show And Hide */}
-                <div className=" px-4 py-2 fixed top-[50%] right-0 ">
-                    <button onClick={() => setSymbolsShow(!symbolsShow)} className="py-2 px-3 font-bold bg-blue-600 text-white text-sm"> Symbols</button>
-
-                    {
-                        symbolsShow &&
-                        <SymbolsKey setHide={setSymbolsShow} setNewQuestion={setNewQuestion} />
-                    }
-
-
                 </div>
 
             </div>

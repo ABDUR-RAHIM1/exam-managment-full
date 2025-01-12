@@ -11,8 +11,6 @@ import { dateAndTimeCounters } from "../QuestionHelpers/DateAndTimeCounter";
 
 export default function ExamPage({ params }) {
 
-
-
     const { setExamTimeMatch } = useContext(contextApi)
     const router = useRouter();
     const { questionId } = params;
@@ -21,7 +19,6 @@ export default function ExamPage({ params }) {
     const [loading, setLoading] = useState(false);
     const [totalQuesCount, setTotalQuesCount] = useState(0);
     const [selectQuesCount, setSelectQuesCount] = useState(0);
-    const [examDuration, setExamDuration] = useState(0)
 
     const [isExamEnd, setIsExamEnd] = useState(false);
 
@@ -30,6 +27,8 @@ export default function ExamPage({ params }) {
     const [timeStatus, setTimeStatus] = useState("")
     const [examAtATime, setExamAtATime] = useState(true);
     const [remainingTime, setRemainingTime] = useState(0)
+    const [examDuration, setExamDuration] = useState(null)
+
 
     useEffect(() => {
         if (result) {
@@ -39,10 +38,11 @@ export default function ExamPage({ params }) {
                     examTime: result.examTime || null,
                     examDuration: result.examDuration || null,
                 };
-                const { dStatus, tStatus, remainingTime } = dateAndTimeCounters(examTimers);
+                const { dStatus, tStatus, remainingTime, duration } = dateAndTimeCounters(examTimers);
                 setDateStatus(dStatus);
                 setTimeStatus(tStatus);
                 setRemainingTime(remainingTime)
+                setExamDuration(duration)
                 if (remainingTime <= 0) {
                     clearInterval(interval); // Stop the interval
                 }
@@ -56,8 +56,28 @@ export default function ExamPage({ params }) {
         }
     }, [result]);
 
+
+    useEffect(() => {
+
+        // Interval to handle countdown
+        const interval = setInterval(() => {
+            if (examDuration <= 0) {
+                clearInterval(interval);  // Clear the interval when time is over 
+                handleQuestionSubmit()
+            } else {
+                // Decrease examDuration by 1 second
+                setExamDuration((prev) => prev - 1);
+            }
+        }, 1000); // Interval runs every 1 second
+
+        return () => clearInterval(interval); // Cleanup interval on component unmount or state change
+    }, [examDuration]); // Dependencies to re-run useEffect when any of 
+
+
     let remainMinute = Math.floor(remainingTime / 60);
     let remainSeconds = remainingTime % 60;
+    let durationMinute = Math.floor(examDuration / 60)
+    let durationSeconds = examDuration % 60;
 
 
     //  auto submit question paper after Remaining Time
@@ -141,15 +161,17 @@ export default function ExamPage({ params }) {
         };
 
         try {
-            const { status, result } = await postDataHandler(resultData, "POST", "/results/submit_question");
+            // const { status, result } = await postDataHandler(resultData, "POST", "/results/submit_question");
 
-            if (status === 201) {
-                toast.success(result.message);
-                router.refresh();
-                // router.push("/profile/my-exams")
-            } else {
-                toast.error(result.message);
-            }
+            // if (status === 201) {
+            //     toast.success(result.message);
+            //     router.refresh();
+            //     // router.push("/profile/my-exams")
+            // } else {
+            //     toast.error(result.message);
+            // }
+
+            alert("auto submited")
         } catch (error) {
             toast.error("Error saving result");
         } finally {
@@ -178,9 +200,17 @@ export default function ExamPage({ params }) {
                                 <strong className="text-blue-500">/</strong>
                                 {totalQuesCount}
                             </h3>
-                            <h4 className="text-xl text-gray-300 mt-3">
-                                {remainMinute}:{remainSeconds < 10 ? `0${remainSeconds}` : remainSeconds} <span className="mx-1">M</span>
-                            </h4>
+
+                            {
+                                dateStatus === "past" || timeStatus === "past" ?
+                                    < h4 className="text-xl text-gray-300 mt-3">
+                                        {durationMinute}:{durationSeconds < 10 ? `0${durationSeconds}` : durationSeconds} <span className="mx-1">M</span>
+                                    </h4>
+                                    :
+                                    < h4 className="text-xl text-gray-300 mt-3">
+                                        {remainMinute}:{remainSeconds < 10 ? `0${remainSeconds}` : remainSeconds} <span className="mx-1">M</span>
+                                    </h4>}
+
                         </div>
                 }
 

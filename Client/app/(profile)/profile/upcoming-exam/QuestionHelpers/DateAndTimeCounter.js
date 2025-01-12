@@ -22,7 +22,7 @@ export const dateAndTimeCounters = (examTimers) => {
     const isSameDate = newExamDate.toDateString() === currentDate.toDateString();
     const isSameTime = totalExamStartTime === totalCurrentTime;
     const remainingTime = Math.max(0, examEndTime - totalCurrentTime); // Prevent negative values
-
+    const examDurationTime = Math.max(0, examDurations)
 
     let dateStatus = ""; // Status for date
     let timeStatus = ""; // Status for time
@@ -54,6 +54,7 @@ export const dateAndTimeCounters = (examTimers) => {
     return {
         dStatus: dateStatus,
         tStatus: timeStatus,
-        remainingTime: remainingTime
+        remainingTime: remainingTime,
+        duration: examDurationTime,
     };
 };

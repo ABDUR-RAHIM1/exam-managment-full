@@ -7,8 +7,10 @@ import { useRouter } from "next/navigation";
 import Loading from "@/app/components/Globals/Loading";
 import { contextApi } from "@/app/contextApi/Context";
 import Spinner from "@/app/helpers/Spinner";
+import { dateAndTimeCounters } from "../QuestionHelpers/DateAndTimeCounter";
 
 export default function ExamPage({ params }) {
+
     const { setExamTimeMatch } = useContext(contextApi)
     const router = useRouter();
     const { questionId } = params;
@@ -17,27 +19,60 @@ export default function ExamPage({ params }) {
     const [loading, setLoading] = useState(false);
     const [totalQuesCount, setTotalQuesCount] = useState(0);
     const [selectQuesCount, setSelectQuesCount] = useState(0);
-    const [examDuration, setExamDuration] = useState(0)
-    const [remainingTime, setRemainingTime] = useState(0)
+
     const [isExamEnd, setIsExamEnd] = useState(false);
 
     // check exam date match , past , future
     const [dateStatus, setDateStatus] = useState("");
     const [timeStatus, setTimeStatus] = useState("")
     const [examAtATime, setExamAtATime] = useState(true);
+    const [remainingTime, setRemainingTime] = useState(0)
+    const [examDuration, setExamDuration] = useState(0)
+    console.log(examDuration);
+
+    useEffect(() => {
+        if (result) {
+            const interval = setInterval(() => {
+                const examTimers = {
+                    examDate: result.examDate || null,
+                    examTime: result.examTime || null,
+                    examDuration: result.examDuration || null,
+                };
+                const { dStatus, tStatus, remainingTime, examDuration } = dateAndTimeCounters(examTimers);
+                setDateStatus(dStatus);
+                setTimeStatus(tStatus);
+                setRemainingTime(remainingTime)
+                setExamDuration(examDuration)
+                if (remainingTime <= 0) {
+                    clearInterval(interval); // Stop the interval
+                }
+
+            }, 1000); // for real time update
+
+            // Cleanup function
+
+            return () => clearInterval(interval);
+
+        }
+    }, [result]);
+
+    let remainMinute = Math.floor(remainingTime / 60);
+    let remainSeconds = remainingTime % 60;
+
 
     //  auto submit question paper after Remaining Time
     useEffect(() => {
-        if (remainingTime <= 0 && isExamEnd || examDuration === 0) {
+        if (remainingTime <= 0 && timeStatus === "match") {
             handleQuestionSubmit();
             setTimeout(() => {
                 setDateStatus("past");
                 setExamTimeMatch("");
             }, 500);
         }
-    }, [remainingTime, examDuration, isExamEnd]);
+    }, [remainingTime, timeStatus]);
 
     //  only fetch Data from databsae
+
     useEffect(() => {
         const getData = async () => {
             const { status, result } = await getSingleQuestion(questionId);
@@ -48,109 +83,6 @@ export default function ExamPage({ params }) {
         getData()
     }, [questionId])
 
-
-
-    // date and time conditionaly get / set
-    useEffect(() => {
-
-        if (!result) return;
-
-        const examDate = new Date(result.examDate).toLocaleDateString()
-        const [examHour, examMinute] = result.examTime.split(":").map(Number)
-        const examDuration = result.examDuration;
-        const convertExamDuratinnToSeconds = Number(examDuration) * 60;
-
-        setExamDuration(convertExamDuratinnToSeconds)
-
-        const examStartTime = examHour * 3600 + examMinute * 60; // convert in seconds
-        const examEndTime = examStartTime + convertExamDuratinnToSeconds
-
-        // date and time now Start
-        const date = new Date();
-        const newDate = date.toLocaleDateString();
-        const currentHour = date.getHours();
-        const currentMinutes = date.getMinutes();
-        const currentSeconds = date.getSeconds();
-
-        const currentTime = currentHour * 3600 + currentMinutes * 60 + currentSeconds;
-        // date and time now End
-
-        // <========= Exam Sesh hote koto shomoy baki ace seta count korbe ===========>
-        const remianTime = examEndTime - currentTime;
-        setRemainingTime(remianTime)
-
-        // <======= Exam Sesh hote koto shomoy baki ace seta count korbe (end) ===========>
-
-        // < ======== compare Start ==========>
-        let isAtAtime = false
-        if (newDate > examDate) {
-            setDateStatus("past")
-            isAtAtime = false
-        } else if (newDate < examDate) {
-            setDateStatus("future")
-            isAtAtime = false
-        } else {
-            setDateStatus("match")
-            /// checing the time match or not
-            if (currentTime < examStartTime) {
-                setTimeStatus("future")
-                isAtAtime = false
-            } else if (currentTime > examEndTime) {
-                setTimeStatus("past")
-                isAtAtime = false;
-
-            } else if (currentTime === examEndTime) {
-                setIsExamEnd(true)
-            }
-            else {
-                setTimeStatus("match")
-                setExamTimeMatch("match")
-                isAtAtime = true
-            }
-        }
-        setExamAtATime(isAtAtime)
-
-
-        // <========= compare End ============>
-
-    }, [result, remainingTime]);
-    console.log("dateStatus", dateStatus)
-    console.log("timeStatus", timeStatus)
-    console.log("AtATime", examAtATime)
-    // time counDown for Remaing  Time
-    useEffect(() => {
-        // Set a timer for countdown
-
-        let timer;
-
-        if (timeStatus === "past") {
-
-            timer = setInterval(() => {
-
-                setExamDuration((prevTime) => {
-                    if (prevTime <= 0) {
-                        clearInterval(timer);
-                        return 0;
-                    }
-                    return prevTime - 1;
-                });
-            }, 1000)
-        } else {
-            timer = setInterval(() => {
-
-                setRemainingTime((prevTime) => {
-                    if (prevTime <= 0) {
-                        clearInterval(timer);
-                        return 0;
-                    }
-                    return prevTime - 1;
-                });
-            }, 1000)
-        }
-
-
-        return () => clearInterval(timer);
-    }, [timeStatus]);
 
 
     const handleChange = (selectedAnsIndex, questionId) => {
@@ -214,7 +146,7 @@ export default function ExamPage({ params }) {
             if (status === 201) {
                 toast.success(result.message);
                 router.refresh();
-                router.push("/profile/my-exams")
+                // router.push("/profile/my-exams")
             } else {
                 toast.error(result.message);
             }
@@ -230,16 +162,7 @@ export default function ExamPage({ params }) {
     }
 
 
-    let minutes = 0;
-    let seconds = 0;
 
-    if (timeStatus === "match") {
-        minutes = Math.floor(remainingTime / 60);
-        seconds = remainingTime % 60;
-    } else if (timeStatus === "past") {
-        minutes = Math.floor(examDuration / 60);
-        seconds = examDuration % 60;
-    }
 
 
 
@@ -256,7 +179,7 @@ export default function ExamPage({ params }) {
                                 {totalQuesCount}
                             </h3>
                             <h4 className="text-xl text-gray-300 mt-3">
-                                {minutes}:{seconds < 10 ? `0${seconds}` : seconds} <span className="mx-1">M</span>
+                                {remainMinute}:{remainSeconds < 10 ? `0${remainSeconds}` : remainSeconds} <span className="mx-1">M</span>
                             </h4>
                         </div>
                 }
@@ -264,24 +187,31 @@ export default function ExamPage({ params }) {
                 <div className="bg-white shadow-lg rounded-lg max-w-4xl w-full">
                     <h1 className="text-4xl font-bold text-gray-800 mb-8 text-center">Question Paper</h1>
 
-                    <div className=" my-3 text-center">
-
+                    <div className="text-center my-3">
                         {
-                            // Check for date and time conditions and display appropriate message
-                            dateStatus === "past" ?
-                                <p className=" text-red-500 fadeIn animate-delay-1s">পরিক্ষার নির্ধারিত তারিখ শেষ হয়েছে!</p> :
-                                dateStatus === "future" ?
-                                    <p className=" text-yellow-600 fadeIn animate-delay-1s">পরিক্ষার তারিখ এখনো আসেনি!</p> :
-                                    timeStatus === "past" ?
-                                        <p className=" text-red-500 fadeIn animate-delay-1s">পরিক্ষার সময় শেষ হয়ে গেছে! </p> :
-                                        timeStatus === "future" ?
-                                            <p className=" text-yellow-500 fadeIn animate-delay-1s">পরিক্ষার সময় এখনো আসেনি!  <span className=" text-red-600 font-bold">
-                                                {formData?.examTime} এ পরীক্ষা শুরু হবে।
-                                            </span> </p> :
-                                            <p className=" text-green-800 fadeIn animate-delay-1s"> পরীক্ষা চলছে</p>
+                            dateStatus === "future" ? (
+                                <p style={{ color: "blue" }}>পরীক্ষার তারিখ এখনও আসেনি। অনুগ্রহ করে অপেক্ষা করুন।</p>
+                            ) : dateStatus === "past" ? (
+                                <p style={{ color: "red" }}>পরীক্ষার তারিখ শেষ হয়ে গেছে।</p>
+                            ) : (
+                                <>
+                                    <p style={{ color: "green" }}>আজ পরীক্ষার দিন।</p>
+                                    {
+                                        timeStatus === "future" ? (
+                                            <p style={{ color: "blue" }}>পরীক্ষা এখনও শুরু হয়নি। অনুগ্রহ করে সময়মতো প্রস্তুত থাকুন।</p>
+                                        ) : timeStatus === "past" ? (
+                                            <p style={{ color: "red" }}>পরীক্ষার সময় শেষ হয়েছে।</p>
+                                        ) : timeStatus === "match" ? (
+                                            <p style={{ color: "green" }}>পরীক্ষা চলছে। অনুগ্রহ করে মনোযোগ দিন।</p>
+                                        ) : null
+                                    }
+                                </>
+                            )
                         }
-
                     </div>
+
+
+
 
                     <div className="border-b-2 pb-4 mb-8 text-gray-700">
                         <table className="table-auto w-full text-left border-collapse border border-gray-300 rounded-md">
