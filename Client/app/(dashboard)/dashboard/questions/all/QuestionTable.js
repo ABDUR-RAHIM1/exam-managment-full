@@ -3,6 +3,7 @@
 import { deleteHandler } from "@/app/actions/users/deleteHandler";
 import { questionDelete } from "@/app/constans/constans";
 import { contextApi } from "@/app/contextApi/Context";
+import { FormatedTime } from "@/app/helpers/FormatedTime";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
@@ -64,7 +65,7 @@ export default function QuestionTable({ data }) {
         },
         {
             name: "Exam Time",
-            selector: (row) => row.examTime,
+            selector: (row) =>FormatedTime( row.examTime),
             sortable: false,
         },
         {

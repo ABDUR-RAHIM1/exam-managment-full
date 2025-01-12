@@ -8,6 +8,7 @@ import Loading from "@/app/components/Globals/Loading";
 import { contextApi } from "@/app/contextApi/Context";
 import Spinner from "@/app/helpers/Spinner";
 import { dateAndTimeCounters } from "../QuestionHelpers/DateAndTimeCounter";
+import { FormatedTime } from "@/app/helpers/FormatedTime";
 
 export default function ExamPage({ params }) {
 
@@ -20,7 +21,6 @@ export default function ExamPage({ params }) {
     const [totalQuesCount, setTotalQuesCount] = useState(0);
     const [selectQuesCount, setSelectQuesCount] = useState(0);
 
-    const [isExamEnd, setIsExamEnd] = useState(false);
 
     // check exam date match , past , future
     const [dateStatus, setDateStatus] = useState("");
@@ -29,49 +29,53 @@ export default function ExamPage({ params }) {
     const [remainingTime, setRemainingTime] = useState(0)
     const [examDuration, setExamDuration] = useState(null)
 
-
+    //  real time update / dateTimeCounter calling
     useEffect(() => {
         if (result) {
+
+            if (timeStatus === "match") {
+                setExamTimeMatch("match")
+            }
+
             const interval = setInterval(() => {
                 const examTimers = {
                     examDate: result.examDate || null,
                     examTime: result.examTime || null,
                     examDuration: result.examDuration || null,
                 };
-                const { dStatus, tStatus, remainingTime, duration } = dateAndTimeCounters(examTimers);
+                const { dStatus, tStatus, atAtime, remainingTime, duration } = dateAndTimeCounters(examTimers);
                 setDateStatus(dStatus);
                 setTimeStatus(tStatus);
+                setExamAtATime(atAtime)
                 setRemainingTime(remainingTime)
                 setExamDuration(duration)
+
                 if (remainingTime <= 0) {
-                    clearInterval(interval); // Stop the interval
+                    clearInterval(interval);
                 }
 
-            }, 1000); // for real time update
-
-            // Cleanup function
+            }, 1000);
 
             return () => clearInterval(interval);
 
         }
     }, [result]);
 
-
     useEffect(() => {
 
         // Interval to handle countdown
         const interval = setInterval(() => {
             if (examDuration <= 0) {
-                clearInterval(interval);  // Clear the interval when time is over 
+                clearInterval(interval);
                 handleQuestionSubmit()
             } else {
                 // Decrease examDuration by 1 second
                 setExamDuration((prev) => prev - 1);
             }
-        }, 1000); // Interval runs every 1 second
+        }, 1000);
 
-        return () => clearInterval(interval); // Cleanup interval on component unmount or state change
-    }, [examDuration]); // Dependencies to re-run useEffect when any of 
+        return () => clearInterval(interval);
+    }, [examDuration]);
 
 
     let remainMinute = Math.floor(remainingTime / 60);
@@ -87,6 +91,7 @@ export default function ExamPage({ params }) {
             setTimeout(() => {
                 setDateStatus("past");
                 setExamTimeMatch("");
+                setExamAtATime(false)
             }, 500);
         }
     }, [remainingTime, timeStatus]);
@@ -160,18 +165,18 @@ export default function ExamPage({ params }) {
             atATime: examAtATime
         };
 
+
         try {
-            // const { status, result } = await postDataHandler(resultData, "POST", "/results/submit_question");
+            const { status, result } = await postDataHandler(resultData, "POST", "/results/submit_question");
 
-            // if (status === 201) {
-            //     toast.success(result.message);
-            //     router.refresh();
-            //     // router.push("/profile/my-exams")
-            // } else {
-            //     toast.error(result.message);
-            // }
+            if (status === 201) {
+                toast.success(result.message);
+                router.refresh();
+                router.push("/profile/my-exams")
+            } else {
+                toast.error(result.message);
+            }
 
-            alert("auto submited")
         } catch (error) {
             toast.error("Error saving result");
         } finally {
@@ -182,8 +187,6 @@ export default function ExamPage({ params }) {
     if (formData === null) {
         return <Loading />;
     }
-
-
 
 
 
@@ -225,7 +228,7 @@ export default function ExamPage({ params }) {
                                 <p style={{ color: "red" }}>পরীক্ষার তারিখ শেষ হয়ে গেছে।</p>
                             ) : (
                                 <>
-                                    <p style={{ color: "green" }}>আজ পরীক্ষার দিন।</p>
+                                    {/* <p style={{ color: "green" }}>আজ পরীক্ষার দিন।</p> */}
                                     {
                                         timeStatus === "future" ? (
                                             <p style={{ color: "blue" }}>পরীক্ষা এখনও শুরু হয়নি। অনুগ্রহ করে সময়মতো প্রস্তুত থাকুন।</p>
@@ -260,7 +263,7 @@ export default function ExamPage({ params }) {
                                 </tr>
                                 <tr className="border-b border-gray-200">
                                     <td className="font-semibold py-2 px-4 border-r border-gray-200">Exam Time:</td>
-                                    <td className="py-2 px-4">{formData.examTime}</td>
+                                    <td className="py-2 px-4">{FormatedTime(formData.examTime)}</td>
                                 </tr>
                                 <tr>
                                     <td className="font-semibold py-2 px-4 border-r border-gray-200">Duration:</td>

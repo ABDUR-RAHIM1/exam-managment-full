@@ -4,7 +4,7 @@ import { adminLogin } from "@/app/constans/constans";
 import { isValidPassword } from "@/app/helpers/Checker";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiShowAlt } from "react-icons/bi";
 import { toast } from "react-toastify";
 
@@ -18,6 +18,12 @@ export default function AdminAuth() {
         role: "admin", // Default role
         password: "",
     });
+
+
+    //  auto navigate to dashboard when Amin ALready Login
+    // useEffect(() => {
+
+    // }, [])
 
     const handleShowPassword = () => {
         setPasswordType(!passwordType);

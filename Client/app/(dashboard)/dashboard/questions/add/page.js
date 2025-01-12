@@ -3,7 +3,7 @@ import { postDataHandler } from "@/app/actions/users/postData";
 import { publicCourseGet, questionAdd, questionUpdate } from "@/app/constans/constans";
 import { contextApi } from "@/app/contextApi/Context";
 import useClientDataHandler from "@/app/Handler/usersHandler/useClientDataHandler";
-import { formatDateForInput } from "@/app/helpers/FormatedDate";
+import {  FormatedTime } from "@/app/helpers/FormatedTime";
 import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { v4 as uuidv4 } from 'uuid';  // Import uuid to generate unique IDs
@@ -13,8 +13,7 @@ export default function AddQuestion() {
     const getClientDataHandler = useClientDataHandler();
     const [title, setTitle] = useState(""); // filter title from backend
     const [courseData, setCourseData] = useState([]);
-    const [loading, setLoading] = useState(false)
-    const [symbolsShow, setSymbolsShow] = useState(false)
+    const [loading, setLoading] = useState(false) 
 
     const isEditablePaper = manageData && Object.keys(manageData).length > 0
 
@@ -225,7 +224,7 @@ export default function AddQuestion() {
                 questionCategory: manageData.questionCategory,
                 questionTitle: manageData.questionTitle,
                 courseId: manageData.courseId,
-                examDate: formatDateForInput(manageData.examDate), // import from helpers
+                examDate: FormatedTime(manageData.examDate), // import from helpers
                 examTime: manageData.examTime,
                 examDuration: manageData.examDuration,
             })
@@ -307,18 +306,18 @@ export default function AddQuestion() {
 
 
     return (
-        <div className=" bg-gray-100  px-8 py-5 rounded-md">
+        <div className=" bg-gray-100  px-0 md:px-8 py-5 rounded-md">
 
-            <div className=" relative w-[90%] mx-auto px-5 py-10 rounded-md bg-white" >
+            <div className=" relative w-[90%] mx-auto px-0 md:px-5 py-10 rounded-md bg-white" >
                 <div>
                     {
                         isEditablePaper ?
                             <div className=" text-center">
-                                <h2 className=" text-center my-2 italic text-blue-700">Edit Question Paper</h2>
+                                <h2 className=" text-xl md:text-[2xl] text-centeritalic text-blue-700">Edit Question Paper</h2>
                                 <button onClick={handleClearEditableForm} className=" my-2 py-2 px-3 rounded-md bg-blue-500 text-white m-auto tracking-wider">Switch To Add </button>
                             </div>
                             :
-                            <h2 className=" text-center my-2 italic">Add New Question Paper</h2>
+                            <h2 className=" text-xl md:text-[2xl] text-center italic">Add New Question Paper</h2>
                     }
                 </div>
                 <div className="p-4 my-10">
@@ -443,7 +442,7 @@ export default function AddQuestion() {
 
             {/* Preview Section */}
 
-            <div className="my-10">
+            <div className="my-10 px-2 md:px-4">
                 <h2 className="text-2xl font-semibold mb-4">Added Questions</h2>
                 {questions.length === 0 ? (
                     <p className="text-gray-500">No questions added yet.</p>

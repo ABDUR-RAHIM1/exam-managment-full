@@ -1,6 +1,7 @@
 import { getDataHandler } from "@/app/actions/users/getData";
 import NoDataFound from "@/app/components/Globals/NoDataFound";
 import { freeQuestionGetAll, purchaseCourseMe } from "@/app/constans/constans";
+import { FormatedTime } from "@/app/helpers/FormatedTime";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -85,7 +86,7 @@ function QuestionCard({ question }) {
                 Exam Date: {new Date(question.examDate).toLocaleDateString()}
             </p>
             <p className="text-sm text-gray-500">Questions: {question.questions?.length}</p>
-            <p className="text-sm text-gray-500">Exam Time: {question.examTime}</p>
+            <p className="text-sm text-gray-500">Exam Time: {FormatedTime(question.examTime)}</p>
             <p className="text-sm text-gray-500">Duration: {question.examDuration}</p>
             <div className="mt-4 flex justify-between items-center">
 

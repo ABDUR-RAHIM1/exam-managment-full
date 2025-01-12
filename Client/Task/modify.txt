@@ -1,5 +1,9 @@
 
-<============= 09/01/2025 3.55 PM to 5.00 PM
-1. date time matching.
-2. admin Login page auto naviagte to dashboard if admin Dashboard available\
-3. 
+<============= 09/01/2025 to  12/01/2025
+=>. date time matching reModify. -ok
+=>. 24 hour formate to 12 hour Converted .
+=> course Card Changes
+=> some math symbols added in add / update question form
+=> filter on Results page (profile/dashboard)
+=> dashboard responsive (without 1/2 page)
+=>. admin Login page auto naviagte to dashboard if admin Dashboard available\
