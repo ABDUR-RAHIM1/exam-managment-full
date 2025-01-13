@@ -79,14 +79,14 @@ export default function ProfileSidebarMobile({ profileInfo }) {
             >
                 <div className="my-[150px] px-4">
 
-                    <Link href={"/"} className=' text-center font-semibold inline-block mt-5 bg-blue-600 py-3 px-4 w-full text-white'>Go To Home</Link>
+                    <Link href={"/"} className=' text-center text-sm font-semibold inline-block mt-5 bg-blue-600 py-3 px-4 w-full text-white'>হোম</Link>
                     {ProfileItems &&
                         ProfileItems.map((item, index) => (
                             <Link
                                 onClick={() => setIsOpen(false)}
                                 href={item.path}
                                 key={index}
-                                className={`w-full inline-block hover:bg-gray-700 px-4 py-2 rounded text-center md:text-left font-[500] capitalize text-yellow-50 ${path === item.path ? "bg-gray-500" : ""
+                                className={`w-full text-sm inline-block hover:bg-gray-700 px-4 py-2 rounded text-center md:text-left font-[500] capitalize text-yellow-50 ${path === item.path ? "bg-gray-500" : ""
                                     }`}
                             >
                                 {item.item}

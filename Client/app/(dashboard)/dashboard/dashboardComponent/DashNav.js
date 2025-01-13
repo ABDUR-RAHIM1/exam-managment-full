@@ -33,7 +33,7 @@ export default function DashNav() {
                     <h3 className=' italic'>Dashboard</h3>
                 </span>
             </div>
-            <div className={`${menuOpen ? 'scale-x-1' : 'scale-x-0'} origin-right md:hidden transition-all w-[70%] h-screen fixed top-0 right-0 bg-slate-200 z-[20] overflow-y-auto`}>
+            <div className={`${menuOpen ? 'scale-x-1' : 'scale-x-0'} origin-right md:hidden transition-all w-[70%] h-screen fixed top-0 right-0 bg-slate-200 z-[20] overflow-y-auto sidebar-scrollbar`}>
                 <span onClick={handleMenuOpen} className=' inline-block fixed top-3 right-5'>
                     <MdClose className="text-4xl border-2 border-red-500 rounded-md text-red-500 m-3 cursor-pointer transition-all hover:rotate-180" />
                 </span>

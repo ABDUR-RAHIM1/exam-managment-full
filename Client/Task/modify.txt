@@ -1,6 +1,8 @@
 
 <============= 09/01/2025 to  12/01/2025
-=>. date time matching reModify. -ok
+=> add pass mark
+
+=>. date time matching reModify.  
 =>. 24 hour formate to 12 hour Converted .
 => course Card Changes
 => some math symbols added in add / update question form

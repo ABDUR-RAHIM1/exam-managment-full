@@ -12,6 +12,6 @@ export default function UserLogOutBtn() {
     }
 
     return (
-        <button onClick={handleLogOut} className=' w-full py-3 px-4 font-bold text-center my-7 bg-red-600 rounded-md transition-all hover:bg-red-800 text-white'>LogOut</button>
+        <button onClick={handleLogOut} className=' w-full py-3 px-4 font-bold text-center my-7 bg-red-800 rounded-md transition-all hover:bg-red-500 text-white'>লগ-আউট</button>
     )
 }

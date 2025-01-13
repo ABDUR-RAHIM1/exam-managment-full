@@ -3,6 +3,7 @@ import { postDataHandler } from "@/app/actions/users/postData";
 import { publicCourseGet, questionAdd, questionUpdate } from "@/app/constans/constans";
 import { contextApi } from "@/app/contextApi/Context";
 import useClientDataHandler from "@/app/Handler/usersHandler/useClientDataHandler";
+import { formatDateForInput } from "@/app/helpers/ConvertDate";
 import {  FormatedTime } from "@/app/helpers/FormatedTime";
 import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -224,7 +225,7 @@ export default function AddQuestion() {
                 questionCategory: manageData.questionCategory,
                 questionTitle: manageData.questionTitle,
                 courseId: manageData.courseId,
-                examDate: FormatedTime(manageData.examDate), // import from helpers
+                examDate: formatDateForInput(manageData.examDate), // import from helpers
                 examTime: manageData.examTime,
                 examDuration: manageData.examDuration,
             })

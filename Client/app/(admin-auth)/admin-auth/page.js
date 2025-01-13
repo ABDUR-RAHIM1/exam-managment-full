@@ -2,6 +2,7 @@
 import { postDataHandler } from "@/app/actions/users/postData";
 import { adminLogin } from "@/app/constans/constans";
 import { isValidPassword } from "@/app/helpers/Checker";
+import Spinner from "@/app/helpers/Spinner";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -131,7 +132,7 @@ export default function AdminAuth() {
                         </div>
                     </div>
                     <button type="submit" className="loginBtn">
-                        {loading ? "Loading ..." : "Login"}
+                        {loading ? <Spinner /> : "Login"}
                     </button>
                 </form>
             </div>

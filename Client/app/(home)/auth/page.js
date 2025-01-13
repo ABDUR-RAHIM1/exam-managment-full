@@ -105,11 +105,9 @@ const RegistrationPage = () => {
 
 
     return (
-        <div className="min-h-screen py-20 flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600">
-            <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg">
-                {/* <h1 className="text-4xl font-extrabold text-center text-gray-800 mb-6">
-                    {isClick ? "Login" : "Sign Up"}
-                </h1> */}
+        <div className="min-h-screen py-20 px-5 flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600">
+            <div className="w-full md:w-[50%] p-8 space-y-6 bg-white rounded-lg shadow-lg">
+           
                 <div className=' my-4 w-full rounded-full overflow-hidden '>
                     <button onClick={() => handleNaviagteForm("register")} className={`${isClick ? "bg-purple-300 " : "bg-purple-600 "} w-[50%] py-3 px-4 font-medium text-white uppercase`}>Register</button>
                     <button onClick={() => handleNaviagteForm("login")} className={` ${!isClick ? "bg-blue-300" : "bg-blue-500"} w-[50%] py-3 px-4 font-medium text-white uppercase`}>Login</button>

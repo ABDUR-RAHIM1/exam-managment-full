@@ -26,7 +26,7 @@ export default async function ProfileLayout({ children }) {
 
                     <div className=" block md:flex w-full flex-col md:flex-row md:h-screen h-auto">
                         {/*  desktop view sidebar menu item */}
-                        <aside className=" z-[99999999] hidden md:flex w-64 h-screen overflow-y-auto  md:items-start  px-3 bg-gray-800">
+                        <aside className=" z-[99999999] hidden md:flex w-64 h-screen overflow-y-auto sidebar-scrollbar  md:items-start  px-3 bg-gray-800">
 
                             <ProfileSIdebar profileInfo={result} />
                             <div className="h-10"></div>

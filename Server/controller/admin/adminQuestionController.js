@@ -133,6 +133,7 @@ const updateQuestion = async (req, res) => {
             data: questionData,
         });
     } catch (error) {
+        console.log(error)
         return res.status(500).json({
             message: "Failed to update question Paper",
             error: error.message,

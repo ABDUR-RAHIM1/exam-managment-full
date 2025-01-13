@@ -11,10 +11,10 @@ export default function Logo({ path }) {
                 height={100}
                 alt="TickmarkQ logo"
                 src={logo}
-                className="w-[70px] h-[60px] "
+                className="w-[50px] md:w-[70px] h-[50px] md:h-[60px] "
             />
-            <h2>Tickmark
-                <span className=" font-bold text-4xl italic text-red-700">q</span>
+            <h2 className='text-[1.5rem] md:text-3xl'>Tickmark
+                <span className=" font-bold text-[1.7rem] md:text-4xl italic text-red-700">q</span>
             </h2>
         </Link>
     )

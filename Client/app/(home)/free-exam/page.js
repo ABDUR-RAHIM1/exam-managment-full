@@ -27,10 +27,10 @@ export default async function FreeExam() {
         <div className='w-full min-h-screen p-5 md:p-10 bg-gray-200'>
             {/* Text Section */}
             <div className="bg-blue-100 text-center p-5 rounded-md mb-6 shadow-sm">
-                <h1 className="text-xl font-bold text-blue-700">আমাদের ফ্রি পরীক্ষাগুলি আজই দিন!</h1>
-                <p className="text-gray-700 mt-2">
+                <h1 className=" text-[17px] md:text-xl font-bold text-blue-700 ">আমাদের ফ্রি পরীক্ষাগুলি আজই দিন!</h1>
+                <p className="text-gray-700 mt-2 text-sm md:text-[16px]">
                     ফ্রি পরীক্ষার মাধ্যমে আপনার প্রস্তুতি যাচাই করুন এবং আমাদের
-                    <span className="font-bold text-blue-700"> পেইড পরীক্ষা</span> প্রোগ্রামের মাধ্যমে আরও উন্নত শিক্ষার সুযোগ গ্রহণ করুন।
+                    <span className="font-bold text-blue-700 text-sm md:text-[16px]"> পেইড পরীক্ষা</span> প্রোগ্রামের মাধ্যমে আরও উন্নত শিক্ষার সুযোগ গ্রহণ করুন।
                     <Link href="/profile/course-list" className="text-blue-500 underline"> আমাদের পেইড সার্ভিস সম্পর্কে জানুন।</Link>
                 </p>
             </div>

@@ -11,8 +11,9 @@ export default async function BlogDetails({ params }) {
     const { result } = await getDataHandler(blogApiMe)
     const BlogDetails = result && result.find(blog => blog._id === blogId)
 
-    const { title, description, photo, author, createdAt } = BlogDetails
-    const titleWords = title.split(/\s+/).map(word => word.toLowerCase());
+    const { title, description, photo, author, createdAt } = BlogDetails;
+
+    const titleWords = title?.split(/\s+/).map(word => word.toLowerCase());
 
     const relatedPosts = result.filter(blog => {
         if (blog._id === blogId) return false; // Exclude the current blog
@@ -38,13 +39,13 @@ export default async function BlogDetails({ params }) {
 
                 {/* Author and Date */}
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between text-gray-600 mb-6 gap-4">
-                    <p className="font-medium text-red-600 text-lg flex items-center gap-2">
-                        <MdPerson className="text-2xl" />
-                        <strong className=" capitalize">Author: {author.name} <span className=" text-blue-900">{`(${author.role})`}</span></strong>
+                    <p className="font-medium text-lg flex items-center gap-2">
+                        <MdPerson className="text-2xl text-blue-700" />
+                        <strong className=" capitalize">  {author.name} <span className=" text-blue-900">{`(${author.role})`}</span></strong>
                     </p>
-                    <p className="text-red-600 text-lg flex items-center gap-2">
-                        <MdAccessTime className="text-2xl" />
-                        <span>Date: {new Date(createdAt).toDateString()}</span>
+                    <p className=" text-lg flex items-center gap-2">
+                        <MdAccessTime className="text-2xl text-blue-700" />
+                        <span className="text-red-600">  {new Date(createdAt).toDateString()}</span>
                     </p>
                 </div>
 
@@ -57,7 +58,7 @@ export default async function BlogDetails({ params }) {
                     ))}
                 </div>
 
-                <Link href={"/blogs"} className="text-xl font-bold inline-block py-3 px-5 bg-blue-500 text-white rounded-md shadow-md">
+                <Link href={"/blogs"} className="text-xl font-bold inline-block py-3 px-5 bg-red-500 hover:bg-red-600 transition-all text-white rounded-md shadow-md">
                     Back
                 </Link>
 

@@ -51,7 +51,7 @@ export default function ProfileSidebar({ profileInfo }) {
                     </p>
 
 
-                    <Link href={"/"} className=' text-center font-semibold inline-block mt-5 bg-blue-600 py-3 px-4 w-full text-white'>Go To Home</Link>
+                    <Link href={"/"} className=' text-center text-sm font-semibold inline-block mt-5 bg-blue-600 py-3 px-4 w-full text-white'>হোম</Link>
 
                     <div className="bg-gray-200 h-[2px] w-full my-4" />
 
@@ -68,7 +68,7 @@ export default function ProfileSidebar({ profileInfo }) {
                             <Link
                                 href={item.path}
                                 key={index}
-                                className={`${coursorStyle} w-full  hover:bg-gray-700 px-4 py-2 rounded text-center md:text-left font-[500] lowercase tracking-wider flex items-center gap-3 text-yellow-50 ${path === item.path ? "bg-gray-500 " : ""
+                                className={`${coursorStyle} w-full text-sm  hover:bg-gray-700 px-4 py-2 rounded text-center md:text-left font-[500] lowercase tracking-wider flex items-center gap-3 text-yellow-50 ${path === item.path ? "bg-gray-500 " : ""
                                     }`}
                             >
                                 <span className=' text-2xl text-blue-600'>

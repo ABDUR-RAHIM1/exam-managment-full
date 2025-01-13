@@ -9,6 +9,7 @@ import { contextApi } from "@/app/contextApi/Context";
 import Spinner from "@/app/helpers/Spinner";
 import { dateAndTimeCounters } from "../QuestionHelpers/DateAndTimeCounter";
 import { FormatedTime } from "@/app/helpers/FormatedTime";
+import useDurationCounter from "../QuestionHelpers/DurationCounter";
 
 export default function ExamPage({ params }) {
 
@@ -28,6 +29,8 @@ export default function ExamPage({ params }) {
     const [examAtATime, setExamAtATime] = useState(true);
     const [remainingTime, setRemainingTime] = useState(0)
     const [examDuration, setExamDuration] = useState(null)
+
+    const durationCount = useDurationCounter(examDuration);
 
     //  real time update / dateTimeCounter calling
     useEffect(() => {
@@ -61,27 +64,11 @@ export default function ExamPage({ params }) {
         }
     }, [result]);
 
-    useEffect(() => {
-
-        // Interval to handle countdown
-        const interval = setInterval(() => {
-            if (examDuration <= 0) {
-                clearInterval(interval);
-                handleQuestionSubmit()
-            } else {
-                // Decrease examDuration by 1 second
-                setExamDuration((prev) => prev - 1);
-            }
-        }, 1000);
-
-        return () => clearInterval(interval);
-    }, [examDuration]);
-
 
     let remainMinute = Math.floor(remainingTime / 60);
     let remainSeconds = remainingTime % 60;
-    let durationMinute = Math.floor(examDuration / 60)
-    let durationSeconds = examDuration % 60;
+    let durationMinute = Math.floor(durationCount / 60)
+    let durationSeconds = durationCount % 60;
 
 
     //  auto submit question paper after Remaining Time
@@ -93,8 +80,10 @@ export default function ExamPage({ params }) {
                 setExamTimeMatch("");
                 setExamAtATime(false)
             }, 500);
+        } else if (durationCount === 0 && (dateStatus !== "match" || timeStatus !== "match")) {
+            handleQuestionSubmit();
         }
-    }, [remainingTime, timeStatus]);
+    }, [remainingTime, timeStatus, durationCount]);
 
     //  only fetch Data from databsae
 
@@ -169,13 +158,15 @@ export default function ExamPage({ params }) {
         try {
             const { status, result } = await postDataHandler(resultData, "POST", "/results/submit_question");
 
-            if (status === 201) {
+            if (status === 201 || status === 200) {
                 toast.success(result.message);
                 router.refresh();
                 router.push("/profile/my-exams")
             } else {
                 toast.error(result.message);
             }
+
+            alert("auto submit")
 
         } catch (error) {
             toast.error("Error saving result");

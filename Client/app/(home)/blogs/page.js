@@ -21,28 +21,30 @@ export default async function BlogPage() {
                         acceptedBlogs.map((blog) => (
                             <div
                                 key={blog._id}
-                                className="flex flex-col border rounded-lg p-4 hover:shadow-lg transition-shadow duration-200"
+                                className="flex flex-col border rounded-lg hover:shadow-lg transition-shadow duration-200"
                             >
                                 <Image
                                     src={blog.photo || noImg}
                                     alt={`Blog ${blog.id}`}
                                     width={500}
-                                    height={300}
-                                    className="w-full h-40 rounded-md mb-4"
+                                    height={400}
+                                    className="w-full h-52 rounded-md mb-4"
                                 />
-                                <Link href={`/blogs/${blog._id}`} className="text-gray-700 mb-3 font-bold hover:text-blue-600 hover:underline duration-200">
-                                    {blog.title.length > 35
-                                        ? blog.title.slice(0, 35) + '...'
-                                        : blog.title}
-                                </Link>
-                                <p className="text-gray-700 mb-3  ">
-                                    {blog.description.length > 60
-                                        ? blog.description.slice(0, 60) + '...'
-                                        : blog.description}
-                                </p>
-                                <p className="text-gray-500 text-sm">
-                                    Published on: {new Date(blog.createdAt).toDateString()}
-                                </p>
+                                <div className='p-4'>
+                                    <Link href={`/blogs/${blog._id}`} className="text-gray-700 mb-3 font-bold hover:text-blue-600 hover:underline duration-200">
+                                        {blog.title.length > 35
+                                            ? blog.title.slice(0, 35) + '...'
+                                            : blog.title}
+                                    </Link>
+                                    <p className="text-gray-700 mb-3  ">
+                                        {blog.description.length > 60
+                                            ? blog.description.slice(0, 60) + '...'
+                                            : blog.description}
+                                    </p>
+                                    <p className="text-gray-500 text-sm">
+                                        Published on: {new Date(blog.createdAt).toDateString()}
+                                    </p>
+                                </div>
                             </div>
                         ))}
                 </div>

@@ -1,43 +1,43 @@
 import { CiViewBoard, CiBoxList, CiSettings } from "react-icons/ci";
 import { MdUpcoming, MdOutlinePayments, MdSpeakerNotes } from "react-icons/md";
 import { VscOutput } from "react-icons/vsc";
+
 const ProfileItems = [
     {
-        item: "Profile Overview",
+        item: "প্রোফাইল",
         icon: <CiViewBoard />,
         path: "/profile"
     },
     {
-        item: "Course Lists",
+        item: "কোর্স তালিকা",
         icon: <CiBoxList />,
         path: "/profile/course-list"
-    }, 
+    },
     {
-        item: "Upcoming Exam",
+        item: "আসন্ন পরীক্ষা",
         icon: <MdUpcoming />,
         path: "/profile/upcoming-exam"
     },
     {
-        item: "My Exams",
+        item: "আমার পরীক্ষা",
         icon: <VscOutput />,
         path: "/profile/my-exams"
     },
-
     {
-        item: "Payment History",
+        item: "পেমেন্ট ইতিহাস",
         icon: <MdOutlinePayments />,
         path: "/profile/payment-history"
     },
     {
-        item: "Your Opinions",
+        item: "মতামত দিন",
         icon: <MdSpeakerNotes />,
         path: "/profile/opinion"
     },
     {
-        item: "Profile Settings",
+        item: "সেটিংস",
         icon: <CiSettings />,
         path: "/profile/settings"
     },
-]
+];
 
-export default ProfileItems
+export default ProfileItems;
