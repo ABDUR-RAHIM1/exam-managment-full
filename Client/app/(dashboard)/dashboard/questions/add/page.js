@@ -4,7 +4,7 @@ import { publicCourseGet, questionAdd, questionUpdate } from "@/app/constans/con
 import { contextApi } from "@/app/contextApi/Context";
 import useClientDataHandler from "@/app/Handler/usersHandler/useClientDataHandler";
 import { formatDateForInput } from "@/app/helpers/ConvertDate";
-import {  FormatedTime } from "@/app/helpers/FormatedTime";
+import { FormatedTime } from "@/app/helpers/FormatedTime";
 import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { v4 as uuidv4 } from 'uuid';  // Import uuid to generate unique IDs
@@ -14,7 +14,7 @@ export default function AddQuestion() {
     const getClientDataHandler = useClientDataHandler();
     const [title, setTitle] = useState(""); // filter title from backend
     const [courseData, setCourseData] = useState([]);
-    const [loading, setLoading] = useState(false) 
+    const [loading, setLoading] = useState(false)
 
     const isEditablePaper = manageData && Object.keys(manageData).length > 0
 
@@ -27,7 +27,8 @@ export default function AddQuestion() {
             courseId: "",
             examDate: "",
             examTime: "",
-            examDuration: ""
+            examDuration: "",
+            passMark: ""
         })
         setTitle("")
         setQuestions([])
@@ -71,6 +72,8 @@ export default function AddQuestion() {
         examTime: "",
         examDuration: ""
     })
+    
+    console.log(quesHeader)
 
     const handleQuesHeader = (e) => {
         const { name, value } = e.target;
@@ -89,7 +92,7 @@ export default function AddQuestion() {
         options: ['', '', '', ''],
         selectedAns: '',
         correctAns: '',
-        clarification: ""
+        clarification: "",
     });
 
     const [editingIndex, setEditingIndex] = useState(null);  // Track which question is being edited
@@ -97,9 +100,8 @@ export default function AddQuestion() {
     const handleInputChange = (e) => {
         const { name, value } = e.target;
 
-        // ফরম্যাটেড ইনপুট তৈরি করা
+        // Formated Value for math symbols
         const formattedValue = value
-            // সাবস্ক্রিপ্টের জন্য `_` রূপান্তর
             .replace(/_(\d+)/g, (_, match) =>
                 match
                     .split("")
@@ -205,7 +207,7 @@ export default function AddQuestion() {
             options: ['', '', '', ''],
             selectedAns: '',
             correctAns: '',
-            clarification: ''
+            clarification: '',
         });
     };
 
@@ -228,6 +230,7 @@ export default function AddQuestion() {
                 examDate: formatDateForInput(manageData.examDate), // import from helpers
                 examTime: manageData.examTime,
                 examDuration: manageData.examDuration,
+                passMark: manageData.passMark,
             })
             setQuestions(manageData.questions)
         }
@@ -250,6 +253,7 @@ export default function AddQuestion() {
             examDate: quesHeader.examDate,
             examTime: quesHeader.examTime,
             examDuration: quesHeader.examDuration,
+            passMark: quesHeader.passMark,
             questions: questions
         };
 
@@ -280,6 +284,7 @@ export default function AddQuestion() {
             examDate: quesHeader.examDate,
             examTime: quesHeader.examTime,
             examDuration: quesHeader.examDuration,
+            passMark: quesHeader.passMark,
             questions: questions
         };
 
@@ -305,6 +310,7 @@ export default function AddQuestion() {
         }
     };
 
+   
 
     return (
         <div className=" bg-gray-100  px-0 md:px-8 py-5 rounded-md">
@@ -321,6 +327,7 @@ export default function AddQuestion() {
                             <h2 className=" text-xl md:text-[2xl] text-center italic">Add New Question Paper</h2>
                     }
                 </div>
+                {/* <=============  Queation Headers =================> */}
                 <div className="p-4 my-10">
                     <div className="my-3">
                         <h4 className="my-2 font-bold">Question Category</h4>
@@ -374,6 +381,18 @@ export default function AddQuestion() {
                             value={quesHeader.examDuration}
                             required
                             placeholder="Ex : 20 (in Minute)"
+                            className="input"
+                        />
+                    </div>
+                    <div className="my-3">
+                        <h4 className="my-2 font-bold">Pass Mark</h4>
+                        <input
+                            onChange={handleQuesHeader}
+                            type="number"
+                            name="passMark"
+                            value={quesHeader.passMark}
+                            required
+                            placeholder="Ex : 33"
                             className="input"
                         />
                     </div>

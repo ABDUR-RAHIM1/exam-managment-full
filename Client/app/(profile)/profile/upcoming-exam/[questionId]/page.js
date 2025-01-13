@@ -86,7 +86,6 @@ export default function ExamPage({ params }) {
     }, [remainingTime, timeStatus, durationCount]);
 
     //  only fetch Data from databsae
-
     useEffect(() => {
         const getData = async () => {
             const { status, result } = await getSingleQuestion(questionId);
@@ -141,12 +140,14 @@ export default function ExamPage({ params }) {
         const plusMark = 1 * rightAnswers;
         const minusMark = 0.25 * wrongAnswers;
         const totalMark = plusMark - minusMark;
+        const isPass = totalMark > formData.passMark
 
         const resultData = {
             questionId: formData._id,
             questionCategory: formData.questionCategory,
             questionTitle: formData.questionTitle,
             courseId: formData.courseId,
+            passMark: isPass,
             questions: result, // Sending all question data with answers and correctness
             rightAnswers: rightAnswers, // Total correct answers
             wrongAnswers: wrongAnswers, // Total wrong answers
@@ -166,7 +167,6 @@ export default function ExamPage({ params }) {
                 toast.error(result.message);
             }
 
-            alert("auto submit")
 
         } catch (error) {
             toast.error("Error saving result");

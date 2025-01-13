@@ -9,7 +9,7 @@ import { PiStudent } from 'react-icons/pi';
 
 // for Services page
 export default function CourseCard(props) {
-    const { _id, photo, category, title, desc, regularPrice, offerPrice, access } = props.courseData;
+    const { _id, photo, category, title, desc, regularPrice, offerPrice, access, schedule } = props.courseData;
 
 
     return (
@@ -18,7 +18,7 @@ export default function CourseCard(props) {
                 <Image
                     width={500}
                     height={450}
-                    src={photo || courseImg}
+                    src={schedule || courseImg}
                     alt="Course Image"
                     className="w-full h-56"
                 />

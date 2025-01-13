@@ -4,11 +4,7 @@ import userToken from "@/app/actions/users/getToken";
 
 export const getDataHandler = async (endpoint) => {
     const token = userToken();
-
-    if (!token) {
-        console.error("No token available");
-    }
-
+ 
     try {
         const API = `${API_URL + endpoint}`;
         const response = await fetch(API, {

@@ -36,7 +36,6 @@ export default function Actions({ id, opinion }) {
             }
 
         } catch (error) {
-            console.log(error)
             toast.error("Failed To Delete!")
         }
     }

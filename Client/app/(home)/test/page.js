@@ -43,9 +43,6 @@ export default function TestComponent() {
 };
 
 
-
-console.log(inputValue)
-
 return (
     <div className='p-20'>
 

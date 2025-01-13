@@ -31,7 +31,6 @@ export default function TestiTable({ tableData }) {
             }
 
         } catch (error) {
-            console.log(error)
             toast.error("Failed To Delete!")
         }
     };

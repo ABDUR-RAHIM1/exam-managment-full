@@ -61,6 +61,15 @@ export default async function ResultsDetails({ params }) {
                                     <h4 className="text-lg md:text-xl font-medium text-green-600 my-2">
                                         <span className="text-gray-600">Total Mark:</span> {result.totalMark}
                                     </h4>
+                                    {/* Result / passed/ failed */}
+                                    <div className="text-lg md:text-xl font-medium text-green-600 my-2">
+                                        {
+                                            result.isPass ?
+                                                <span className='py-2 px-3 bg-green-300 text-green-600 rounded-sm'>Passed</span>
+                                                :
+                                                <span className='py-2 px-3 bg-red-300 text-red-600 rounded-sm'>Failed</span>
+                                        }
+                                    </div>
                                 </div>
 
                                 <div className='flex-1 flex items-center flex-col gap-4'>

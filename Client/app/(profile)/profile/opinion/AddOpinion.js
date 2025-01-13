@@ -45,8 +45,7 @@ export default function AddOpinion() {
             } else {
                 toast.error(result.message);
             }
-        } catch (error) {
-            console.log(error)
+        } catch (error) { 
             toast.error("Failed!");
         } finally {
             setLoading(false);

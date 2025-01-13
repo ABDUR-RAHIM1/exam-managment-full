@@ -38,7 +38,6 @@ export default function QuestionTable({ data }) {
                 router.refresh()
             }
         } catch (error) {
-            console.log(error)
             toast.error("Delete Failed!")
         }
     };

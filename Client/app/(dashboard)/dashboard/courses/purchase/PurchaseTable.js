@@ -14,8 +14,7 @@ export default function PurchaseTable({ data }) {
 
     let courseCount = 0
     data.forEach(element => {
-        // console.log(element.course.length)
-        const course = element.course.length
+        const course = element.course?.length
         courseCount += course
     });
   

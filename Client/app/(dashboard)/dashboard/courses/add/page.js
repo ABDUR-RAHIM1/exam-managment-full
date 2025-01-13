@@ -27,14 +27,12 @@ export default function CourseAddPage() {
         offerPrice: '',
         note: ''
     });
-    console.log(formData)
 
     // handle change
     const handleChange = async (e) => {
         const { name, value, type, files } = e.target;
         if (type === "file") {
             await uploader(files[0])
-            console.log("file")
         }
         setFormData({ ...formData, [name]: value });
     };
@@ -64,15 +62,15 @@ export default function CourseAddPage() {
             // Convert books and note to arrays only if they are strings
             const booksArr = typeof formData.books === 'string' ? formData.books.split(",") : formData.books;
             const noteArr = typeof formData.note === 'string' ? formData.note.split(",") : formData.note;
-    
+
             const data = {
                 ...formData,
                 books: booksArr,
                 note: noteArr
             };
-    
+
             let status, result; // Declare status and result here
-    
+
             if (isUpdateData) {
                 // Construct the URL for updating the course
                 const editCourse = adminUpdateCourse + formData._id;
@@ -86,21 +84,21 @@ export default function CourseAddPage() {
                 status = response.status;  // Extract status
                 result = response.result;  // Extract result
             }
-    
+
             // Handle the response based on the status
             if (status === 201 || status === 200) {
                 toast.success(result.message);
             } else {
                 toast.error(result.message);
             }
-    
+
         } catch (error) {
             toast.error("Something went wrong!");
         } finally {
             setLaoding(false);
         }
     };
-    
+
 
     const getStatusClass = (status) => {
         if (status === 102) return "text-yellow-500";
@@ -109,7 +107,7 @@ export default function CourseAddPage() {
         return "text-red-500";
     };
     return (
-        <div className="min-h-screen flex items-center justify-center">
+        <div className="min-h-screen px-3 py-5 md:py-16 flex items-center justify-center">
             <div className="bg-gray-100 p-8 rounded shadow-md w-full max-w-2xl">
                 <h1 className="text-2xl font-bold mb-6 text-gray-700">
                     {
@@ -239,9 +237,9 @@ export default function CourseAddPage() {
                     {/* Note */}
                     <div className="mb-4">
                         <label htmlFor="note" className="label">Note</label>
-                        <input
+                        <textarea
+                            rows={5}
                             id="note"
-                            type="text"
                             name="note"
                             value={formData.note}
                             onChange={handleChange}
@@ -254,7 +252,7 @@ export default function CourseAddPage() {
                     {/* Submit Button */}
                     <button
                         type="submit"
-                        className="formBtn"
+                        className="formBtn font-bold"
                     >
                         {
                             loading ? "Posting ..." : isUpdateData ? "Update Course" : "Add Course"

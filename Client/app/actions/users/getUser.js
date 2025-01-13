@@ -8,9 +8,7 @@ import userToken from "@/app/actions/users/getToken";
 export const getUserHandler = async () => {
     const token = userToken();
     const apiEndpoint = "/user/me"
-    if (!token) {
-        console.error("No token available");
-    }
+  
 
     try {
         const API = `${API_URL + apiEndpoint}`;

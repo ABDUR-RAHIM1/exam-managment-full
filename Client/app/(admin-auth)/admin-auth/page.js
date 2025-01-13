@@ -63,7 +63,6 @@ export default function AdminAuth() {
                 toast.error(result.message);
             }
         } catch (error) {
-            console.error("Error during login:", error);
             toast.error("Something went wrong!");
         } finally {
             setLoading(false);

@@ -12,8 +12,7 @@ export default async function DashboardHome() {
         getDataHandler(getAlluser),
         getDataHandler(publicCourseGet)
     ])
-
-    // console.log(AllUser)
+ 
 
     return (
         <div className=' bg-gray-100 rounded-md p-3'>

@@ -3,10 +3,10 @@ import QuestionModel from "../../model/admin/adminQustionModel.js";
 
 const createQuestion = async (req, res) => {
     try {
-        const { questionCategory, questionTitle, courseId, examDate, examTime, examDuration, questions } = req.body;
+        const { questionCategory, questionTitle, courseId, examDate, examTime, examDuration, passMark, questions } = req.body;
 
         // Validation
-        if (!questionCategory || !questionTitle || !courseId || !examDate || !examTime || !questions || !examDuration || questions.length === 0) {
+        if (!questionCategory || !questionTitle || !courseId || !examDate || !examTime || !passMark || !questions || !examDuration || questions.length === 0) {
             return res.status(400).json({ message: "All fields are required!" });
         }
 
@@ -20,6 +20,7 @@ const createQuestion = async (req, res) => {
             examDate,
             examTime,
             examDuration,
+            passMark,
             questions,
         });
 
@@ -87,8 +88,6 @@ const getAllFreeQuestion = async (req, res) => {
         });
     }
 };
-
-
 
 
 const getQuestionById = async (req, res) => {

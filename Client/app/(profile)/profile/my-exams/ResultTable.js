@@ -60,6 +60,14 @@ export default function ResultTable({ data }) {
             </p>
         },
         {
+            name: "Result",
+            selector: row => <span className={`${row.isPass ? "text-green-500" : " bg-red-500"} p-2 text-white`}>
+                {
+                    row.isPass ? "Passed" : "Failed"
+                }
+            </span>
+        },
+        {
             name: "Status",
             selector: row => <span className={`${row.atATime ? "bg-green-500" : " bg-red-500"} p-1 text-white`}>
                 {
