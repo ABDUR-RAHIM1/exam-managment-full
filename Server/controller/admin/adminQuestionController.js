@@ -117,42 +117,57 @@ const getQuestionById = async (req, res) => {
 const updateQuestion = async (req, res) => {
     try {
         const { id } = req.params;
+        const updatedData = { ...req.body };
 
-        // Prepare the updated data
-        const updatedData = {
-            ...req.body,
-            attemptedUsers: [], // Clear attemptedUsers if the update succeeds
-        };
+        // Clear attemptedUsers if update succeeds
+        updatedData.attemptedUsers = [];
 
-        // Convert courseId to ObjectId if present
-        if (updatedData.courseId) {
-            updatedData.courseId = new mongoose.Types.ObjectId(updatedData.courseId);
-        }
+        // Find the existing question
+        const existingQuestion = await QuestionModel.findById(id);
 
-        // Update the question data
-        const questionData = await QuestionModel.findByIdAndUpdate(id, updatedData, {
-            new: true, // Return the updated document
-            runValidators: true, // Apply schema validation
-        });
-
-        // If no document found, return 404
-        if (!questionData) {
+        if (!existingQuestion) {
             return res.status(404).json({
-                message: "Question Paper not found",
+                message: "Question not found",
             });
         }
 
-        // Respond with success message and updated data
-        return res.status(200).json({
-            message: "Question Paper updated successfully!",
-            data: questionData,
-        });
-    } catch (error) {
-        console.error("Error updating question:", error);
+        // Check if courseId is being updated
+        const oldCourseId = existingQuestion.courseId?.toString();
+        const newCourseId = updatedData.courseId?.toString();
 
-        // Respond with error message
+        // Update the question
+        const questionData = await QuestionModel.findByIdAndUpdate(id, updatedData, {
+            new: true, // Return updated document
+            runValidators: true, // Apply schema validation
+        });
+
+        if (!questionData) {
+            return res.status(404).json({
+                message: "Question not updated successfully",
+            });
+        }
+
+        // If courseId is updated, update the course models
+        if (oldCourseId && oldCourseId !== newCourseId) {
+            // Remove from old course
+            await CourseModel.updateOne(
+                { _id: oldCourseId },
+                { $pull: { questions: id } }
+            );
+
+            // Add to new course
+            await CourseModel.updateOne(
+                { _id: newCourseId },
+                { $addToSet: { questions: id } }
+            );
+        }
+
+        return res.status(200).json({
+            message: "Question updated successfully!"
+        });
+    } catch (error) { 
         return res.status(500).json({
-            message: "Failed to update Question Paper",
+            message: "Failed to update Question",
             error: error.message,
         });
     }

@@ -1,5 +1,5 @@
 import React from 'react'
-import Slider from '../components/Home/Slider'
+import Slider from '../components/Home/Sliders/Slider'
 import Notice from '../components/Home/Notice/Notice'
 import Services from '../components/Home/Services/Services'
 import WhyChose from '../components/Home/WhyChoose/WhyChose'

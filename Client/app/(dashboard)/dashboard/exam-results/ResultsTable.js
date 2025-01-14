@@ -1,14 +1,22 @@
 "use client"
+import { deleteHandler } from '@/app/actions/users/deleteHandler'
 import Loading from '@/app/components/Globals/Loading'
+import { adminRole, deleteResult } from '@/app/constans/constans'
+import Cookies from 'js-cookie'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component'
-import { MdDownload } from 'react-icons/md'
+import { MdDelete } from 'react-icons/md'
+import { toast } from 'react-toastify'
 
 export default function ResultsTable({ data }) {
+    const router = useRouter();
     const [status, setStatus] = useState("atATime")
     const [resultData, setResultData] = useState([])
     const [filteredData, setFilteredData] = useState([])
+
+    const role = Cookies.get(adminRole);
 
     useEffect(() => {
         setResultData(data)
@@ -25,6 +33,27 @@ export default function ResultsTable({ data }) {
             setFilteredData(resultData);
         }
     }, [status, resultData]);
+
+
+    //  delete Handler if need for admin (only for admin not modaretor)
+
+    const handleDeleteResult = async (resultId) => {
+        try {
+            // porobortite admin handler use korte hobe 
+            const { status, result } = await deleteHandler(deleteResult + resultId);
+
+            if (status === 200 || status === 201) {
+                toast.success(result.message);
+                router.refresh()
+            } else {
+                toast.error(result.message)
+            }
+
+        } catch (error) {
+            console.log(error)
+            toast.error("Failed To Delete!")
+        }
+    }
 
 
     const columns = [
@@ -78,12 +107,14 @@ export default function ResultsTable({ data }) {
                 Details
             </Link>
         },
+        role === "admin" &&
         {
-            name: "Download",
-            selector: row => <Link href={`/results/pdf/${row._id}`} className=' flex items-center gap-1 py-2 px-3 bg-blue-500 text-white rounded-md font-bold'>
-                PDF <MdDownload className=' text-xl' />
-            </Link>
+            name: "Delete",
+            selector: row => <button onClick={() => handleDeleteResult(row._id)}>
+                <MdDelete className=' text-3xl text-red-500 bg-red-200 p-1' />
+            </button>
         },
+
     ]
     return (
         <div className="p-4  rounded shadow-md">

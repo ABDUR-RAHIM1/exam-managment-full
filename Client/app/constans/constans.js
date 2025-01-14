@@ -1,11 +1,12 @@
 
-export const API_URL = "http://localhost:8500/api";
-// export const API_URL = "https://tickmarkq-server.onrender.com/api";
+// export const API_URL = "http://localhost:8500/api";
+export const API_URL = "https://tickmarkq-server.onrender.com/api";
 
 /// <============== tokens name  =============>
 // 1. userToken name ======>
 export const userTokenName = "_artickmaq#User@accees/token"
 export const adminTokenName = "_artickmaq#UAdmin@accees/token"
+export const adminRole = "_artickmaq#UAdmin@R-o_le"
 
 
 // public (no token)
@@ -44,10 +45,15 @@ const questionDelete = "/admin/question/delete/"
 const questionUpdate = "/admin/question/update/"
 const getAdminModaretorBlogs = "/user/blog/admin/me"
 
+const postSliders = "/admin/slider/create"
+const getPublicSliders = "/admin/slider/get-all"
+const deleteSliders = "/admin/slider/delete/"
+
 // result / questions
 const getResultAll = "/results/get/all"
 const getResultMe = "/results/get/me"
 const getResultById = "/results/get/"
+const deleteResult = "/results/delete/"    // for admin if needed
 
 
 export {
@@ -77,7 +83,9 @@ export {
     questionDelete,
     getAdminModaretorBlogs,
 
+    postSliders, getPublicSliders,deleteSliders,
+
     /// results / questions
-    getResultAll, getResultMe, getResultById
+    getResultAll, getResultMe, getResultById, deleteResult
 
 }

@@ -1,6 +1,6 @@
 "use client";
 import { postDataHandler } from "@/app/actions/users/postData";
-import { adminLogin } from "@/app/constans/constans";
+import { adminLogin, adminRole } from "@/app/constans/constans";
 import { isValidPassword } from "@/app/helpers/Checker";
 import Spinner from "@/app/helpers/Spinner";
 import Cookies from "js-cookie";
@@ -57,6 +57,7 @@ export default function AdminAuth() {
             if (status === 200) {
                 toast.success(result.message);
                 Cookies.set("adminToken", result.token); // Use Cookies.set
+                Cookies.set(adminRole, formData.role)
                 router.refresh()
                 router.push("/dashboard"); // Use router.push directly
             } else {

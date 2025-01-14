@@ -72,7 +72,7 @@ export default function AddQuestion() {
         examTime: "",
         examDuration: ""
     })
-    
+
     console.log(quesHeader)
 
     const handleQuesHeader = (e) => {
@@ -287,7 +287,7 @@ export default function AddQuestion() {
             passMark: quesHeader.passMark,
             questions: questions
         };
-
+        console.log(dataToSend)
         try {
 
             if (isEditablePaper) {
@@ -310,7 +310,7 @@ export default function AddQuestion() {
         }
     };
 
-   
+
 
     return (
         <div className=" bg-gray-100  px-0 md:px-8 py-5 rounded-md">

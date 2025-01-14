@@ -56,6 +56,13 @@ const items = [
         ],
     },
     {
+        parentItem: "Content",
+        childItem: [
+            { icon: <BsFillPeopleFill />, item: "Costomize", path: "/dashboard/content-customizer " },
+            { icon: <BsFillPeopleFill />, item: "Manage", path: "/dashboard/content-customizer/manage-content" },
+        ],
+    },
+    {
         parentItem: "Settings",
         childItem: [
             { icon: <CiSettings />, item: "Profile Settings", path: "/dashboard/settings/profile" },
