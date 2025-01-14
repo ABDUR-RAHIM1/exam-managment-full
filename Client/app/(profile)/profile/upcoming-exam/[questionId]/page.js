@@ -24,6 +24,7 @@ export default function ExamPage({ params }) {
 
 
     // check exam date match , past , future
+    const [examEnd, setExamEnd] = useState(false)
     const [dateStatus, setDateStatus] = useState("");
     const [timeStatus, setTimeStatus] = useState("")
     const [examAtATime, setExamAtATime] = useState(true);
@@ -80,7 +81,8 @@ export default function ExamPage({ params }) {
                 setExamTimeMatch("");
                 setExamAtATime(false)
             }, 500);
-        } else if (durationCount === 0 && (dateStatus !== "match" || timeStatus !== "match")) {
+        } else if (durationCount === 0 && (dateStatus !== "match" || timeStatus !== "match") && !examEnd) {
+            setExamEnd(true)
             handleQuestionSubmit();
         }
     }, [remainingTime, timeStatus, durationCount]);
@@ -161,7 +163,7 @@ export default function ExamPage({ params }) {
 
             if (status === 201 || status === 200) {
                 toast.success(result.message);
-                router.refresh();
+                setExamEnd(true)
                 router.push("/profile/my-exams")
             } else {
                 toast.error(result.message);
@@ -183,7 +185,7 @@ export default function ExamPage({ params }) {
 
 
     return (
-        <div>
+        <div className={`${examEnd ? "hidden" : ""}`}>
             < div className="min-h-screen flex items-center justify-center relative">
                 {/* Exam Timer */}
                 {

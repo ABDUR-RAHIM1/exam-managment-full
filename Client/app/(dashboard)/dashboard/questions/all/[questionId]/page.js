@@ -2,6 +2,7 @@ import React from 'react';
 import { getDataById } from '@/app/actions/globals/getDataById';
 import NoDataFound from '@/app/components/Globals/NoDataFound';
 import { questionDetailsById } from '@/app/constans/constans';
+import { FormatedTime } from '@/app/helpers/FormatedTime';
 
 export default async function QuestionsDetails({ params }) {
     const { questionId } = params;
@@ -40,13 +41,13 @@ export default async function QuestionsDetails({ params }) {
                         {new Date(examDate).toLocaleDateString('en-US')}
                     </p>
                     <p className="text-gray-600">
-                        <strong>Exam Time:</strong> {examTime}
+                        <strong>Exam Time:</strong> {FormatedTime(examTime)}
                     </p>
                     <p className="text-gray-600">
                         <strong>Exam Duration:</strong> {examDuration} Minute
                     </p>
                     <p className="text-gray-600">
-                        <strong>Created At:</strong>{' '}
+                        <strong>Created:</strong>{' '}
                         {new Date(createdAt).toLocaleString('en-US')}
                     </p>
                 </div>
