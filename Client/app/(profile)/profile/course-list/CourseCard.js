@@ -1,54 +1,83 @@
-
+"use client"
 import EnrolBtn from '@/app/components/Globals/EnrolBtn';
 import FreeExamBtn from '@/app/components/Globals/FreeExamBtn';
-import { courseImg } from '@/app/DemoData/DemoImg';
-import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
-import { PiStudent } from 'react-icons/pi';
+import React, { useState } from 'react';
 
-// for Profile  page
+//  in profile - course list page
 export default function CourseCard(props) {
-    const { _id, photo, category, title, desc, regularPrice, offerPrice, access } = props.courseData;
+    const { category, title, desc, books, duration, schedule, regularPrice, offerPrice, note, questions } = props.courseData;
+    const [showDetails, setShowDetails] = useState(false);
 
     return (
-        <div className="w-full md:w-[48%]  bg-white rounded-lg shadow-lg overflow-hidden">
-            <Link href={`/profile/course-list/${_id}`} title='Click For Details' className=' w-full inline-block'>
-                <Image
-                    width={500}
-                    height={450}
-                    src={photo || courseImg}
-                    alt="Course Image"
-                    className="w-full h-56"
-                />
-            </Link>
+        <div className="w-full md:w-[48%] bg-white rounded-lg shadow-lg overflow-hidden">
             <div className="p-4">
-
-                <div className=' flex items-center justify-between'>
-                    <div title='Course Categorie' className="bg-blue-500 text-white text-xs font-bold uppercase py-1 px-3 rounded-full inline-block mb-2">
+                <div className="flex items-center justify-between">
+                    <div title="Course Category" className="bg-blue-500 text-white text-xs font-bold uppercase py-1 px-3 rounded-full inline-block mb-2">
                         {category}
                     </div>
-                    <div className=' my-3 flex items-center texl-xl font-bold'>
-                        <span className='text-2xl'> <PiStudent /> </span>  <span>{access?.length}</span>
-                    </div>
-                    <h3 title='Course Name' className="text-xl font-bold mb-2 text-blue-500">{title}</h3>
+                    <h3 title="Course Name" className="text-xl font-bold mb-2 text-blue-500">{title}</h3>
                 </div>
 
                 <p className="text-gray-700 text-sm mb-4">
                     {desc}
                 </p>
                 <div className="flex mb-2 items-center justify-between">
-                    <div className="text-red-500 line-through" >BDT- {regularPrice}</div>
-                    <div className="text-blue-500 font-bold text-lg" >BDT-{offerPrice}</div>
+                    <div className="text-red-500 line-through">BDT- {regularPrice}</div>
+                    <div className="text-blue-500 font-bold text-lg">BDT-{offerPrice}</div>
                 </div>
-                {
-                    category === "free" ?
-                        <FreeExamBtn path={"/profile/upcoming-exam"} />
-                        :
-                        <EnrolBtn courseData={props.courseData} />
-                }
-            </div>
 
+                <button
+                    onClick={() => setShowDetails(!showDetails)}
+                    className="bg-gray-300 text-gray-700 text-sm font-bold uppercase py-1 px-3 rounded-full mb-3"
+                >
+                    {showDetails ? 'Hide Details' : 'View Details'}
+                </button>
+
+                {showDetails && (
+                    <div className="mt-2 space-y-2">
+                        <div>
+                            <span className="font-bold">Books:</span>
+                            <ul className="list-disc list-inside text-gray-700 mt-1">
+                                {books && books.length > 0
+                                    ? books.map((book, index) => <li key={index}>{book}</li>)
+                                    : "Not Available"}
+                            </ul>
+                        </div>
+                        <div>
+                            <span className="font-bold">Duration:</span> {duration || "Not Specified"}
+                        </div>
+                        <div className=' flex items-end justify-end'>
+                            <Link href={{
+                                pathname: `/profile/course-list/routine`,
+                                query: { routine: schedule }
+                            }}
+                                className=' py-2 px-3 font-bold bg-gray-300 rounded-md text-black italic border-2 border-gray-600'>
+                                Routine
+                            </Link>
+                        </div>
+                        <div>
+                            <span className="font-bold">Note:</span>
+                            <ul className="list-disc list-inside text-gray-700 mt-1">
+                                {note && note.length > 0
+                                    ? note.map((item, index) => <li key={index}>{item}</li>)
+                                    : "No Notes"}
+                            </ul>
+                        </div>
+                        <div>
+                            <span className="font-bold">Questions:</span> {questions?.length || "No Questions"}
+                        </div>
+                    </div>
+                )}
+
+                <div className=' my-4'>
+                    {category === "free" ? (
+                        <FreeExamBtn path="/profile/upcoming-exam"/>
+                    ) : (
+                        <EnrolBtn courseData={props.courseData} />
+                    )}
+                </div>
+            </div>
         </div>
     );
 }

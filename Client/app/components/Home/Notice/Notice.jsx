@@ -14,13 +14,13 @@ export default function Notice() {
         <div className='px-5 md:px-10  border-b border-gray-300'>
             <div className=' flex items-center justify-between flex-wrap'>
                 <div className=" w-full md:w-[70%] overflow-x-auto py-10  border-gray-400 pr-0 md:pr-4">
-                    <Heading text={"Notice Boards"} />
+                    <Heading text={"নোটিশ বোর্ড"} />
 
-                    <table className="min-w-[700px] md:min-w-full bg-white border border-gray-300">
+                    <table className="min-w-[450px] md:min-w-full bg-pink-50 border border-gray-300">
                         <thead>
                             <tr className="bg-gray-100 border-b">
                                 <th className="text-left py-2 px-4">Title</th>
-                                <th className="text-left py-2 px-4">Description</th>
+                                <th className="text-left py-2 px-4 hidden md:block">Description</th>
                                 <th className="text-left py-2 px-4">Date</th>
                                 <th className="text-left py-2 px-4">View</th>
                             </tr>
@@ -29,7 +29,7 @@ export default function Notice() {
                             {notices.map((notice) => (
                                 <tr key={notice.id} className="border-b hover:bg-gray-50">
                                     <td className="py-2 px-4">{notice.title}</td>
-                                    <td className="py-2 px-4">{notice.description}</td>
+                                    <td className="py-2 px-4 hidden md:block">{notice.description}</td>
                                     <td className="py-2 px-4">{notice.date}</td>
                                     <td className="py-2 px-4">
                                         <button className="bg-blue-500 px-3 py-2 text-white rounded-md hover:bg-blue-600 duration-200 text-[14px]  mr-4">View</button>
@@ -54,14 +54,6 @@ export default function Notice() {
                         </ul>
                     </div>
 
-
-                    <div className=' my-5'>
-                        <h2 className='text-lg font-bold mb-4'>Subscribe for Updates</h2>
-                        <form>
-                            <input type="email" placeholder="Your Email" className='border p-2 mb-2 w-full' required />
-                            <button type="submit" className='bg-blue-500 text-white py-2 px-4 rounded'>Subscribe</button>
-                        </form>
-                    </div>
 
                     {/* Google Ad Placeholder */}
                     <div className="google-ad w-full h-40 bg-gray-200 flex items-center justify-center rounded-lg">

@@ -1,6 +1,8 @@
 import CourseModel from "../../model/admin/adminCourseModel.js";
 import QuestionModel from "../../model/admin/adminQustionModel.js";
 
+import mongoose from "mongoose";
+
 const createQuestion = async (req, res) => {
     try {
         const { questionCategory, questionTitle, courseId, examDate, examTime, examDuration, passMark, questions } = req.body;
@@ -110,35 +112,52 @@ const getQuestionById = async (req, res) => {
     }
 };
 
-/// use after
+
+
 const updateQuestion = async (req, res) => {
     try {
         const { id } = req.params;
-        const updatedData = req.body;
 
+        // Prepare the updated data
+        const updatedData = {
+            ...req.body,
+            attemptedUsers: [], // Clear attemptedUsers if the update succeeds
+        };
+
+        // Convert courseId to ObjectId if present
+        if (updatedData.courseId) {
+            updatedData.courseId = new mongoose.Types.ObjectId(updatedData.courseId);
+        }
+
+        // Update the question data
         const questionData = await QuestionModel.findByIdAndUpdate(id, updatedData, {
             new: true, // Return the updated document
             runValidators: true, // Apply schema validation
         });
 
+        // If no document found, return 404
         if (!questionData) {
             return res.status(404).json({
                 message: "Question Paper not found",
             });
         }
 
+        // Respond with success message and updated data
         return res.status(200).json({
             message: "Question Paper updated successfully!",
             data: questionData,
         });
     } catch (error) {
-        console.log(error)
+        console.error("Error updating question:", error);
+
+        // Respond with error message
         return res.status(500).json({
-            message: "Failed to update question Paper",
+            message: "Failed to update Question Paper",
             error: error.message,
         });
     }
 };
+
 
 const deleteQuestion = async (req, res) => {
     try {
