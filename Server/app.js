@@ -11,6 +11,8 @@ import resultRouter from './route/admin/resultRoute.js';
 import purchaseRouter from './route/users/purchaseRoute.js';
 import opinionRouter from './route/users/opinionRoute.js';
 import sliderRouter from './route/admin/sliderRoute.js';
+import headlineRouter from './route/admin/headlineRoute.js';
+import noticeRouter from './route/admin/noticeRoute.js';
 
 dotenv.config();
 
@@ -38,8 +40,12 @@ app.use("/api/user/opinion", opinionRouter);
 app.use("/api/admin/auth", adminRouter);
 
 app.use("/api/admin/course", courseRouter)
-app.use("/api/admin/question", questionRouter)
-app.use("/api/admin/slider" , sliderRouter)
+app.use("/api/admin/question", questionRouter);
+
+//  conetents
+app.use("/api/content/slider" , sliderRouter)
+app.use("/api/content/headline" , headlineRouter)
+app.use("/api/content/notice" , noticeRouter)
 
 
 /// results / user and admin

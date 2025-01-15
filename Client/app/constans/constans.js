@@ -1,6 +1,6 @@
 
-// export const API_URL = "http://localhost:8500/api";
-export const API_URL = "https://tickmarkq-server.onrender.com/api";
+export const API_URL = "http://localhost:8500/api";
+// export const API_URL = "https://tickmarkq-server.onrender.com/api";
 
 /// <============== tokens name  =============>
 // 1. userToken name ======>
@@ -45,9 +45,24 @@ const questionDelete = "/admin/question/delete/"
 const questionUpdate = "/admin/question/update/"
 const getAdminModaretorBlogs = "/user/blog/admin/me"
 
-const postSliders = "/admin/slider/create"
-const getPublicSliders = "/admin/slider/get-all"
-const deleteSliders = "/admin/slider/delete/"
+// contents start 
+const postSliders = "/content/slider/create"
+const getPublicSliders = "/content/slider/get-all"
+const updateSliders = "/content/slider/update/"
+const deleteSliders = "/content/slider/delete/"
+
+const createHeadline = "/content/headline/create"
+const getHeadline = "/content/headline/get"
+const updateHeadline = "/content/headline/"
+const deleteHeadline = "/content/headline/"
+
+const createNotice = "/content/notice/create"
+const getNotice = "/content/notice/get"
+const updateNotice = "/content/notice/update/"
+const deleteNotice = "/content/notice/delete/"
+
+
+// contents End 
 
 // result / questions
 const getResultAll = "/results/get/all"
@@ -83,7 +98,9 @@ export {
     questionDelete,
     getAdminModaretorBlogs,
 
-    postSliders, getPublicSliders,deleteSliders,
+    postSliders, getPublicSliders, deleteSliders, updateSliders,
+    createHeadline, getHeadline, updateHeadline, deleteHeadline,
+    createNotice, getNotice, updateNotice, deleteNotice,
 
     /// results / questions
     getResultAll, getResultMe, getResultById, deleteResult

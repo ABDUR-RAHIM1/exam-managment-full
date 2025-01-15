@@ -11,7 +11,7 @@ export default function Slider() {
 
     const [status, setStatus] = useState(0)
     const [sliders, setSliders] = useState([]);
-console.log(sliders)
+
     useEffect(() => {
         const getData = async () => {
             const { status, result } = await getSliders();

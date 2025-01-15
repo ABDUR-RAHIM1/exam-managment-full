@@ -58,8 +58,9 @@ const items = [
     {
         parentItem: "Content",
         childItem: [
-            { icon: <BsFillPeopleFill />, item: "Costomize", path: "/dashboard/content-customizer " },
-            { icon: <BsFillPeopleFill />, item: "Manage", path: "/dashboard/content-customizer/manage-content" },
+            { icon: <BsFillPeopleFill />, item: "Sliders", path: "/dashboard/content/sliders" },
+            { icon: <BsFillPeopleFill />, item: "Headline", path: "/dashboard/content/headline" },
+            { icon: <BsFillPeopleFill />, item: "Notice", path: "/dashboard/content/notice-board" },
         ],
     },
     {

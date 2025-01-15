@@ -15,3 +15,7 @@
 => sliders add form dashboard
 
 =>. admin Login page auto naviagte to dashboard if admin Dashboard available\
+
+
+
+ 
