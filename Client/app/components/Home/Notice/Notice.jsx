@@ -5,6 +5,7 @@ import Link from 'next/link';
 import React from 'react'
 import NoDataFound from '../../Globals/NoDataFound';
 import { GoDownload } from "react-icons/go";
+import QuicLink from './QuicLink';
 
 export default async function Notice() {
     const { status, result } = await getDataHandler(getNotice);
@@ -53,24 +54,9 @@ export default async function Notice() {
                 </div>
 
                 {/*  right side */}
-                <div className='w-full md:w-[28%] py-10 my-5 md:my-0 p-4 border-0 md:border-l border-gray-400'>
-                    <div className='my-5'>
-                        <h2 className='text-lg font-bold mb-4'>Quick Links</h2>
-                        <ul className='list-disc list-inside mb-6'>
-                            <li><Link href="https://www.10minuteschool.com" target="_blank" rel="noopener noreferrer">10 Minute School</Link></li>
-                            <li><Link href="https://www.shikhbe.shobai" target="_blank" rel="noopener noreferrer">Shikhbe Shobai</Link></li>
-                            <li><Link href="https://www.bdjobstraining.com" target="_blank" rel="noopener noreferrer">Bdjobs Training</Link></li>
-                            <li><Link href="https://www.skill.jobs" target="_blank" rel="noopener noreferrer">Skill Jobs</Link></li>
-                            <li><Link href="https://www.sheiboi.com" target="_blank" rel="noopener noreferrer">Shei Boi</Link></li>
-                        </ul>
-                    </div>
-
-                    {/* Google Ad Placeholder */}
-                    <div className="google-ad w-full h-40 bg-gray-200 flex items-center justify-center rounded-lg">
-                        <span className="text-gray-600">Google Ad Placeholder</span>
-                    </div>
+                <div className='w-full md:w-[28%] max-h-[500px] overflow-y-auto sidebar-scrollbar py-10 my-5 md:my-0 p-4 border-0 md:border-l border-gray-400'>
+                    <QuicLink />
                 </div>
-
             </div>
 
         </div>

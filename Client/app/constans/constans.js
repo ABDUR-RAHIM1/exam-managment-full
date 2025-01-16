@@ -61,6 +61,16 @@ const getNotice = "/content/notice/get"
 const updateNotice = "/content/notice/update/"
 const deleteNotice = "/content/notice/delete/"
 
+const createCourseInfo = "/content/courseInfo/create"
+const getCourseInfo = "/content/courseInfo/get"
+const updateCourseInfo = "/content/courseInfo/update/"
+const deleteCourseInfo = "/content/courseInfo/delete/"
+
+const createLink = "/content/quickLinks/create"
+const getLinks = "/content/quickLinks/get"
+const updateLink = "/content/quickLinks/update/"
+const deleteLink = "/content/quickLinks/delete/"
+
 
 // contents End 
 
@@ -101,6 +111,8 @@ export {
     postSliders, getPublicSliders, deleteSliders, updateSliders,
     createHeadline, getHeadline, updateHeadline, deleteHeadline,
     createNotice, getNotice, updateNotice, deleteNotice,
+    createCourseInfo, getCourseInfo, updateCourseInfo, deleteCourseInfo,
+    createLink, getLinks, updateLink, deleteLink,
 
     /// results / questions
     getResultAll, getResultMe, getResultById, deleteResult

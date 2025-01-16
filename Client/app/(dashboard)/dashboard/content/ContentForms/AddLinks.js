@@ -1,18 +1,19 @@
 "use client"
 import { postDataHandler } from '@/app/actions/users/postData';
-import { createHeadline, updateHeadline, updateSliders } from '@/app/constans/constans';
+import { createHeadline, createLink, updateHeadline, updateLink } from '@/app/constans/constans';
 import { contextApi } from '@/app/contextApi/Context';
 import Spinner from '@/app/helpers/Spinner';
 import { useRouter } from 'next/navigation';
 import React, { useContext, useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
 
-export default function AddHeadline() {
+export default function AddLinks() {
     const router = useRouter();
     const { manageData } = useContext(contextApi)
     const [posting, setPosting] = useState(false);
     const [formData, setFormData] = useState({
-        headline: ""
+        title: "",
+        link: ""
     });
 
     const isEditable = manageData && Object.keys(manageData).length > 0
@@ -20,27 +21,26 @@ export default function AddHeadline() {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-
         setFormData({ ...formData, [name]: value })
     };
 
 
 
-    //  setEditble Headline Info using Cookies
+    //  setEditble Link Info  
     useEffect(() => {
         if (isEditable) {
             setFormData(manageData)
         }
-       
+
     }, [manageData])
 
 
-    //  <=========== Submit Headline POST ============>
+    //  <=========== Submit Link POST ============>
     const handleSubmitHeadline = async (e) => {
         e.preventDefault();
         setPosting(true)
         try {
-            const { status, result } = await postDataHandler(formData, "POST", createHeadline);
+            const { status, result } = await postDataHandler(formData, "POST", createLink);
 
             if (status === 200 || status === 201) {
                 toast.success(result.message);
@@ -50,19 +50,19 @@ export default function AddHeadline() {
             }
         } catch (error) {
             console.log(error)
-            toast.error("Failed To Post Headline")
+            toast.error("Failed To Post Link")
         } finally {
             setPosting(false)
         }
     }
 
 
-    //  <=========== Submit Headline UPDATE ============>
+    //  <=========== Submit Link UPDATE ============>
     const handleUpdateHeadline = async (e) => {
         e.preventDefault();
         setPosting(true)
         try {
-            const { status, result } = await postDataHandler(formData, "PUT", updateHeadline + formData._id);
+            const { status, result } = await postDataHandler(formData, "PUT", updateLink + formData._id);
 
             if (status === 200 || status === 201) {
                 toast.success(result.message);
@@ -70,9 +70,8 @@ export default function AddHeadline() {
             } else {
                 toast.error(result.message)
             }
-        } catch (error) {
-            console.log(error)
-            toast.error("Failed To Update Headline")
+        } catch (error) { 
+            toast.error("Failed To Update Link")
         } finally {
             setPosting(false)
         }
@@ -85,11 +84,15 @@ export default function AddHeadline() {
                 isEditable ? handleUpdateHeadline : handleSubmitHeadline
             } className=' bg-white py-5 px-2 w-full md:w-[50%] m-auto'>
 
-                <h2> {isEditable ? "Edit" : "Post"} Headline</h2>
+                <h2> {isEditable ? "Edit" : "Post"} Link</h2>
 
                 <div className='my-3'>
-                    <label htmlFor="headline">Headline</label>
-                    <input onChange={handleChange} type="text" value={formData.headline} name='headline' className='input' required />
+                    <label htmlFor="title">Title</label>
+                    <input onChange={handleChange} type="text" value={formData.title} name='title' className='input' required />
+                </div>
+                <div className='my-3'>
+                    <label htmlFor="link">Link</label>
+                    <input onChange={handleChange} type="text" value={formData.link} name='link' className='input' required />
                 </div>
 
 

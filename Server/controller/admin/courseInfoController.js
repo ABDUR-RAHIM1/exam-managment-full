@@ -1,4 +1,4 @@
-import CourseInfoModel from "../../model/admin/courseInfoModel";
+import CourseInfoModel from "../../model/admin/courseInfoModel.js";
 
 // Create a new photo description
 export const createCourseInfo = async (req, res) => {
@@ -13,9 +13,9 @@ export const createCourseInfo = async (req, res) => {
         const newInfo = new CourseInfoModel({ title, description, btnText, photo });
         await newInfo.save();
 
-        res.status(201).json({ message: "Photo Description created successfully" });
+        res.status(201).json({ message: " created successfully" });
     } catch (error) {
-        res.status(500).json({ message: "Error creating Photo Description", error });
+        res.status(500).json({ message: "Error", error });
     }
 };
 
@@ -25,52 +25,46 @@ export const getCourseInfo = async (req, res) => {
         const photoDescriptions = await CourseInfoModel.find();
         res.status(200).json(photoDescriptions);
     } catch (error) {
-        res.status(500).json({ message: "Error fetching photo descriptions", error });
+        res.status(500).json({ message: "Error fetching", error });
     }
 };
 
 // Update a photo description by ID
-export const updatePhotoDescription = async (req, res) => {
+export const updateCourseInfo = async (req, res) => {
     try {
         const { id } = req.params;
-        const { title, description, btnText } = req.body;
-        const photo = req.file ? req.file.path : null;
 
-        const updatedData = {};
-        if (title) updatedData.title = title;
-        if (description) updatedData.description = description;
-        if (btnText) updatedData.btnText = btnText;
-        if (photo) updatedData.photo = photo;
+        const updatedData = req.body;
 
-        const updatedPhotoDescription = await CourseInfoModel.findByIdAndUpdate(
+        const updated = await CourseInfoModel.findByIdAndUpdate(
             id,
             updatedData,
-            { new: true } // To return the updated document
+            { new: true }
         );
 
-        if (!updatedPhotoDescription) {
-            return res.status(404).json({ message: "Photo Description not found" });
+        if (!updated) {
+            return res.status(404).json({ message: "not found" });
         }
 
-        res.status(200).json({ message: "Photo Description updated successfully", updatedPhotoDescription });
+        res.status(200).json({ message: "updated successfully" });
     } catch (error) {
-        res.status(500).json({ message: "Error updating Photo Description", error });
+        res.status(500).json({ message: "Error updating", error });
     }
 };
 
 // Delete a photo description by ID
-export const deletePhotoDescription = async (req, res) => {
+export const deleteCourseInfo = async (req, res) => {
     try {
         const { id } = req.params;
 
-        const deletedPhotoDescription = await PhotoDescriptionModel.findByIdAndDelete(id);
+        const isDeleted = await CourseInfoModel.findByIdAndDelete(id);
 
-        if (!deletedPhotoDescription) {
-            return res.status(404).json({ message: "Photo Description not found" });
+        if (!isDeleted) {
+            return res.status(404).json({ message: "not found" });
         }
 
-        res.status(200).json({ message: "Photo Description deleted successfully", deletedPhotoDescription });
+        res.status(200).json({ message: " deleted successfully" });
     } catch (error) {
-        res.status(500).json({ message: "Error deleting Photo Description", error });
+        res.status(500).json({ message: "Error deleting", error });
     }
 };

@@ -13,6 +13,8 @@ import opinionRouter from './route/users/opinionRoute.js';
 import sliderRouter from './route/admin/sliderRoute.js';
 import headlineRouter from './route/admin/headlineRoute.js';
 import noticeRouter from './route/admin/noticeRoute.js';
+import courseInfoRouter from './route/admin/courseInfoRoute.js';
+import quickLinksouter from './route/admin/quickLinkRoute.js';
 
 dotenv.config();
 
@@ -42,10 +44,12 @@ app.use("/api/admin/auth", adminRouter);
 app.use("/api/admin/course", courseRouter)
 app.use("/api/admin/question", questionRouter);
 
-//  conetents
+//  contents
 app.use("/api/content/slider" , sliderRouter)
 app.use("/api/content/headline" , headlineRouter)
 app.use("/api/content/notice" , noticeRouter)
+app.use("/api/content/courseInfo" , courseInfoRouter)
+app.use("/api/content/quickLinks" , quickLinksouter)
 
 
 /// results / user and admin
