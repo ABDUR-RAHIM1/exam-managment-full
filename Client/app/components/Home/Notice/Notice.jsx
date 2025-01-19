@@ -28,17 +28,15 @@ export default async function Notice() {
 
                     <table className="min-w-[450px] md:min-w-full bg-pink-50 border border-gray-300">
                         <thead>
-                            <tr className="bg-gray-100 border-b">
-                                <th className="text-left py-2 px-4">Index</th>
+                            <tr className="bg-gray-100 border-b"> 
                                 <th className="text-left py-2 px-4">Title</th>
                                 <th className="text-left py-2 px-4">Published</th>
                                 <th className="text-left py-2 px-4">View</th>
                             </tr>
                         </thead>
                         <tbody >
-                            {result.map((notice, index) => (
+                            {result.map((notice) => (
                                 <tr key={notice._id} className="border-b hover:bg-gray-50">
-                                    <td className="py-2 px-4">{index + 1}</td>
                                     <td className="py-2 px-4">{notice.title}</td>
                                     <td className="py-2 px-4">{formatDate(notice.createdAt)}</td>
                                     <td className="py-2 px-4">

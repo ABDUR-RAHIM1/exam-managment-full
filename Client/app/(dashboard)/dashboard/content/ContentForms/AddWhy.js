@@ -1,6 +1,6 @@
 "use client"
 import { postDataHandler } from '@/app/actions/users/postData';
-import { createNotice, updateNotice } from '@/app/constans/constans';
+import { createWhy, updateWhy, } from '@/app/constans/constans';
 import { contextApi } from '@/app/contextApi/Context';
 import useFileUploader from '@/app/helpers/fileUploader';
 import Form_title_button from '@/app/helpers/Form_title_button';
@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 import React, { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
-export default function AddNotice() {
+export default function AddWhy() {
     const { manageData } = useContext(contextApi)
     const router = useRouter();
     const [posting, setPosting] = useState(false)
@@ -18,9 +18,11 @@ export default function AddNotice() {
 
     const isEditable = manageData && Object.keys(manageData).length > 0
 
+
     const [formData, setFormData] = useState({
         title: '',
-        notice: null,
+        description: "",
+        photo: null,
     });
 
     const handleChange = (e) => {
@@ -40,7 +42,7 @@ export default function AddNotice() {
         if (imgUrl) {
             setFormData({
                 ...formData,
-                notice: imgUrl
+                photo: imgUrl
             })
         }
     }, [imgUrl])
@@ -57,7 +59,7 @@ export default function AddNotice() {
         setPosting(true)
         try {
 
-            const { status, result } = await postDataHandler(formData, "POST", createNotice);
+            const { status, result } = await postDataHandler(formData, "POST", createWhy);
 
             if (status === 200 || status === 201) {
                 toast.success(result.message);
@@ -80,7 +82,7 @@ export default function AddNotice() {
         setPosting(true)
         try {
 
-            const { status, result } = await postDataHandler(formData, "PUT", updateNotice + formData._id);
+            const { status, result } = await postDataHandler(formData, "PUT", updateWhy + formData._id);
 
             if (status === 200 || status === 201) {
                 toast.success(result.message);
@@ -110,8 +112,7 @@ export default function AddNotice() {
     return (
         <div className="w-full bg-gray-100 p-5">
             <div className="bg-white py-5 px-2 w-full md:w-[50%] m-auto ">
-                
-                <Form_title_button text={"Notice"} />
+                <Form_title_button text={"Why Choose"} />
 
                 <form onSubmit={isEditable ? handleUpdate : handleSubmit}>
                     {/* Title */}
@@ -123,24 +124,41 @@ export default function AddNotice() {
                             type="text"
                             id="title"
                             name="title"
-                            className="input w-full border border-gray-300 rounded-md p-2 mt-1"
-                            placeholder="Enter notice title"
+                            className="input"
+                            placeholder="Write title"
                             value={formData.title}
                             onChange={handleChange}
                             required
                         />
                     </div>
-                    {/* Notice Photo */}
+                    <div className="mb-4">
+                        <label htmlFor="description" className="block text-sm font-medium text-gray-700">
+                            Description
+                        </label>
+                        <textarea
+                            rows={5}
+                            type="text"
+                            id="description"
+                            name="description"
+                            className="input"
+                            placeholder="Write Description"
+                            value={formData.description}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+
+                    {/* Course Related  Photo */}
                     <div className="mb-4">
 
-                        <label htmlFor="notice" className={getStatusClass(status)}>
-                            {message || "Notice Photo"}
+                        <label htmlFor="photo" className={getStatusClass(status)}>
+                            {message || "Photo"}
                         </label>
                         <input
                             type="file"
-                            id="notice"
-                            name="notice"
-                            className="input w-full border border-gray-300 rounded-md p-2 mt-1"
+                            id="photo"
+                            name="photo"
+                            className="input"
                             onChange={handleChange}
                             accept="image/*"
                             required={!isEditable}
@@ -150,10 +168,10 @@ export default function AddNotice() {
                     <button
                         disabled={status === 102}
                         type="submit"
-                        className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600"
+                        className='w-full my-3 py-2 bg-blue-600 text-white'
                     >
                         {
-                            posting ? <Spinner /> : isEditable ? "Update" : " Add Notice"
+                            posting ? <Spinner /> : isEditable ? "Update" : " Add"
                         }
                     </button>
                 </form>

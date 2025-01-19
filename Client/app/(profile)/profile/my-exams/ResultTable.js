@@ -5,14 +5,14 @@ import DataTable from 'react-data-table-component'
 import { MdDownload } from 'react-icons/md'
 
 export default function ResultTable({ data }) {
-    const [status, setStatus] = useState("atATime");
+    const [status, setStatus] = useState("all");
     const [resultData, setResultData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
 
     useEffect(() => {
         setResultData(data)
-    }, [])
-
+    }, [data])
+ 
 
     useEffect(() => {
         if (status === "atATime") {
@@ -36,32 +36,38 @@ export default function ResultTable({ data }) {
             selector: row => row.questionTitle
         },
         {
+            name: "Skip",
+            selector: row => <p className=' text-black-600 bg-black text-white px-2 font-bold rounded-md'>
+                {row.skip || 0}
+            </p>
+        },
+        {
             name: "Right A",
-            selector: row => <p className=' text-green-600 bg-green-100 px-2 font-bold'>
+            selector: row => <p className=' text-green-600 bg-green-100 px-2 font-bold rounded-md'>
                 {row.rightAnswers}
             </p>
         },
         {
             name: "Wrong A",
-            selector: row => <p className=' text-red-600 bg-red-100 px-2 font-bold'>
+            selector: row => <p className=' text-red-600 bg-red-100 px-2 font-bold rounded-md'>
                 {row.wrongAnswers}
             </p>
         },
         {
             name: "Total Q",
-            selector: row => <p className=' text-blue-600 bg-blue-100 px-2  font-bold'>
-                {row.wrongAnswers + row.rightAnswers}
+            selector: row => <p className=' text-blue-600 bg-blue-100 px-2  font-bold rounded-md'>
+                {row.wrongAnswers + row.rightAnswers + row.skip}
             </p>
         },
         {
             name: "Total Mark",
-            selector: row => <p className='text-yellow-600 bg-yellow-200 px-2 font-bold'>
+            selector: row => <p className='text-yellow-600 bg-yellow-200 px-2 font-bold rounded-md'>
                 {row.totalMark ? row.totalMark : "N/A"}
             </p>
         },
         {
             name: "Result",
-            selector: row => <span className={`${row.isPass ? "text-green-500" : " bg-red-500"} p-2 text-white`}>
+            selector: row => <span className={`${row.isPass ? "text-green-500" : " bg-red-500"} p-2 text-white rounded-md`}>
                 {
                     row.isPass ? "Passed" : "Failed"
                 }
@@ -69,7 +75,7 @@ export default function ResultTable({ data }) {
         },
         {
             name: "Status",
-            selector: row => <span className={`${row.atATime ? "bg-green-500" : " bg-red-500"} p-1 text-white`}>
+            selector: row => <span className={`${row.atATime ? "bg-green-500" : " bg-red-500"} p-1 text-white rounded-md`}>
                 {
                     row.atATime ? "Yes" : "No"
                 }

@@ -3,6 +3,7 @@ import { postDataHandler } from '@/app/actions/users/postData';
 import { postSliders, updateSliders } from '@/app/constans/constans';
 import { contextApi } from '@/app/contextApi/Context';
 import useFileUploader from '@/app/helpers/fileUploader';
+import Form_title_button from '@/app/helpers/Form_title_button';
 import Spinner from '@/app/helpers/Spinner';
 import { useRouter } from 'next/navigation';
 import React, { useContext, useEffect, useState } from 'react'
@@ -105,7 +106,7 @@ export default function AddSlider() {
                 isEditable ? handleUpdateSlider : handleSubmitSlider
             } className=' bg-white py-5 px-2 w-full md:w-[50%] m-auto'>
 
-                <h2> {isEditable ? "Edit" : "Post"} Sliders</h2>
+                <Form_title_button text={"Sliders"} />
 
                 <div className='my-3'>
                     <label htmlFor="title">Title (optional)</label>

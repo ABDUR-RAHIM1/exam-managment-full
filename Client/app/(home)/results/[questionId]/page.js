@@ -62,12 +62,12 @@ export default async function ResultsDetails({ params }) {
                                         <span className="text-gray-600">Total Mark:</span> {result.totalMark}
                                     </h4>
                                     {/* Result / passed/ failed */}
-                                    <div className="text-lg md:text-xl font-medium text-green-600 my-2">
+                                    <div className="text-lg md:text-xl font-medium text-green-600 my-4">
                                         {
                                             result.isPass ?
                                                 <span className='py-2 px-3 bg-green-300 text-green-600 rounded-sm'>Passed</span>
                                                 :
-                                                <span className='py-2 px-3 bg-red-300 text-red-600 rounded-sm'>Failed</span>
+                                                <span className='py-2 px-3 bg-red-600 text-gray-300 rounded-md'>Failed</span>
                                         }
                                     </div>
                                 </div>
@@ -99,9 +99,10 @@ export default async function ResultsDetails({ params }) {
 
                         {/* Summary */}
                         <div className="flex justify-between bg-blue-50 p-4 rounded-md text-lg text-gray-700 font-medium mb-8">
-                            <p><span className="font-bold text-blue-600">Total Q:</span> {result.rightAnswers + result.wrongAnswers}</p>
-                            <p><span className="font-bold text-green-600">Right Q:</span> {result.rightAnswers}</p>
-                            <p><span className="font-bold text-red-600">Wrong Q:</span> {result.wrongAnswers}</p>
+                            <p><span className="font-bold text-blue-600">Submit:</span> {result.rightAnswers + result.wrongAnswers}</p>
+                            <p><span className="font-bold text-green-600">Right:</span> {result.rightAnswers}</p>
+                            <p><span className="font-bold text-red-600">Wrong:</span> {result.wrongAnswers}</p>
+                            <p><span className="font-bold text-black">Skip:</span> {result.skip || 0}</p>
                         </div>
 
                         {/* Questions and Answers */}

@@ -72,11 +72,12 @@ export default function Slider() {
                                         />
                                     </div>
 
-                                    <div className=' bg-black bg-opacity-90 px-5 py-3 absolute bottom-5 left-[45%] rounded-md'>
+                                    <div className="px-5 py-3 absolute bottom-5 left-[50%] transform -translate-x-1/2 rounded-md text-gray-800">
                                         <h3>
-                                            {fadeImage.title}
+                                            {fadeImage.title ? fadeImage.title : null}
                                         </h3>
                                     </div>
+
 
                                 </div>
                             ))

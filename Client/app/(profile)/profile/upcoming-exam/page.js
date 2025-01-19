@@ -16,7 +16,8 @@ async function UpcomingExamPage() {
 
     const { status, result } = myQuestion
     const { course, questions } = result
-    console.log(freeQuestion)
+
+
     if (status !== 200 || !result) {
         return <NoDataFound />;
     }
@@ -74,6 +75,7 @@ async function UpcomingExamPage() {
         </div>
     );
 }
+
 
 // <<<<<<<<<<<<<<<< Single Question Card - use in Front Of the page  >>>>>>>>>>>>>>>>>>>>>>>
 function QuestionCard({ question }) {

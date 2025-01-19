@@ -16,13 +16,13 @@ export default async function Marque() {
     const headline = result[result?.length -1].headline;  
 
     return (
-        <div className='w-full h-[65px] bg-blue-300 text-white flex items-center justify-between'>
-            <div className='w-auto px-5 text-3xl font-bold bg-blue-600 h-full flex items-center justify-center'>
+        <div className='w-full h-[35px] md:h-[65px] bg-blue-300 text-white flex items-center justify-between'>
+            <div className='w-auto px-2 text-[16px] md:text-3xl font-bold bg-blue-600 h-full flex items-center justify-center'>
                 ঘোষণা
             </div>
-            <div className='flex-1 px-3'>
+            <div className='flex-1 px-1 md:px-3'>
                 <marquee width="100%" direction="left" height="100%">
-                    <p className='font-bold text-2xl'>
+                    <p className='font-bold text-sm md:text-2xl'>
                         {headline || "কোনও ঘোষণা পাওয়া যায়নি"}
                     </p>
                 </marquee>

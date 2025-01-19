@@ -1,15 +1,12 @@
 "use client";
-import { demoProfilePhoto, logo } from "@/app/DemoData/DemoImg";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { RiMenuFold3Fill } from "react-icons/ri";
-import { FaBookOpen } from "react-icons/fa";
+import { FaChevronDown } from 'react-icons/fa';
 import getCourseData from "./getCourseData";
 import Logo from "../Logo";
 import AccountBtn from "../AccountBtn";
-import { MdClose } from "react-icons/md";
+import { MdClose, MdMenu } from "react-icons/md";
 
 export default function MobileNavbar() {
     const [categories, setCategories] = useState(null)
@@ -53,8 +50,8 @@ export default function MobileNavbar() {
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className="md:hidden z-50 text-4xl cursor-pointer">
                 {
-                    isMenuOpen ? <MdClose className="text-red-600"/> :
-                        <RiMenuFold3Fill className="text-blue-700" />
+                    isMenuOpen ? <MdClose className="text-red-600" /> :
+                        <MdMenu className="text-blue-700" />
                 }
             </div>
 
@@ -62,10 +59,11 @@ export default function MobileNavbar() {
             <nav className="HomeNav hidden md:flex items-center">
                 {/* Services Dropdown */}
                 <div className="relative group cursor-pointer">
-                    <span className="hover:bg-blue-500 hover:text-white px-4 py-2 rounded-md duration-200">
-                        Services
-                    </span>
-                    <ul className="absolute top-7 left-0 hidden group-hover:flex flex-col space-y-2 bg-white p-4 shadow-md w-[150px] rounded-md border-2 border-dashed">
+                    <p className="hover:bg-blue-500 hover:text-white px-4 py-2 rounded-md duration-200 flex items-center gap-2">
+                        <span>Services</span>
+                        <FaChevronDown className="text-sm" /> {/* Arrow icon */}
+                    </p>
+                    <ul className="absolute top-10 left-0 hidden group-hover:flex flex-col space-y-2 bg-white p-4 shadow-md w-[150px] rounded-md border-2 border-dashed">
                         {/* <div className="h-[5px]" /> */}
                         {categories && categories.length > 0 && categories.map((item, index) => (
                             <Link
@@ -102,12 +100,14 @@ export default function MobileNavbar() {
                 <div className="flex flex-col py-20">
                     {/* Services Dropdown */}
                     <div className="mb-4">
-                        <span
-                            className="text-lg text-blue-600 cursor-pointer"
+                        <p
+                            className="text-lg text-blue-600 cursor-pointer hover:bg-blue-500 hover:text-white px-4 py-2 rounded-md duration-200 flex items-center gap-2"
                             onClick={() => toggleDropdown("services")}
                         >
-                            Services
-                        </span>
+                            <span>Services</span>
+                            <FaChevronDown className="text-sm" /> {/* Arrow icon */}
+                        </p>
+                      
                         {openDropdown === "services" && (
                             <ul className=" w-full block mt-2 space-y-2 ml-3 bg-gray-300 p-2 rounded-md">
                                 {categories && categories.length > 0 && categories.map((item, index) => (
@@ -137,7 +137,7 @@ export default function MobileNavbar() {
                     ))}
 
                     {/* Profile Section */}
-                    <div className="mt-4"   onClick={() => setIsMenuOpen(false)}>
+                    <div className="mt-4" onClick={() => setIsMenuOpen(false)}>
                         <AccountBtn />
                     </div>
                 </div>

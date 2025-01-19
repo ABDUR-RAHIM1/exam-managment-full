@@ -1,6 +1,7 @@
 import { getDataHandler } from '@/app/actions/users/getData';
-import { getLinks } from '@/app/constans/constans'; 
+import { getLinks } from '@/app/constans/constans';
 import React from 'react'
+import NoDataFound from '../../Globals/NoDataFound';
 
 export default async function QuicLink() {
     const { status, result } = await getDataHandler(getLinks);
@@ -10,6 +11,8 @@ export default async function QuicLink() {
     }
     return (
         <div className=' my-4'>
+
+            <h3 className=' text-xl md:text-2xl font-semibold my-3'>Quick Links</h3>
 
             {
                 result && result.length <= 0

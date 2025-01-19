@@ -71,6 +71,12 @@ const getLinks = "/content/quickLinks/get"
 const updateLink = "/content/quickLinks/update/"
 const deleteLink = "/content/quickLinks/delete/"
 
+const createWhy = "/content/whychoose/create"
+const getWhy = "/content/whychoose/get-all"
+const getWhyById = "/content/whychoose/get"
+const updateWhy = "/content/whychoose/update/"
+const deleteWhy = "/content/whychoose/delete/"
+
 
 // contents End 
 
@@ -113,6 +119,7 @@ export {
     createNotice, getNotice, updateNotice, deleteNotice,
     createCourseInfo, getCourseInfo, updateCourseInfo, deleteCourseInfo,
     createLink, getLinks, updateLink, deleteLink,
+    createWhy, getWhy, getWhyById, updateWhy, deleteWhy,
 
     /// results / questions
     getResultAll, getResultMe, getResultById, deleteResult

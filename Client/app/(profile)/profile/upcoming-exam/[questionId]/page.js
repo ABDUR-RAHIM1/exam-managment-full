@@ -137,8 +137,17 @@ export default function ExamPage({ params }) {
         }));
 
         // Calculate right and wrong answers
-        const rightAnswers = result.filter((item) => item.isCorrect).length;
-        const wrongAnswers = result.length - rightAnswers;
+        //   <======= Demo Example ======== >
+        // total q = 20
+        // selected q = 12
+        // skip = total - selected
+        // wrong = selected - rightAns
+        // minus mark : 25 * wrong 
+        //   <======= Demo Example ======== >
+
+        const rightAnswers = result.filter((item) => item.isCorrect).length; // 10
+        const skip = result.length - selectQuesCount;
+        const wrongAnswers = selectQuesCount - rightAnswers;
         const plusMark = 1 * rightAnswers;
         const minusMark = 0.25 * wrongAnswers;
         const totalMark = plusMark - minusMark;
@@ -152,6 +161,7 @@ export default function ExamPage({ params }) {
             passMark: isPass,
             questions: result, // Sending all question data with answers and correctness
             rightAnswers: rightAnswers, // Total correct answers
+            skip: skip,
             wrongAnswers: wrongAnswers, // Total wrong answers
             totalMark: totalMark,
             atATime: examAtATime

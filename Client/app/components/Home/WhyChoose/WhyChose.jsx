@@ -1,10 +1,18 @@
-import { demoImg2 } from '@/app/DemoData/DemoImg'
-import whyChooseUsData from '@/app/DemoData/WhyChoseData'
+import { getDataHandler } from '@/app/actions/users/getData'
+import { getWhy } from '@/app/constans/constans'
+import { demoImg2 } from '@/app/DemoData/DemoImg' 
 import Heading from '@/app/helpers/Heading'
 import Image from 'next/image'
 import React from 'react'
+import NoDataFound from '../../Globals/NoDataFound'
 
-export default function WhyChose() {
+export default async function WhyChose() {
+
+    const { status, result } = await getDataHandler(getWhy);
+
+    if (status !== 200 || !result) {
+        return <NoDataFound />
+    }
 
     return (
         <div className=' wrap '>
@@ -17,26 +25,29 @@ export default function WhyChose() {
             </div>
             <div className=' flex justify-between flex-wrap'>
                 {
-                    whyChooseUsData.map((why, index) => (
-                        <div key={index} className=' w-full md:w-[31%] my-5 rounded-md border bg-gray-100'>
-                            <div className=' w-full h-[300px] overflow-hidden'>
-                                <Image
-                                    width={500}
-                                    height={500}
-                                    src={why?.image || demoImg2}
-                                    alt={why.title}
-                                    className='w-full h-full rounded-md duration-200 hover:scale-150'
-                                />
+                    result && result.length <= 0
+                        ? <p className=' py-4 text-red-500'>No Data Found</p>
+                        :
+                        result.map((why) => (
+                            <div key={why._id} className=' w-full md:w-[31%] my-5 rounded-md border bg-gray-100'>
+                                <div className=' w-full h-[300px] overflow-hidden'>
+                                    <Image
+                                        width={500}
+                                        height={500}
+                                        src={why?.photo || demoImg2}
+                                        alt={why.title}
+                                        className='w-full h-full rounded-md duration-200 hover:scale-150'
+                                    />
 
+                                </div>
+                                <div className='p-3'>
+                                    <h2 className='cardTitle'>{why.title}</h2>
+                                    <p className=' text-[13px]'>
+                                        {why.description}
+                                    </p>
+                                </div>
                             </div>
-                            <div className='p-3'>
-                                <h2 className='cardTitle'>{why.title}</h2>
-                                <p className=' text-[13px]'>
-                                    {why.description}
-                                </p>
-                            </div>
-                        </div>
-                    ))
+                        ))
                 }
             </div>
         </div>

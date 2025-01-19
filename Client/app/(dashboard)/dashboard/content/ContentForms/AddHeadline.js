@@ -2,6 +2,7 @@
 import { postDataHandler } from '@/app/actions/users/postData';
 import { createHeadline, updateHeadline, updateSliders } from '@/app/constans/constans';
 import { contextApi } from '@/app/contextApi/Context';
+import Form_title_button from '@/app/helpers/Form_title_button';
 import Spinner from '@/app/helpers/Spinner';
 import { useRouter } from 'next/navigation';
 import React, { useContext, useEffect, useState } from 'react'
@@ -31,7 +32,7 @@ export default function AddHeadline() {
         if (isEditable) {
             setFormData(manageData)
         }
-       
+
     }, [manageData])
 
 
@@ -85,7 +86,7 @@ export default function AddHeadline() {
                 isEditable ? handleUpdateHeadline : handleSubmitHeadline
             } className=' bg-white py-5 px-2 w-full md:w-[50%] m-auto'>
 
-                <h2> {isEditable ? "Edit" : "Post"} Headline</h2>
+                <Form_title_button text={"Headline"} />
 
                 <div className='my-3'>
                     <label htmlFor="headline">Headline</label>

@@ -3,6 +3,7 @@ import { postDataHandler } from '@/app/actions/users/postData';
 import { createCourseInfo, updateCourseInfo } from '@/app/constans/constans';
 import { contextApi } from '@/app/contextApi/Context';
 import useFileUploader from '@/app/helpers/fileUploader';
+import Form_title_button from '@/app/helpers/Form_title_button';
 import Spinner from '@/app/helpers/Spinner';
 import { useRouter } from 'next/navigation';
 import React, { useContext, useEffect, useState } from 'react';
@@ -111,7 +112,9 @@ export default function AddCourseInfo() {
     return (
         <div className="w-full bg-gray-100 p-5">
             <div className="bg-white py-5 px-2 w-full md:w-[50%] m-auto ">
-                <h1 className="text-2xl font-bold text-center mb-6"> {isEditable ? "Edit" : "Add"} Course Info</h1>
+
+                 <Form_title_button text={"Course Info"} />
+
                 <form onSubmit={isEditable ? handleUpdate : handleSubmit}>
                     {/* Title */}
                     <div className="mb-4">
