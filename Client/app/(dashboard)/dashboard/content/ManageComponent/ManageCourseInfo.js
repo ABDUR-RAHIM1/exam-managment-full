@@ -34,6 +34,10 @@ export default function ManageCourseInfo({ info }) {
             selector: row => row.title
         },
         {
+            name: "Categorie",
+            selector: row => row.categorie || "N/A"
+        },
+        {
             name: "Button",
             selector: row => <button className='py-2 px-3 bg-blue-300 rounded-sm'>
                 {row.btnText}

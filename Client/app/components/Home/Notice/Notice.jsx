@@ -21,14 +21,14 @@ export default async function Notice() {
     }
 
     return (
-        <div className='px-5 md:px-10 border-b border-gray-300'>
-            <div className='flex items-center justify-between flex-wrap'>
-                <div className="w-full md:w-[70%] max-h-[500px] overflow-y-auto overflow-x-auto sidebar-scrollbar py-10 border-gray-400 pr-0 md:pr-4">
-                    <Heading text={"নোটিশ বোর্ড"} />
+        <div className='px-2 md:px-10 mt-10 border-b border-gray-300'>
+            <Heading text={"নোটিশ বোর্ড"} />
+            <div className='flex justify-between flex-wrap'>
 
+                <div className="w-full md:w-[70%] max-h-[500px] overflow-y-auto overflow-x-auto sidebar-scrollbar py-10 border-gray-400 pr-0 md:pr-4">
                     <table className="min-w-[450px] md:min-w-full bg-pink-50 border border-gray-300">
                         <thead>
-                            <tr className="bg-gray-100 border-b"> 
+                            <tr className="bg-gray-100 border-b">
                                 <th className="text-left py-2 px-4">Title</th>
                                 <th className="text-left py-2 px-4">Published</th>
                                 <th className="text-left py-2 px-4">View</th>
@@ -51,8 +51,9 @@ export default async function Notice() {
                     </table>
                 </div>
 
+
                 {/*  right side */}
-                <div className='w-full md:w-[28%] max-h-[500px] overflow-y-auto sidebar-scrollbar py-10 my-5 md:my-0 p-4 border-0 md:border-l border-gray-400'>
+                <div className=' hidden md:block w-full md:w-[28%] max-h-[500px] overflow-y-auto sidebar-scrollbar my-5 md:my-0 p-4 border-0 md:border-l border-gray-400'>
                     <QuicLink />
                 </div>
             </div>

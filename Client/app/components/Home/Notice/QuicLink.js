@@ -10,9 +10,9 @@ export default async function QuicLink() {
         return <NoDataFound />
     }
     return (
-        <div className=' my-4'>
+        <div>
 
-            <h3 className=' text-xl md:text-2xl font-semibold my-3'>Quick Links</h3>
+            <h3 className=' text-xl md:text-2xl font-semibold my-3 text-blue-500'>Quick Links</h3>
 
             {
                 result && result.length <= 0

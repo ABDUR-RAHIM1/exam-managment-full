@@ -8,6 +8,7 @@ import React, { useState } from 'react';
 export default function CourseCard(props) {
     const { category, title, desc, books, duration, schedule, regularPrice, offerPrice, note, questions } = props.courseData;
     const [showDetails, setShowDetails] = useState(false);
+ 
 
     return (
         <div className="w-full md:w-[48%] bg-white rounded-lg shadow-lg overflow-hidden">
@@ -52,7 +53,7 @@ export default function CourseCard(props) {
                                 pathname: `/services/categorie/routine`,
                                 query: { routine: schedule }
                             }}
-                                className=' py-2 px-3 font-bold bg-gray-300 rounded-md text-black italic border-2 border-gray-600'>
+                                className=' py-2 px-3 font-bold bg-red-500 rounded-md text-gray-200 italic border-2 border-red-800'>
                                 Routine
                             </Link>
                         </div>
@@ -71,7 +72,7 @@ export default function CourseCard(props) {
                 )}
 
                 <div className=' my-4'>
-                    {category === "free" ? (
+                    {category?.toLowerCase() === "free" ? (
                         <FreeExamBtn />
                     ) : (
                         <EnrolBtn courseData={props.courseData} />

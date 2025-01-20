@@ -20,39 +20,78 @@ export default function AccountBtn() {
     }, [token])
 
     return (
-        <div className="relative inline-block">
-            {isToken ? (
-                <div
-                    onMouseEnter={() => setShowSubItems(true)}
-                    onMouseLeave={() => setShowSubItems(false)}
-                    className="text-blue-500 bg-blue-200 px-4 py-2 rounded-sm font-bold cursor-pointer flex items-center space-x-2"
-                >
-                    <span>My Account</span>
-                    <FaChevronDown className="text-sm" /> {/* Arrow icon */}
-                    {/* Sub-items */}
-                    {showSubItems && (
-                        <div className="absolute -left-[65%] top-full bg-white border border-gray-200 shadow-md rounded-md w-48 z-10">
+        <>
+
+            {/*  for Desktop */}
+            <div className="relative  hidden md:inline-block">
+                {isToken ? (
+                    <div
+                        onMouseEnter={() => setShowSubItems(true)}
+                        onMouseLeave={() => setShowSubItems(false)}
+                        className="text-blue-500 bg-blue-200 px-4 py-2 rounded-sm font-bold cursor-pointer flex items-center space-x-2"
+                    >
+                        <span>My Account</span>
+                        <FaChevronDown className="text-sm" /> {/* Arrow icon */}
+                        {/* Sub-items */}
+                        {showSubItems && (
+                            <div className="absolute -left-[65%] top-full bg-white border border-gray-200 shadow-md rounded-md w-48 z-10">
+                                {ProfileItems.map((item, index) => (
+                                    <Link
+                                        key={index}
+                                        href={item.path}
+                                        className="flex items-center px-4 py-2 text-gray-800 hover:bg-gray-100 space-x-2 text-sm"
+                                    >
+                                        <span className=' text-2xl'>{item.icon}</span> {/* Icon */}
+                                        <span>{item.item}</span> {/* Label */}
+                                    </Link>
+                                ))}
+                                <div className='px-3'>
+                                    <UserLogOutBtn setIsToken={setIsToken} />
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                ) : (
+                    <Link href="/auth" className="text-blue-500 bg-blue-200 px-4 py-2 rounded-sm font-bold">
+                        Login
+                    </Link>
+                )}
+            </div>
+
+            {/*  for Mobile */}
+            <div className="relative inline-block md:hidden">
+                {isToken ? (
+                    <div
+                        className="text-blue-500 bg-blue-200 px-4 py-2 rounded-sm font-bold cursor-pointer flex items-center space-x-2"
+                    >
+                        <span>My Account</span>
+                        <FaChevronDown className="text-sm" /> {/* Arrow icon */}
+                        {/* Sub-items */}
+
+                        <div className="absolute -left-[5px] top-full bg-white border border-gray-200 shadow-md rounded-md w-48 z-10">
                             {ProfileItems.map((item, index) => (
                                 <Link
                                     key={index}
                                     href={item.path}
-                                    className="flex items-center px-4 py-2 text-gray-800 hover:bg-gray-100 space-x-2 text-sm"
+                                    className="flex items-center px-4 py-2 text-gray-800 hover:bg-gray-100 space-x-2 text-[12px] md:text-sm"
                                 >
-                                    <span className=' text-2xl'>{item.icon}</span> {/* Icon */}
-                                    <span>{item.item}</span> {/* Label */}
+                                    <span className=' text-sm md:text-2xl'>{item.icon}</span> {/* Icon */}
+                                    <span>{item.item}</span> {/* Item name */}
                                 </Link>
                             ))}
                             <div className='px-3'>
                                 <UserLogOutBtn setIsToken={setIsToken} />
                             </div>
                         </div>
-                    )}
-                </div>
-            ) : (
-                <Link href="/auth" className="text-blue-500 bg-blue-200 px-4 py-2 rounded-sm font-bold">
-                    Login
-                </Link>
-            )}
-        </div>
+
+                    </div>
+                ) : (
+                    <Link href="/auth" className="text-blue-500 bg-blue-200 px-4 py-2 rounded-sm font-bold">
+                        Login
+                    </Link>
+                )}
+ 
+            </div>
+        </>
     );
 }

@@ -7,9 +7,10 @@ import Testimonial from '../components/Home/Testimonial/Testimonial'
 import Marque from '../components/Home/Marque'
 import { getDataHandler } from '../actions/users/getData'
 import { getAllOpinion } from '../constans/constans'
+import QuicLink from '../components/Home/Notice/QuicLink'
 
 export default async function HomePage() {
- 
+
   const [testimonials] = await Promise.all([
     getDataHandler(getAllOpinion)
   ])
@@ -22,6 +23,9 @@ export default async function HomePage() {
       <Notice />
       <Services />
       <WhyChose />
+      <div className=' block md:hidden w-full md:w-[28%] max-h-[500px] overflow-y-auto sidebar-scrollbar p-4 border-0 md:border-l border-gray-400'>
+        <QuicLink />
+      </div>
       <Testimonial testimonialsData={testimonials} />
 
 

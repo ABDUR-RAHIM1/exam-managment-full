@@ -64,7 +64,6 @@ export default function MobileNavbar() {
                         <FaChevronDown className="text-sm" /> {/* Arrow icon */}
                     </p>
                     <ul className="absolute top-10 left-0 hidden group-hover:flex flex-col space-y-2 bg-white p-4 shadow-md w-[150px] rounded-md border-2 border-dashed">
-                        {/* <div className="h-[5px]" /> */}
                         {categories && categories.length > 0 && categories.map((item, index) => (
                             <Link
                                 key={index}
@@ -95,9 +94,9 @@ export default function MobileNavbar() {
             </nav>
 
             {/* Mobile Menu */}
-            <div className={`flex md:hidden w-[70%] h-screen absolute top-[100%] right-0 z-50 bg-gray-100 bg-opacity-95 items-center flex-col justify-start transition-all duration-300 ${isMenuOpen ? "block" : "hidden"}`}>
+            <div className={`flex md:hidden w-[75%] h-screen overflow-y-auto sidebar-scrollbar absolute top-[100%] right-0 z-50 bg-gray-100  items-center flex-col justify-start transition-all duration-300 ${isMenuOpen ? "block" : "hidden"}`}>
                 {/* Mobile Menu Items */}
-                <div className="flex flex-col py-20">
+                <div className="flex flex-col py-5 w-[80%]">
                     {/* Services Dropdown */}
                     <div className="mb-4">
                         <p
@@ -109,7 +108,7 @@ export default function MobileNavbar() {
                         </p>
                       
                         {openDropdown === "services" && (
-                            <ul className=" w-full block mt-2 space-y-2 ml-3 bg-gray-300 p-2 rounded-md">
+                            <ul className=" w-full block mt-2 space-y-2 ml-3 bg-gray-200 p-2 rounded-md">
                                 {categories && categories.length > 0 && categories.map((item, index) => (
                                     <Link
                                         key={index}
@@ -140,7 +139,7 @@ export default function MobileNavbar() {
                     <div className="mt-4" onClick={() => setIsMenuOpen(false)}>
                         <AccountBtn />
                     </div>
-                </div>
+                </div>  
             </div>
         </div>
     );

@@ -22,6 +22,7 @@ export default function AddCourseInfo() {
         title: '',
         description: "",
         photo: null,
+        categorie: "",
         btnText: "যোগ দিন"
     });
 
@@ -113,7 +114,7 @@ export default function AddCourseInfo() {
         <div className="w-full bg-gray-100 p-5">
             <div className="bg-white py-5 px-2 w-full md:w-[50%] m-auto ">
 
-                 <Form_title_button text={"Course Info"} />
+                <Form_title_button text={"Course Info"} />
 
                 <form onSubmit={isEditable ? handleUpdate : handleSubmit}>
                     {/* Title */}
@@ -144,6 +145,21 @@ export default function AddCourseInfo() {
                             className="input w-full border border-gray-300 rounded-md p-2 mt-1"
                             placeholder="Course Description"
                             value={formData.description}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div className="mb-4">
+                        <label htmlFor="categorie" className="block text-sm font-medium text-gray-700">
+                            Course Categorie
+                        </label>
+                        <input
+                            type="text"
+                            id="categorie"
+                            name="categorie"
+                            className="input w-full border border-gray-300 rounded-md p-2 mt-1"
+                            placeholder="Ex : bcs"
+                            value={formData.categorie}
                             onChange={handleChange}
                             required
                         />

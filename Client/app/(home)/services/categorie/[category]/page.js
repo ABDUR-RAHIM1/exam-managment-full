@@ -7,7 +7,7 @@ import Cart from '@/app/components/Globals/Cart';
 // For dynamic services category items 
 export default async function ServicesCategory({ params }) {
     const { category } = params;
-
+ 
     // Fetch data based on the category
     const { status, result } = await getDataByQuery(category);
 
@@ -28,7 +28,7 @@ export default async function ServicesCategory({ params }) {
             <div className="flex flex-wrap gap-6 px-4 items-start justify-center">
                 {result && result.length > 0 ? (
                     result.map(course => (
-                        <CourseCard key={course._id} courseData={course}  />
+                        <CourseCard key={course._id} courseData={course} />
                     ))
                 ) : (
                     <NoDataFound text="No courses available in this category." />

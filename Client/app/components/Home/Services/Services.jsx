@@ -37,8 +37,8 @@ export default async function Services() {
                                 </div>
                                 <h2 className='cardTitle'>{service.title}</h2>
                                 <p className=' text-[14px]'>{service.description}</p>
-
-                                <Link href={"/profile"} className=' text-[15px] inline-block bg-blue-600  py-2 px-3 text-white font-medium my-5 rounded-md shadow-xl hover:shadow-none hover:mx-1 transition-all'>
+                                
+                                <Link href={`/services/categorie/${service.categorie?.toLowerCase()|| "bcs"}`} className=' text-[15px] inline-block bg-blue-600  py-2 px-3 text-white font-medium my-5 rounded-md shadow-xl hover:shadow-none hover:mx-1 transition-all'>
                                     {service.btnText || "যোগ দিন"}
                                 </Link>
                             </div>
