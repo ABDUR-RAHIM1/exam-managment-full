@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useToken } from '@/app/hooks/useToken';
 import React, { useEffect, useState } from 'react';
 import { FaChevronDown } from 'react-icons/fa';
-import ProfileItems from '../ProileItems';
+import ProfileItems from '../ProfileItems';
 import UserLogOutBtn from '@/app/(profile)/ProfileComponents/UserLogOutBtn';
 
 export default function AccountBtn() {

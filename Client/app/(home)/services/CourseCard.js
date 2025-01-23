@@ -13,11 +13,11 @@ export default function CourseCard(props) {
     return (
         <div className="w-full md:w-[48%] bg-white rounded-lg shadow-lg overflow-hidden">
             <div className="p-4">
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between flex-wrap my-2">
                     <div title="Course Category" className="bg-blue-500 text-white text-xs font-bold uppercase py-1 px-3 rounded-full inline-block mb-2">
                         {category}
                     </div>
-                    <h3 title="Course Name" className="text-xl font-bold mb-2 text-blue-500">{title}</h3>
+                    <h3 title="Course Name" className="text-sm font-bold mb-2 text-blue-500">{title}</h3>
                 </div>
 
                 <p className="text-gray-700 text-sm mb-4">

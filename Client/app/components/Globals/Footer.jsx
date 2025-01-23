@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
-import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaYoutube } from 'react-icons/fa'; // For social media icons
+import { FaFacebookF, FaInstagram, FaYoutube } from 'react-icons/fa';  
 
 export default function Footer() {
     return (
@@ -20,10 +20,9 @@ export default function Footer() {
                 <div className="space-y-4">
                     <h3 className="text-2xl font-bold text-gray-900">গুরুত্বপূর্ণ লিঙ্ক</h3>
                     <ul className="text-sm space-y-2">
-                        <li><a href="#" className="hover:text-blue-600 transition-all">Home</a></li>
-                        <li><a href="#" className="hover:text-blue-600 transition-all">Courses</a></li>
-                        <li><a href="#" className="hover:text-blue-600 transition-all">Exam Dates</a></li>
-                        <li><a href="#" className="hover:text-blue-600 transition-all">Contact Us</a></li>
+                        <li><Link href="/" className="hover:text-blue-600 transition-all">Home</Link></li>
+                        <li><Link href="/free-exam" className="hover:text-blue-600 transition-all">free exam</Link></li>
+                        <li><Link href="/contact" className="hover:text-blue-600 transition-all">Contact Us</Link></li>
                         <li><Link href="/about" className="hover:text-blue-600 transition-all">About Us</Link></li>
                     </ul>
                 </div>
@@ -36,7 +35,7 @@ export default function Footer() {
                     <div className="flex space-x-6 mt-6">
                         <a href="https://www.facebook.com/tickmarkq" target="_blank" className="hover:text-blue-600 transition-all text-xl"><FaFacebookF /></a>
                         <a href="https://www.youtube.com/@tickmarkq" target="_blank" className="hover:text-blue-600 transition-all text-xl"><FaYoutube /></a>
-                      
+
                         <a href="https://www.instagram.com/tickmarkq" target="_blank" className="hover:text-blue-600 transition-all text-xl"><FaInstagram /></a>
                     </div>
                 </div>

@@ -8,6 +8,7 @@ import Marque from '../components/Home/Marque'
 import { getDataHandler } from '../actions/users/getData'
 import { getAllOpinion } from '../constans/constans'
 import QuicLink from '../components/Home/Notice/QuicLink'
+import ChatBox from '../components/Globals/ChatBox'
 
 export default async function HomePage() {
 
@@ -17,7 +18,7 @@ export default async function HomePage() {
 
 
   return (
-    <div className='bgGradient' >
+    <div className='bgGradient relative' >
       <Slider />
       <Marque />
       <Notice />
@@ -27,7 +28,7 @@ export default async function HomePage() {
         <QuicLink />
       </div>
       <Testimonial testimonialsData={testimonials} />
-
+      <ChatBox />
 
     </div>
   )

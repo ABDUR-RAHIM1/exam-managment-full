@@ -21,7 +21,7 @@ export default function Reviews({ testimonialsData }) {
     return (
         <div className='px-10 py-6'>
             {/* <h1 className='text-center text-2xl font-semibold mb-6'>গ্রাহকদের অভিজ্ঞতা</h1> */}
-            <Heading text={"গ্রাহকদের অভিজ্ঞতা"} center={true} />
+            <Heading text={"শিক্ষার্থীদের অভিজ্ঞতা"} center={true} />
             <div className="reviews">
                 <Swiper
                     slidesPerView={3}

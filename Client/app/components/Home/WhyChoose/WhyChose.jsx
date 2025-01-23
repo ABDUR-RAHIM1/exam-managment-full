@@ -29,14 +29,14 @@ export default async function WhyChose() {
                         ? <p className=' py-4 text-red-500'>No Data Found</p>
                         :
                         result.map((why) => (
-                            <div key={why._id} className=' w-full md:w-[31%] my-5 rounded-md border bg-gray-100'>
+                            <div key={why._id} className=' w-full md:w-[31%] my-5 rounded-md border bg-gray-100 hover:shadow-xl transition-all'>
                                 <div className=' w-full h-[300px] overflow-hidden'>
                                     <Image
                                         width={500}
                                         height={500}
                                         src={why?.photo || demoImg2}
                                         alt={why.title}
-                                        className='w-full h-full rounded-md duration-200 hover:scale-150'
+                                        className='w-full h-full rounded-md duration-200 hover:scale-105'
                                     />
 
                                 </div>

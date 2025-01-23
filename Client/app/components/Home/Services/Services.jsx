@@ -25,14 +25,14 @@ export default async function Services() {
                         <p className=' my-4 text-red-500'>No Services Info Is here</p>
                         :
                         result.map((service, index) => (
-                            <div key={index} className=' w-full md:w-[48%] my-5 p-3 bg-gray-50 shadow-md rounded-md'>
+                            <div key={index} className=' w-full md:w-[48%] my-5 p-3 bg-gray-50 shadow-md rounded-md hover:shadow-xl transition-all'>
                                 <div className=' w-full h-[350px] overflow-hidden'>
                                     <Image
                                         width={500}
                                         height={500}
                                         src={service?.photo || demoImg}  // image change letter
                                         alt={service.title}
-                                        className={` rounded-md w-full h-full hover:scale-110 duration-200`} here
+                                        className={` rounded-md w-full h-full hover:scale-105 duration-200`} here
                                     />
                                 </div>
                                 <h2 className='cardTitle'>{service.title}</h2>

@@ -1,7 +1,7 @@
 import React from "react";
-import { FaShieldAlt, FaUserFriends, FaChartLine } from "react-icons/fa";
-import examImg from "@/public/Images/exam.png";
+import { FaShieldAlt, FaUserFriends, FaChartLine } from "react-icons/fa"; 
 import Image from "next/image";
+import aboutPhoto from "@/public/Images/about.jpg"
 
 export default function AboutPage() {
     return (
@@ -12,13 +12,13 @@ export default function AboutPage() {
                 <p className="text-lg text-gray-600 mt-4">
                     Empowering educators and students with innovative online exam solutions.
                 </p>
-                <div className="mt-8">
+                <div className="mt-8 bg-white w-full">
                     <Image
-                        src={examImg}
-                        width={500}
-                        height={500}
+                        src={aboutPhoto}
+                        width={1000}
+                        height={1000}
                         alt="Online Exam Management"
-                        className="mx-auto rounded-lg shadow-lg"
+                        className=" w-full h-auto md:h-[60vh] rounded-lg shadow-lg"
                     />
                 </div>
             </div>

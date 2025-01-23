@@ -60,15 +60,15 @@ export default function MobileNavbar() {
                 {/* Services Dropdown */}
                 <div className="relative group cursor-pointer">
                     <p className="hover:bg-blue-500 hover:text-white px-4 py-2 rounded-md duration-200 flex items-center gap-2">
-                        <span>Services</span>
+                        <span>Course Lists</span>
                         <FaChevronDown className="text-sm" /> {/* Arrow icon */}
                     </p>
-                    <ul className="absolute top-10 left-0 hidden group-hover:flex flex-col space-y-2 bg-white p-4 shadow-md w-[150px] rounded-md border-2 border-dashed">
+                    <ul className="absolute top-10 left-0 hidden group-hover:flex flex-col space-y-2 bg-white p-2 shadow-md w-[150px] rounded-md ">
                         {categories && categories.length > 0 && categories.map((item, index) => (
                             <Link
                                 key={index}
                                 href={item.path}
-                                className="block lowercase text-gray-700 text-[16px] hover:text-blue-500"
+                                className="block px-1 capitalize text-gray-700 text-[16px]  bg-blue-50 hover:text-blue-500"
                             >
                                 {item.item}
                             </Link>
@@ -99,14 +99,14 @@ export default function MobileNavbar() {
                 <div className="flex flex-col py-5 w-[80%]">
                     {/* Services Dropdown */}
                     <div className="mb-4">
-                        <p
-                            className="text-lg text-blue-600 cursor-pointer hover:bg-blue-500 hover:text-white px-4 py-2 rounded-md duration-200 flex items-center gap-2"
+                        <div
+                            className="text-lg w-auto text-blue-600 cursor-pointer hover:text-blue-500 px-4 py-2 rounded-md duration-200 flex items-center gap-2"
                             onClick={() => toggleDropdown("services")}
                         >
-                            <span>Services</span>
+                            <span>Course Lists</span>
                             <FaChevronDown className="text-sm" /> {/* Arrow icon */}
-                        </p>
-                      
+                        </div>
+
                         {openDropdown === "services" && (
                             <ul className=" w-full block mt-2 space-y-2 ml-3 bg-gray-200 p-2 rounded-md">
                                 {categories && categories.length > 0 && categories.map((item, index) => (
@@ -139,7 +139,7 @@ export default function MobileNavbar() {
                     <div className="mt-4" onClick={() => setIsMenuOpen(false)}>
                         <AccountBtn />
                     </div>
-                </div>  
+                </div>
             </div>
         </div>
     );

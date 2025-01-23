@@ -14,12 +14,12 @@ const ProfileItems = [
         path: "/profile/course-list"
     },
     {
-        item: "আসন্ন পরীক্ষা",
+        item: "পরীক্ষা সমূহ ",
         icon: <MdUpcoming />,
         path: "/profile/upcoming-exam"
     },
     {
-        item: "আমার পরীক্ষা",
+        item: "ফলাফল",
         icon: <VscOutput />,
         path: "/profile/my-exams"
     },

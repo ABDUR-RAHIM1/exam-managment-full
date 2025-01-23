@@ -16,7 +16,7 @@ async function UpcomingExamPage() {
 
     const { status, result } = myQuestion
     const { course, questions } = result
-
+ 
 
     if (status !== 200 || !result) {
         return <NoDataFound />;
@@ -58,6 +58,9 @@ async function UpcomingExamPage() {
                     <QuestionCard key={question._id} question={question} />
                 ))}
             </div>
+
+
+
             <hr className=" my-5" />
             <div>
                 <h3 className=" text-center my-3"> Free Questions</h3>
