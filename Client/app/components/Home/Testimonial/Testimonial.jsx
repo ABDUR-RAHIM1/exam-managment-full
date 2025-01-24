@@ -1,22 +1,30 @@
 "use client"
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
 import { demoProfilePhoto } from '@/app/DemoData/DemoImg';
 import Image from 'next/image';
-import Heading from '@/app/helpers/Heading';
-import NoDataFound from '../../Globals/NoDataFound';
+import Heading from '@/app/helpers/Heading'; 
+import { getOpinions } from './GetData';
 
-export default function Reviews({ testimonialsData }) {
+export default function Reviews() {
 
-    const { status, result } = testimonialsData;
+    const [opinion, setOpinion] = useState([]);
 
-    if (status !== 200 || !result) {
-        return <NoDataFound />
-    }
+    useEffect(() => {
+        const getData = async () => {
+            const { status, result } = await getOpinions();
 
+            if (status === 200) {
+                setOpinion(result)
+            }
+
+        };
+
+        getData()
+    }, [])
 
     return (
         <div className='px-10 py-6'>
@@ -50,7 +58,7 @@ export default function Reviews({ testimonialsData }) {
                     modules={[Pagination]}
                     className="mySwiper"
                 >
-                    {result && result.map((sl, index) => (
+                    {opinion && opinion.map((sl, index) => (
                         <SwiperSlide key={index}>
                             <div className='w-full h-auto bg-gray-50 rounded-lg p-5 shadow-lg border'>
                                 <div className="flex justify-center">

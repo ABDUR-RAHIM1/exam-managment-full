@@ -24,6 +24,7 @@ export default function Footer() {
                         <li><Link href="/free-exam" className="hover:text-blue-600 transition-all">free exam</Link></li>
                         <li><Link href="/contact" className="hover:text-blue-600 transition-all">Contact Us</Link></li>
                         <li><Link href="/about" className="hover:text-blue-600 transition-all">About Us</Link></li>
+                        <li><Link href="/terms-condition" className="hover:text-blue-600 transition-all">Terms And Condition</Link></li>
                     </ul>
                 </div>
 

@@ -7,12 +7,28 @@ import getCourseData from "./getCourseData";
 import Logo from "../Logo";
 import AccountBtn from "../AccountBtn";
 import { MdClose, MdMenu } from "react-icons/md";
+import Alert from "@/app/helpers/Alert";
+import Cookies from "js-cookie";
 
 export default function MobileNavbar() {
     const [categories, setCategories] = useState(null)
     const path = usePathname();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [openDropdown, setOpenDropdown] = useState(null); // Track open dropdown
+    const [showAlert, setShowAlert] = useState(false);
+
+
+    useEffect(() => {
+        const token = Cookies.get("userToken");
+        if (!token) {
+            setShowAlert(true);
+        }
+    }, []);
+
+    const handleCloseAlert = () => {
+        setShowAlert(false)
+    }
+
 
     useEffect(() => {
         const getData = async () => {
@@ -43,6 +59,7 @@ export default function MobileNavbar() {
 
     return (
         <div className="px-5 py-4 md:py-3 shadow-lg md:px-10 flex justify-between items-center bg-gray-100 sticky top-0 z-[9999] w-full">
+            {showAlert && <Alert handleCloseAlert={handleCloseAlert} />}
             <Logo path={"/"} />
 
             {/* Mobile Menu Icon */}
@@ -113,7 +130,7 @@ export default function MobileNavbar() {
                                     <Link
                                         key={index}
                                         href={item.path}
-                                        className="block lowercase text-gray-700 text-[16px] hover:text-blue-500"
+                                        className="block capitalize text-gray-700 text-[16px] hover:text-blue-500"
                                         onClick={() => setIsMenuOpen(false)}
                                     >
                                         {item.item}

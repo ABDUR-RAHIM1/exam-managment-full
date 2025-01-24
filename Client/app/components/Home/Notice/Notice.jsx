@@ -1,15 +1,14 @@
 import { getDataHandler } from '@/app/actions/users/getData';
 import { getNotice } from '@/app/constans/constans';
 import Heading from '@/app/helpers/Heading'
-import Link from 'next/link';
 import React from 'react'
 import NoDataFound from '../../Globals/NoDataFound';
-import { GoDownload } from "react-icons/go";
 import QuicLink from './QuicLink';
+import NoticeAction from './NoticeAction';
 
 export default async function Notice() {
     const { status, result } = await getDataHandler(getNotice);
-
+  
     if (status !== 200 || !result) {
         return <NoDataFound />
     }
@@ -19,6 +18,10 @@ export default async function Notice() {
         const date = new Date(dateString);
         return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
     }
+
+
+
+
 
     return (
         <div className='px-2 md:px-10 mt-10 border-b border-gray-300'>
@@ -40,15 +43,13 @@ export default async function Notice() {
                                     <td className="py-2 px-4">{notice.title}</td>
                                     <td className="py-2 px-4">{formatDate(notice.createdAt)}</td>
                                     <td className="py-2 px-4">
-                                        <Link href={`/`}>
-                                            <GoDownload className='text-2xl text-blue-500' />
-
-                                        </Link>
+                                        <NoticeAction notice={notice.notice} />
                                     </td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
+                  
                 </div>
 
 
