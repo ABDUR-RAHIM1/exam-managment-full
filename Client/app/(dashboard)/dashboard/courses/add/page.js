@@ -1,5 +1,5 @@
-"use client"
-import { postDataHandler } from '@/app/actions/users/postData';
+"use client" 
+import { postDataHandler } from '@/app/actions/admin/postData';
 import { adminCreateCourse, adminUpdateCourse } from '@/app/constans/constans';
 import { contextApi } from '@/app/contextApi/Context';
 import useFileUploader from '@/app/helpers/fileUploader';
@@ -60,8 +60,8 @@ export default function CourseAddPage() {
         setLaoding(true);
         try {
             // Convert books and note to arrays only if they are strings
-            const booksArr = typeof formData.books === 'string' ? formData.books.split(",") : formData.books;
-            const noteArr = typeof formData.note === 'string' ? formData.note.split(",") : formData.note;
+            const booksArr = typeof formData.books === 'string' ? formData?.books.split(",") : formData.books;
+            const noteArr = typeof formData.note === 'string' ? formData?.note.split(",") : formData.note;
 
             const data = {
                 ...formData,
@@ -69,20 +69,20 @@ export default function CourseAddPage() {
                 note: noteArr
             };
 
-            let status, result; // Declare status and result here
+            let status, result;  
 
             if (isUpdateData) {
-                // Construct the URL for updating the course
+               
                 const editCourse = adminUpdateCourse + formData._id;
-                // Perform the PUT request
+           
                 const response = await postDataHandler(data, "PUT", editCourse);
-                status = response.status;  // Extract status
-                result = response.result;  // Extract result
+                status = response.status;   
+                result = response.result;  
             } else {
-                // Perform the POST request for creating a new course
+             
                 const response = await postDataHandler(data, "POST", adminCreateCourse);
-                status = response.status;  // Extract status
-                result = response.result;  // Extract result
+                status = response.status;  
+                result = response.result;   
             }
 
             // Handle the response based on the status

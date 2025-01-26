@@ -28,7 +28,7 @@ export default async function BlogPage() {
                                     alt={`Blog ${blog.id}`}
                                     width={500}
                                     height={400}
-                                    className="w-full h-52 rounded-md mb-4"
+                                    className="w-full h-56 rounded-md mb-4"
                                 />
                                 <div className='p-4'>
                                     <Link href={`/blogs/${blog._id}`} className="text-gray-700 mb-3 font-bold hover:text-blue-600 hover:underline duration-200">

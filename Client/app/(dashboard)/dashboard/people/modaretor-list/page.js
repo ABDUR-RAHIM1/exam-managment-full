@@ -1,10 +1,22 @@
+import { getAllData } from '@/app/actions/admin/getAllData'
+import NoDataFound from '@/app/components/Globals/NoDataFound';
+import { getAllAdminModaretors } from '@/app/constans/constans'
 import React from 'react'
+import ModaretorListTable from './ModaretorListTable';
 
 export default async function ModaretorList() {
-   
+
+    const { status, result } = await getAllData(getAllAdminModaretors);
+
+    if (!status || !result) {
+        return <NoDataFound />
+    }
+
     return (
-        <div className='w-full h-screen flex items-center justify-center'>
-            <h1 className='  text-red-600'>Under Proccesing . . .</h1>
+        <div className=' py-10'>
+            <ModaretorListTable
+                data={result}
+            />
         </div>
     )
 }

@@ -1,10 +1,9 @@
 "use client";
-import { postDataHandler } from "@/app/actions/users/postData";
+import { postDataHandler } from "@/app/actions/admin/postData";
 import { publicCourseGet, questionAdd, questionUpdate } from "@/app/constans/constans";
 import { contextApi } from "@/app/contextApi/Context";
 import useClientDataHandler from "@/app/Handler/usersHandler/useClientDataHandler";
 import { formatDateForInput } from "@/app/helpers/ConvertDate";
-import { FormatedTime } from "@/app/helpers/FormatedTime";
 import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { v4 as uuidv4 } from 'uuid';  // Import uuid to generate unique IDs
@@ -72,8 +71,7 @@ export default function AddQuestion() {
         examTime: "",
         examDuration: ""
     })
-
-    console.log(quesHeader)
+ 
 
     const handleQuesHeader = (e) => {
         const { name, value } = e.target;
@@ -287,7 +285,7 @@ export default function AddQuestion() {
             passMark: quesHeader.passMark,
             questions: questions
         };
-        console.log(dataToSend)
+      
         try {
 
             if (isEditablePaper) {

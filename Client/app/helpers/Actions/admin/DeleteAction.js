@@ -1,10 +1,10 @@
 "use client"
 import DeleteBtn from '@/app/helpers/DeleteBtn'
 import React, { useState } from 'react'
-import { toast } from 'react-toastify'; 
-import { useRouter } from 'next/navigation'; 
-import { deleteHandler } from '@/app/actions/users/deleteHandler';
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 import Spinner from '../../Spinner';
+import { deleteHandler } from '@/app/actions/admin/deleteHandler';
 
 export default function DeleteAction({ route }) {
     const router = useRouter()
@@ -15,7 +15,6 @@ export default function DeleteAction({ route }) {
         try {
             setDeleting(true)
             const { status, result } = await deleteHandler(deleteRoute);
-
             if (status === 200) {
                 toast.success(result.message || "Deleted Succesfuly");
                 router.refresh();
@@ -24,7 +23,6 @@ export default function DeleteAction({ route }) {
             }
 
         } catch (error) {
-            console.log(error)
             toast.error("Failed To Delete!")
         } finally {
             setDeleting(false)

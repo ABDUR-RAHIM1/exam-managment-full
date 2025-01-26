@@ -16,57 +16,50 @@ async function UpcomingExamPage() {
 
     const { status, result } = myQuestion
     const { course, questions } = result
- 
+
+
     if (!myQuestion || !freeQuestion) {
         return <NoDataFound />;
     }
 
     return (
-        <div className=" w-full min-h-screen bg-white">
-            {
-                status === 404 ?
-                    <p className="p-4 text-red-500 font-bold text-xl">
-                        আপনি কোন কোর্স কিনেননি!
-                    </p>
-                    :
-                    <div className="bg-white shadow-md rounded-lg p-6 mb-8">
-                        <div className="w-full md:w-[50%] m-auto">
-                            <h1 className="text-2xl font-bold text-gray-800">{course.title}</h1>
-                            <p className="text-gray-600 mt-2">{course.desc}</p>
-                            <div className="mt-4">
-                                <span className="text-xl font-semibold text-gray-800">Price: </span>
-                                <span className="text-lg text-red-600">BDT{course.offerPrice}</span>
-                                <span className="text-sm line-through text-gray-500 ml-2">BDT{course.regularPrice}</span>
-                            </div>
-                            <div className="mt-4">
-                                <span className="text-sm text-gray-500">Duration: {course.duration}</span>
-                            </div>
-                            <div className="mt-4">
-                                <span className="text-sm text-gray-500">Books: {course?.books.join(", ")}</span>
-                            </div>
-                        </div>
-                        <div className=" mt-4  w-full h-auto">
-                            <Image
-                                width={1000}
-                                height={1000}
-                                src={course.schedule}
-                                alt="Schedule"
-                                className="rounded-lg w-auto h-auto m-auto shadow-md"
-                            />
-                        </div>
+        <div className="max-w-screen-xl mx-auto py-8 px-6">
+            {/* Course Details Section */}
+            <div className="bg-white shadow-md rounded-lg p-6 mb-8">
+                <div className="w-full md:w-[50%] m-auto">
+                    <h1 className="text-2xl font-bold text-gray-800">{course.title}</h1>
+                    <p className="text-gray-600 mt-2">{course.desc}</p>
+                    <div className="mt-4">
+                        <span className="text-xl font-semibold text-gray-800">Price: </span>
+                        <span className="text-lg text-red-600">BDT{course.offerPrice}</span>
+                        <span className="text-sm line-through text-gray-500 ml-2">BDT{course.regularPrice}</span>
                     </div>
-            };
+                    <div className="mt-4">
+                        <span className="text-sm text-gray-500">Duration: {course.duration}</span>
+                    </div>
+                    <div className="mt-4">
+                        <span className="text-sm text-gray-500">Books: {course?.books.join(", ")}</span>
+                    </div>
+                </div>
+                <div className=" mt-4  w-full h-auto">
+                    <Image
+                        width={1000}
+                        height={1000}
+                        src={course.schedule}
+                        alt="Schedule"
+                        className="rounded-lg w-auto h-auto m-auto shadow-md"
+                    />
+                </div>
+            </div>
 
-
-            {/*    Paid and free questions start here */}
-            {/* Paid Questions List */}
+            {/* Questions List */}
             <div className="flex items-center justify-between flex-wrap gap-3 md:gap-6">
                 {questions?.map((question) => (
                     <QuestionCard key={question._id} question={question} />
                 ))}
             </div>
 
-            {/*  free */}
+
 
             <hr className=" my-5" />
             <div>
@@ -82,15 +75,12 @@ async function UpcomingExamPage() {
                     }
                 </div>
             </div>
-
-            {/*    Paid and free questions End here */}
-
         </div>
-    )
+    );
+}
 
-};
 
-
+// <<<<<<<<<<<<<<<< Single Question Card - use in Front Of the page  >>>>>>>>>>>>>>>>>>>>>>>
 function QuestionCard({ question }) {
 
     return (

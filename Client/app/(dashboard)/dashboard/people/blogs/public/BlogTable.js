@@ -4,6 +4,7 @@ import { deleteHandler } from "@/app/actions/users/deleteHandler";
 import { postDataHandler } from "@/app/actions/users/postData";
 import { deleteBlog, putBlogStatus } from "@/app/constans/constans";
 import { noImg } from "@/app/DemoData/DemoImg";
+import DeleteAction from "@/app/helpers/Actions/admin/DeleteAction";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
@@ -46,31 +47,13 @@ export default function BlogTable({ blogs }) {
         }
     };
 
-    // Delete handler
-    const handleDelete = async (id) => {
-        setLoading(true);
-        try {
-            const deleteApi = `${deleteBlog + id}`;
-            const { status, result } = await deleteHandler(deleteApi);
 
-            if (status === 200) {
-                toast.success("Blog deleted successfully!");
-                setBlogData((prevData) => prevData.filter((item) => item._id !== id));
-            } else {
-                toast.error(result.message);
-            }
-        } catch (error) {
-            toast.error("Failed to delete blog!");
-        } finally {
-            setLoading(false);
-        }
-    };
 
     // Columns for Data Table
     const columns = [
         {
             name: "#SL",
-            selector: (row, index) => <span>{index + 1}</span>, 
+            selector: (row, index) => <span>{index + 1}</span>,
         },
         {
             name: "Photo",
@@ -124,15 +107,7 @@ export default function BlogTable({ blogs }) {
         },
         {
             name: "Delete",
-            selector: (row) => (
-                <button
-                    className="bg-red-800 text-white border-none rounded-sm p-1"
-                    onClick={() => handleDelete(row._id)}
-                >
-                    <MdDelete className="text-xl" />
-                </button>
-            ),
-            sortable: true,
+            selector: (row) => <DeleteAction route={deleteBlog + row._id} />, 
         },
     ];
 

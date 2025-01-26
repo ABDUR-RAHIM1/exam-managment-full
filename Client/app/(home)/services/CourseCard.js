@@ -32,7 +32,7 @@ export default function CourseCard(props) {
                     onClick={() => setShowDetails(!showDetails)}
                     className="bg-gray-300 text-gray-700 text-sm font-bold uppercase py-1 px-3 rounded-full mb-3"
                 >
-                    {showDetails ? 'Hide Details' : 'View Details'}
+                    {showDetails ? 'বিস্তারিত বন্ধ করুন' : 'বিস্তারিত দেখুন'}
                 </button>
 
                 {showDetails && (

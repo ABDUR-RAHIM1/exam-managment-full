@@ -1,40 +1,21 @@
 "use client";
-import { deleteHandler } from '@/app/actions/users/deleteHandler';
 import { courseDelete } from '@/app/constans/constans';
-import { contextApi } from '@/app/contextApi/Context';
+import DeleteAction from '@/app/helpers/Actions/admin/DeleteAction';
+import EditAction from '@/app/helpers/Actions/admin/EditAction';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
-import { toast } from 'react-toastify';
 
 export default function CourseTable({ courseData }) {
-    const { setManageData } = useContext(contextApi);
-    const router = useRouter();
-    const [isMounted, setIsMounted] = useState(false);
+    const [data, setData] = useState([]);
 
     useEffect(() => {
-        setIsMounted(true);
-    }, []);
-
-    const onEdit = (data) => {
-        setManageData(data);
-        router.push("/dashboard/courses/add");
-    };
-
-    const onDelete = async (data) => {
-
-        try {
-            const deleleApi = `${courseDelete + data._id}`
-            const { status, result } = await deleteHandler(deleleApi);
-            if (status === 200) {
-                toast.success(result.message)
-                router.refresh()
-            }
-        } catch (error) {
-            toast.error("Somthing Wrong!")
+        if (courseData) {
+            setData(courseData)
         }
-    };
+    }, [courseData]);
+ 
+
 
     const columns = [
         {
@@ -76,41 +57,22 @@ export default function CourseTable({ courseData }) {
         },
         {
             name: ' Edit',
-            cell: row => (
-                <div className="flex gap-2 bg-red-500">
-                    <button
-                        className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
-                        onClick={() => onEdit(row)}
-                    >
-                        Edit
-                    </button>
-                </div>
-            ),
+            selector: row => <EditAction data={row} path={"/dashboard/courses/add"} />
         },
 
         {
             name: ' Delete',
-            cell: row => (
-                <div className="flex gap-2 bg-red-500">
-                    <button
-                        className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
-                        onClick={() => onDelete(row)}
-                    >
-                        Delete
-                    </button>
-                </div>
-            ),
+            selector: row => <DeleteAction route={courseDelete + row._id} />
         },
     ];
 
-    if (!isMounted) return null;
 
     return (
         <div className="p-4 rounded shadow-md">
             <h2 className="text-xl font-bold mb-4">Courses List</h2>
             <DataTable
                 columns={columns}
-                data={courseData}
+                data={data}
                 pagination
                 highlightOnHover
                 striped

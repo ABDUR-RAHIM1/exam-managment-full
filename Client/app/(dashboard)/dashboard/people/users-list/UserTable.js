@@ -1,9 +1,12 @@
 "use client";
 
+import { deleteUser } from "@/app/constans/constans";
+import { demoProfilePhoto } from "@/app/DemoData/DemoImg";
+import DeleteAction from "@/app/helpers/Actions/admin/DeleteAction";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
-import { MdDelete, MdEdit } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
 
 export default function UserTable({ data }) {
     const [userData, setUserData] = useState([]);
@@ -20,9 +23,9 @@ export default function UserTable({ data }) {
                 <Image
                     width={50}
                     height={50}
-                    src={row.photo}
+                    src={row.photo || demoProfilePhoto}
                     alt="User Photo"
-                    style={{ width: "40px", height: "40px", borderRadius: "50%" }}
+                    className="w-16 h-16 rounded-md my-3"
                 />
             )
         },
@@ -56,47 +59,23 @@ export default function UserTable({ data }) {
         },
         {
             name: "Actions",
-            cell: (row) => (
-                <div>
-                    <button
-                        onClick={() => handleDelete(row._id)}
-                        style={{
-                            backgroundColor: "red",
-                            color: "white",
-                            border: "none",
-                            borderRadius: "5px",
-                            padding: "5px",
-                        }}
-                    >
-                        <MdDelete className="text-xl"/>
-                    </button>
-                </div>
-            ),
-            ignoreRowClick: true,
-            allowOverflow: true,
-            button: true,
+            cell: (row) => <DeleteAction route={deleteUser + row._id} />
         },
     ];
 
 
-    const handleDelete = (userId) => {
-        const confirm = window.confirm("Are you sure you want to delete this user?");
-        if (confirm) {
-            setUserData(userData.filter((user) => user._id !== userId));
-        }
-    };
+
 
     return (
         <div>
             <h2>User Management</h2>
-            <DataTable 
+            <DataTable
                 columns={columns}
                 data={userData}
                 pagination
                 highlightOnHover
                 responsive
                 subHeader
-                subHeaderComponent={<input placeholder="Search Users..." />}
             />
         </div>
     );

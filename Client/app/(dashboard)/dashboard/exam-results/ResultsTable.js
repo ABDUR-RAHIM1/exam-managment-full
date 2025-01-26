@@ -1,17 +1,12 @@
 "use client"
-import { deleteHandler } from '@/app/actions/users/deleteHandler'
-import Loading from '@/app/components/Globals/Loading'
 import { adminRole, deleteResult } from '@/app/constans/constans'
+import DeleteAction from '@/app/helpers/Actions/admin/DeleteAction'
 import Cookies from 'js-cookie'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component'
-import { MdDelete } from 'react-icons/md'
-import { toast } from 'react-toastify'
 
 export default function ResultsTable({ data }) {
-    const router = useRouter();
     const [status, setStatus] = useState("atATime")
     const [resultData, setResultData] = useState([])
     const [filteredData, setFilteredData] = useState([])
@@ -19,8 +14,10 @@ export default function ResultsTable({ data }) {
     const role = Cookies.get(adminRole);
 
     useEffect(() => {
-        setResultData(data)
-    }, [])
+        if (data) {
+            setResultData(data)
+        }
+    }, [data])
 
     useEffect(() => {
         if (status === "atATime") {
@@ -34,26 +31,6 @@ export default function ResultsTable({ data }) {
         }
     }, [status, resultData]);
 
-
-    //  delete Handler if need for admin (only for admin not modaretor)
-
-    const handleDeleteResult = async (resultId) => {
-        try {
-            // porobortite admin handler use korte hobe 
-            const { status, result } = await deleteHandler(deleteResult + resultId);
-
-            if (status === 200 || status === 201) {
-                toast.success(result.message);
-                router.refresh()
-            } else {
-                toast.error(result.message)
-            }
-
-        } catch (error) {
-            console.log(error)
-            toast.error("Failed To Delete!")
-        }
-    }
 
 
     const columns = [
@@ -70,26 +47,32 @@ export default function ResultsTable({ data }) {
             selector: row => row.questionTitle
         },
         {
+            name: "Skip",
+            selector: row => <p className=' text-black-600 bg-black text-white px-2 font-bold rounded-md'>
+                {row.skip || 0}
+            </p>
+        },
+        {
             name: "Right A",
-            selector: row => <p className=' text-green-600 bg-green-100 px-2 font-bold'>
+            selector: row => <p className=' text-green-600 bg-green-100 px-2 font-bold rounded-md'>
                 {row.rightAnswers}
             </p>
         },
         {
             name: "Wrong A",
-            selector: row => <p className=' text-red-600 bg-red-100 px-2 font-bold'>
+            selector: row => <p className=' text-red-600 bg-red-100 px-2 font-bold rounded-md'>
                 {row.wrongAnswers}
             </p>
         },
         {
             name: "Total Q",
-            selector: row => <p className=' text-blue-600 bg-blue-100 px-2  font-bold'>
+            selector: row => <p className=' text-blue-600 bg-blue-100 px-2  font-bold rounded-md'>
                 {row.wrongAnswers + row.rightAnswers}
             </p>
         },
         {
             name: "Total Mark",
-            selector: row => <p className='text-yellow-600 bg-yellow-200 px-2 font-bold'>
+            selector: row => <p className='text-yellow-600 bg-yellow-200 px-2 font-bold rounded-md'>
                 {row.totalMark ? row.totalMark : "N/A"}
             </p>
         },
@@ -110,9 +93,7 @@ export default function ResultsTable({ data }) {
         role === "admin" &&
         {
             name: "Delete",
-            selector: row => <button onClick={() => handleDeleteResult(row._id)}>
-                <MdDelete className=' text-3xl text-red-500 bg-red-200 p-1' />
-            </button>
+            selector: row => <DeleteAction route={deleteResult + row._id} />
         },
 
     ]

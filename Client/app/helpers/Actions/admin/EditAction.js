@@ -9,8 +9,7 @@ export default function EditAction({ data, path }) {
     const { setManageData } = useContext(contextApi);
 
     const handleUpdateAction = () => {
-        const navigatePath = path;
-        console.log(navigatePath, data)
+        const navigatePath = path; 
         setManageData(data)
         router.push(navigatePath)
     }

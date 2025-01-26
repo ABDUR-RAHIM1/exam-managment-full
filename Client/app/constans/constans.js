@@ -31,7 +31,12 @@ const updateMyOpinion = "/user/opinion/update/"
 
 // admins 
 const adminLogin = "/admin/auth/login"   //  admin-auth
-const adminRegister = "/admin/auth/register"   //  admin-auth
+const adminRegister = "/admin/auth/register"   //  admin-auth create  new admin or modarator
+const getAllAdminModaretors = "/admin/auth/get/all"
+const deleteAdminModaretor = "/admin/auth/delete/"
+
+const deleteUser = "/user/delete/"
+
 const adminCreateCourse = "/admin/course/create"  //admin/course/add (page)
 const getCourseById = "/admin/course/"
 const adminUpdateCourse = "/admin/course/update/"
@@ -77,6 +82,13 @@ const getWhyById = "/content/whychoose/get"
 const updateWhy = "/content/whychoose/update/"
 const deleteWhy = "/content/whychoose/delete/"
 
+const createAbout = "/content/about/create"
+const getAbout = "/content/about/get"
+const updateAbout = "/content/about/update/"
+const deleteAbout = "/content/about/delete/"
+
+
+
 
 // contents End 
 
@@ -101,7 +113,11 @@ export {
 
 
     adminLogin,
-    adminRegister,
+    adminRegister, getAllAdminModaretors,deleteAdminModaretor,
+
+    deleteUser,
+
+
     adminCreateCourse,
     getCourseById,
     adminUpdateCourse,
@@ -120,6 +136,7 @@ export {
     createCourseInfo, getCourseInfo, updateCourseInfo, deleteCourseInfo,
     createLink, getLinks, updateLink, deleteLink,
     createWhy, getWhy, getWhyById, updateWhy, deleteWhy,
+    createAbout, getAbout, updateAbout, deleteAbout,
 
     /// results / questions
     getResultAll, getResultMe, getResultById, deleteResult

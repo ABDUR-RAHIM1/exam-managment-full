@@ -17,7 +17,7 @@ export const metadata = {
 
 export default function DashboardLayout({ children }) {
     return (
-        <html lang="en">
+        <html lang="en" cz-shortcut-listen>
             <Head>
                 <link rel="icon" type="image/png" href={logo} />
             </Head>

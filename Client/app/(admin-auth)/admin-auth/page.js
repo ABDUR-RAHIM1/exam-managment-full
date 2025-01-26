@@ -22,9 +22,15 @@ export default function AdminAuth() {
 
 
     //  auto navigate to dashboard when Amin ALready Login
-    // useEffect(() => {
+    useEffect(() => {
+        const adminToken = Cookies.get("adminToken");
 
-    // }, [])
+        if (adminToken) {
+            toast.warning("You Have Already Login")
+            router.push("/dashboard")
+        }
+
+    }, [])
 
     const handleShowPassword = () => {
         setPasswordType(!passwordType);

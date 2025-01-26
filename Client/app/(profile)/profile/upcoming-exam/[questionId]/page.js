@@ -25,7 +25,7 @@ export default function ExamPage({ params }) {
 
     // check exam date match , past , future
     const [examEnd, setExamEnd] = useState(false)
-    const [dateStatus, setDateStatus] = useState("");
+    const [dateStatus, setDateStatus] = useState("future");
     const [timeStatus, setTimeStatus] = useState("")
     const [examAtATime, setExamAtATime] = useState(true);
     const [remainingTime, setRemainingTime] = useState(0)

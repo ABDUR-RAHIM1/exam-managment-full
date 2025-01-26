@@ -6,7 +6,7 @@ import NoDataFound from '@/app/components/Globals/NoDataFound'
 
 export default async function AdminBlog() {
     const { status, result } = await getDataHandler(getAdminModaretorBlogs)
-   
+   console.log(result)
     if (status !== 200) {
         return <NoDataFound />
     }
