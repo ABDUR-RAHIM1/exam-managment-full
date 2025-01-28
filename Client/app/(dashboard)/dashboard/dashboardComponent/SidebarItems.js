@@ -65,6 +65,7 @@ const items = [
             { icon: <BsFillPeopleFill />, item: "Course Info", path: "/dashboard/content/course-info" },
             { icon: <BsFillPeopleFill />, item: "Why Choose", path: "/dashboard/content/why-choose" },
             { icon: <BsFillPeopleFill />, item: "About Page", path: "/dashboard/content/about" },
+            { icon: <BsFillPeopleFill />, item: "Logo", path: "/dashboard/content/logo" },
         ],
     },
     {

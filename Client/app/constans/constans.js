@@ -37,6 +37,10 @@ const deleteAdminModaretor = "/admin/auth/delete/"
 
 const deleteUser = "/user/delete/"
 
+const addLogo = "/admin/logo/create"
+const getLogo = "/admin/logo/get"
+const deleteLogo = "/admin/logo/delete/"
+
 const adminCreateCourse = "/admin/course/create"  //admin/course/add (page)
 const getCourseById = "/admin/course/"
 const adminUpdateCourse = "/admin/course/update/"
@@ -113,9 +117,10 @@ export {
 
 
     adminLogin,
-    adminRegister, getAllAdminModaretors,deleteAdminModaretor,
+    adminRegister, getAllAdminModaretors, deleteAdminModaretor,
 
     deleteUser,
+    addLogo,getLogo, deleteLogo,
 
 
     adminCreateCourse,
