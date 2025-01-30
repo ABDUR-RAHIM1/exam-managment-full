@@ -1,6 +1,6 @@
 
-export const API_URL = "http://localhost:8500/api";
-// export const API_URL = "https://tickmarkq-server.onrender.com/api";
+// export const API_URL = "http://localhost:8500/api";
+export const API_URL = "https://tickmarkq-server.onrender.com/api";
 
 /// <============== tokens name  =============>
 // 1. userToken name ======>
@@ -30,6 +30,7 @@ const deleteMyOpinion = "/user/opinion/delete/"
 const updateMyOpinion = "/user/opinion/update/"
 
 // admins 
+const adminVerify = "/admin/auth/verify/"
 const adminLogin = "/admin/auth/login"   //  admin-auth
 const adminRegister = "/admin/auth/register"   //  admin-auth create  new admin or modarator
 const getAllAdminModaretors = "/admin/auth/get/all"
@@ -115,12 +116,12 @@ export {
     createOpinion, getMyOpinion, getAllOpinion, deleteMyOpinion, updateMyOpinion,
     // user end 
 
-
+    adminVerify,
     adminLogin,
     adminRegister, getAllAdminModaretors, deleteAdminModaretor,
 
     deleteUser,
-    addLogo,getLogo, deleteLogo,
+    addLogo, getLogo, deleteLogo,
 
 
     adminCreateCourse,
