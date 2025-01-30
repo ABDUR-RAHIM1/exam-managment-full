@@ -7,14 +7,17 @@ import { toast } from 'react-toastify';
 export default function VerifyAdmin({ setVerify }) {
 
     const [formData, setFormData] = useState({ varifyAdmin: "" });
+    const [verifyLoading, setVerifyLoading] = useState(false);
 
     // Handle form submission
     const handleVarifyed = async (e) => {
         e.preventDefault();
+        setVerifyLoading(true)
         try {
             // Send form data to the backend
             const { status, result } = await postDataHandler(formData, "POST", adminVerify);
-            if (status === 200 && result.token) {
+
+            if (status === 200 && result.verfied) {
                 toast.success("Admin Verified");
                 setVerify(true);
             } else {
@@ -23,6 +26,8 @@ export default function VerifyAdmin({ setVerify }) {
         } catch (error) {
             console.error(error?.message);
             toast.error("Verification Failed!");
+        } finally {
+            setVerifyLoading(false)
         }
     };
 
@@ -36,8 +41,8 @@ export default function VerifyAdmin({ setVerify }) {
                 className='input'
             />
 
-            <button type='submit' className='w-full p-3 my-4 font-bold rounded-md bg-blue-600 text-white'>
-                Verify Now
+            <button disabled={verifyLoading} type='submit' className='w-full p-3 my-4 font-bold rounded-md bg-blue-600 text-white'>
+                {verifyLoading ? "verifying . . ." : "Verify Now"}
             </button>
         </form>
     )

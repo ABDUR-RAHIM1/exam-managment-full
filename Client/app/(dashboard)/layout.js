@@ -7,13 +7,9 @@ import Context from "../contextApi/Context";
 import DashNav from "./dashboard/dashboardComponent/DashNav";
 import Sidebar from "./dashboard/dashboardComponent/Sidebar";
 import Head from "next/head";
+import { defaultSeo } from "@/seo/defaultSeo";
 
-export const metadata = {
-    title: "TickmarkQ - Online Exam Management Dashboard",
-    description: "Manage online exams, track student progress, and view detailed analytics with TickmarkQ. Simplify your online exam management with powerful features.",
-    keywords: "Online Exam, Exam Management, Student Progress, Analytics, Dashboard, TickmarkQ, Exam Dashboard, Education, Learning Management",
-    author: "TickmarkQ Team",
-};
+export const metadata = defaultSeo
 
 export default function DashboardLayout({ children }) {
     return (
