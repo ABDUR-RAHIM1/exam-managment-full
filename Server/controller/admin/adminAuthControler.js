@@ -21,11 +21,7 @@ const verifyAdmin = async (req, res) => {
 
             return
         }
-
-
-        // If verified, generate a JWT token
-        // const token = jwt.sign({ admin: true }, ADMIN_TOKEN_SECRET);
-
+     
         // Send token in the response
         res.status(200).json({
             message: "Admin Verified",

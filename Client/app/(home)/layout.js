@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import Context from "../contextApi/Context";
 import { defaultSeo } from "@/seo/defaultSeo";
+import ChatBox from "../components/Globals/ChatBox";
 
 export const metadata = defaultSeo
 
@@ -19,6 +20,7 @@ export default function RootLayout({ children }) {
           <ToastContainer />
           {children}
           <Footer />
+              <ChatBox />
         </Context>
       </body>
     </html>

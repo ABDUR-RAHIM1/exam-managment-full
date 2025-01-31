@@ -23,8 +23,6 @@ export default function HomePage() {
         <QuicLink />
       </div>
       <Testimonial />
-      <ChatBox />
-
       <NoticeModal />
     </div>
   )

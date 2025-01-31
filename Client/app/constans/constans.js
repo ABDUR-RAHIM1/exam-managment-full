@@ -1,6 +1,8 @@
 
-export const API_URL = "http://localhost:8500/api";
+// export const API_URL = "http://localhost:8500/api";
 // export const API_URL = "https://tickmarkq-server.onrender.com/api";
+
+export const API_URL = process.env.NEXT_PUBLIC_API_URL+"/api";
 
 /// <============== tokens name  =============>
 // 1. userToken name ======>
