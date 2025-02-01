@@ -8,7 +8,7 @@ import NoticeAction from './NoticeAction';
 
 export default async function Notice() {
     const { status, result } = await getDataHandler(getNotice);
-  
+
     if (status !== 200 || !result) {
         return <NoDataFound />
     }
@@ -44,12 +44,13 @@ export default async function Notice() {
                                     <td className="py-2 px-4">{formatDate(notice.createdAt)}</td>
                                     <td className="py-2 px-4">
                                         <NoticeAction notice={notice.notice} />
+
                                     </td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
-                  
+
                 </div>
 
 

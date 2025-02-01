@@ -1,12 +1,10 @@
 
 import "../globals.css";
-import logo from "@/public/Images/logo.png"
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import Context from "../contextApi/Context";
 import DashNav from "./dashboard/dashboardComponent/DashNav";
 import Sidebar from "./dashboard/dashboardComponent/Sidebar";
-import Head from "next/head";
 import { defaultSeo } from "@/seo/defaultSeo";
 
 export const metadata = defaultSeo
@@ -14,9 +12,6 @@ export const metadata = defaultSeo
 export default function DashboardLayout({ children }) {
     return (
         <html lang="en" cz-shortcut-listen>
-            <Head>
-                <link rel="icon" type="image/png" href={logo} />
-            </Head>
             <body className="bg-gray-200 h-screen md:overflow-hidden text-gray-900">
                 <Context>
                     <ToastContainer />

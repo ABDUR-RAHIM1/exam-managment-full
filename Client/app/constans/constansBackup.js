@@ -1,5 +1,5 @@
 
-export const API_URL = "http://localhost:8500/api";
+export const API_URL = "http://localhost:8500/api"; 
 
 // export const API_URL = process.env.NEXT_PUBLIC_API_URL+"/api";
 
@@ -12,8 +12,8 @@ export const adminRole = "_artickmaq#UAdmin@R-o_le"
 
 
 // public (no token)
-const publicCourseGet = "/admin/course/all"
-// const publicCourseGet = process.env.publicCourseGet;
+// const publicCourseGet = "/admin/course/all"
+const publicCourseGet = process.env.publicCourseGet;
 
 
 /// user (use token)
@@ -52,7 +52,6 @@ const adminUpdateCourse = "/admin/course/update/"
 const courseDelete = "/admin/course/delete/"
 const questionAdd = "/admin/question/add"
 const questionGetAll = "/admin/question/all"
-const getMyquestion = "/admin/question/me/"
 const freeQuestionGetAll = "/admin/question/free/all"
 
 const questionDetailsById = "/admin/question/details/"
@@ -135,7 +134,6 @@ export {
     courseDelete,
     questionAdd,
     questionGetAll,
-    getMyquestion, // for user (purchase course's Questions)
     freeQuestionGetAll,
     questionDetailsById,
     questionUpdate,

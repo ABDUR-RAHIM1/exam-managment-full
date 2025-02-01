@@ -1,9 +1,29 @@
 import React from "react";
 import Image from "next/image";
-import { demoImg, noImg } from "@/app/DemoData/DemoImg";
+import { noImg } from "@/app/DemoData/DemoImg";
 import { getDataHandler } from "@/app/actions/users/getData";
 import { MdPerson, MdAccessTime } from "react-icons/md";
 import Link from "next/link";
+
+export async function generateMetadata({ params }) {
+    const { blogId } = params;
+    const blogApiMe = "/user/blogs";
+    const { result } = await getDataHandler(blogApiMe);
+    const BlogDetails = result?.find(blog => blog._id === blogId);
+
+    if (!BlogDetails) {
+        return {
+            title: "Blog Not Found",
+            description: "The requested blog post does not exist.",
+        };
+    }
+
+    return {
+        title: BlogDetails.title,
+        description: BlogDetails.description || "Read more about this topic.",
+    };
+}
+
 
 export default async function BlogDetails({ params }) {
     const { blogId } = params;
@@ -22,7 +42,6 @@ export default async function BlogDetails({ params }) {
     });
 
 
-
     return (
         <div className="flex flex-col lg:flex-row gap-6 p-6">
             {/* Left Section: Blog Details */}
@@ -33,7 +52,6 @@ export default async function BlogDetails({ params }) {
                     alt="Blog Image"
                     width={800}
                     height={500}
-                    loading="lazy"
                     className="w-full h-auto max-h-[500px] object-cover rounded-md mb-6"
                 />
 
@@ -41,7 +59,7 @@ export default async function BlogDetails({ params }) {
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between text-gray-600 mb-6 gap-4">
                     <p className="font-medium text-lg flex items-center gap-2">
                         <MdPerson className="text-2xl text-blue-700" />
-                        <strong className=" capitalize">  {author.name} <span className=" text-blue-900">{`(${author.role})`}</span></strong>
+                        <strong className=" capitalize">  {author.name} </strong>
                     </p>
                     <p className=" text-lg flex items-center gap-2">
                         <MdAccessTime className="text-2xl text-blue-700" />
@@ -53,9 +71,9 @@ export default async function BlogDetails({ params }) {
                 {/* Description */}
                 <div className="text-gray-800 my-20 text-lg leading-relaxed">
                     <p className=" font-bold my-6 text-2xl">{title}</p>
-                    {description && description.split(".").map((p, i) => (
-                        <p key={i}>{p.trim()}.</p>
-                    ))}
+                    <p className=" whitespace-pre-line">
+                        {description}
+                    </p>
                 </div>
 
                 <Link href={"/blogs"} className="text-xl font-bold inline-block py-3 px-5 bg-red-500 hover:bg-red-600 transition-all text-white rounded-md shadow-md">

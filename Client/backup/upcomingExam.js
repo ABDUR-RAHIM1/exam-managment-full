@@ -5,18 +5,21 @@ import { FormatedTime } from "@/app/helpers/FormatedTime";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import Questions from "./Questions/Questions";
 
 
 async function UpcomingExamPage() {
 
-    const [myCourse, freeQuestion] = await Promise.all([
+    const [myQuestion, freeQuestion] = await Promise.all([
         getDataHandler(purchaseCourseMe),
         getDataHandler(freeQuestionGetAll)
-    ]);
+    ])
 
-    const { status, result } = myCourse;
-
+    const { status, result } = myQuestion
+    const { course, questions } = result
+ 
+    if (!myQuestion || !freeQuestion) {
+        return <NoDataFound />;
+    }
 
     return (
         <div className=" w-full min-h-screen bg-white">
@@ -28,25 +31,25 @@ async function UpcomingExamPage() {
                     :
                     <div className="bg-white shadow-md rounded-lg p-6 mb-8">
                         <div className="w-full md:w-[50%] m-auto">
-                            <h1 className="text-2xl font-bold text-gray-800">{result.title}</h1>
-                            <p className="text-gray-600 mt-2">{result.desc}</p>
+                            <h1 className="text-2xl font-bold text-gray-800">{course.title}</h1>
+                            <p className="text-gray-600 mt-2">{course.desc}</p>
                             <div className="mt-4">
                                 <span className="text-xl font-semibold text-gray-800">Price: </span>
-                                <span className="text-lg text-red-600">BDT{result.offerPrice}</span>
-                                <span className="text-sm line-through text-gray-500 ml-2">BDT{result.regularPrice}</span>
+                                <span className="text-lg text-red-600">BDT{course.offerPrice}</span>
+                                <span className="text-sm line-through text-gray-500 ml-2">BDT{course.regularPrice}</span>
                             </div>
                             <div className="mt-4">
-                                <span className="text-sm text-gray-500">Duration: {result.duration}</span>
+                                <span className="text-sm text-gray-500">Duration: {course.duration}</span>
                             </div>
                             <div className="mt-4">
-                                <span className="text-sm text-gray-500">Books: {result?.books.join(", ")}</span>
+                                <span className="text-sm text-gray-500">Books: {course?.books.join(", ")}</span>
                             </div>
                         </div>
                         <div className=" mt-4  w-full h-auto">
                             <Image
                                 width={1000}
                                 height={1000}
-                                src={result.schedule}
+                                src={course.schedule}
                                 alt="Schedule"
                                 className="rounded-lg w-auto h-auto m-auto shadow-md"
                             />
@@ -57,14 +60,11 @@ async function UpcomingExamPage() {
 
             {/*    Paid and free questions start here */}
             {/* Paid Questions List */}
-            {/* <div className="flex items-center justify-between flex-wrap gap-3 md:gap-6">
+            <div className="flex items-center justify-between flex-wrap gap-3 md:gap-6">
                 {questions?.map((question) => (
                     <QuestionCard key={question._id} question={question} />
                 ))}
-            </div> */}
-            <Questions
-                courseId={result._id}
-            />
+            </div>
 
             {/*  free */}
 

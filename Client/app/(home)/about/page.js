@@ -4,6 +4,7 @@ import Image from "next/image";
 import aboutPhoto from "@/public/Images/about.jpg"
 import ceo from "@/public/Images/ceo.jpg"
 import developer from "@/public/Images/developer.jpg"
+import { demoProfilePhoto } from "@/app/DemoData/DemoImg";
 
 export default function AboutPage() {
 
@@ -23,13 +24,13 @@ export default function AboutPage() {
         {
             name: "মাহাবুর রহমান",
             position: "CTO",
-            photo: "",
+            photo: demoProfilePhoto,
             link: "facebook.com"
         },
         {
             name: "হারুন আর রশিদ",
             position: "Digital Marketer",
-            photo: "",
+            photo: demoProfilePhoto,
             link: "facebook.com"
         },
     ]

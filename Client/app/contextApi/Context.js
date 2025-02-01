@@ -4,8 +4,7 @@ export const contextApi = createContext()
 
 export default function Context({ children }) {
 
-    const [noticeData, setNoticeData] = useState("");
-    const [showModal, setShowModal] = useState(false)
+    const [noticeData, setNoticeData] = useState(""); 
 
     const [manageData, setManageData] = useState(null);
     const [cart, setCart] = useState(null)
@@ -16,8 +15,7 @@ export default function Context({ children }) {
     const [dashArrowClick, setDashArrowClick] = useState(false)
     /// dashboard end
 
-    const value = {
-        showModal, setShowModal,
+    const value = { 
         noticeData, setNoticeData,
         manageData, setManageData,
         cart, setCart,

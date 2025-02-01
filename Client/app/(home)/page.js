@@ -6,9 +6,7 @@ import Services from '../components/Home/Services/Services'
 import WhyChose from '../components/Home/WhyChoose/WhyChose'
 import Testimonial from '../components/Home/Testimonial/Testimonial'
 import Marque from '../components/Home/Marque'
-import QuicLink from '../components/Home/Notice/QuicLink'
-import ChatBox from '../components/Globals/ChatBox'
-import NoticeModal from '../helpers/NoticeModal'
+import QuicLink from '../components/Home/Notice/QuicLink' 
 
 export default function HomePage() {
 
@@ -22,8 +20,7 @@ export default function HomePage() {
       <div className=' block md:hidden w-full md:w-[28%] max-h-[500px] overflow-y-auto sidebar-scrollbar p-4 border-0 md:border-l border-gray-400'>
         <QuicLink />
       </div>
-      <Testimonial />
-      <NoticeModal />
+      <Testimonial /> 
     </div>
   )
 }

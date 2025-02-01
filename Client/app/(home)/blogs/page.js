@@ -1,7 +1,8 @@
 import Image from 'next/image';
-import { demoImg, noImg } from '@/app/DemoData/DemoImg';
+import { noImg } from '@/app/DemoData/DemoImg';
 import Link from 'next/link';
 import { getDataHandler } from '@/app/actions/users/getData';
+import Empty from '@/app/helpers/Empty';
 
 export default async function BlogPage() {
 
@@ -10,6 +11,13 @@ export default async function BlogPage() {
     const acceptedBlogs = result && result.filter(blog => blog.status === "accept")
     const letestBlogs = acceptedBlogs && acceptedBlogs.slice(0, 6);
 
+
+    if (acceptedBlogs && acceptedBlogs.length <= 0) {
+        return <Empty
+            text={"কোন ব্লগ পোস্ট পাওয়া যায়নি!"}
+        />
+    }
+
     return (
         <div className="flex flex-col lg:flex-row gap-6 p-6">
 
@@ -17,36 +25,40 @@ export default async function BlogPage() {
                 <h2 className="text-3xl font-bold mb-6 text-blue-600">All Posts </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {
-                        acceptedBlogs && acceptedBlogs.length > 0 &&
-                        acceptedBlogs.map((blog) => (
-                            <div
-                                key={blog._id}
-                                className="flex flex-col border rounded-lg hover:shadow-lg transition-shadow duration-200"
-                            >
-                                <Image
-                                    src={blog.photo || noImg}
-                                    alt={`Blog ${blog.id}`}
-                                    width={500}
-                                    height={400}
-                                    className="w-full h-56 rounded-md mb-4"
-                                />
-                                <div className='p-4'>
-                                    <Link href={`/blogs/${blog._id}`} className="text-gray-700 mb-3 font-bold hover:text-blue-600 hover:underline duration-200">
-                                        {blog.title.length > 35
-                                            ? blog.title.slice(0, 35) + '...'
-                                            : blog.title}
-                                    </Link>
-                                    <p className="text-gray-700 mb-3  ">
-                                        {blog.description.length > 60
-                                            ? blog.description.slice(0, 60) + '...'
-                                            : blog.description}
-                                    </p>
-                                    <p className="text-gray-500 text-sm">
-                                        Published on: {new Date(blog.createdAt).toDateString()}
-                                    </p>
+                        acceptedBlogs && acceptedBlogs.length <= 0 ?
+                            <Empty
+                                text={"কোন ব্লগ পোস্ট পাওয়া যায়নি!"}
+                            />
+                            :
+                            acceptedBlogs.map((blog) => (
+                                <div
+                                    key={blog._id}
+                                    className="flex flex-col border rounded-lg hover:shadow-lg transition-shadow duration-200"
+                                >
+                                    <Image
+                                        src={blog.photo || noImg}
+                                        alt={`Blog ${blog.id}`}
+                                        width={500}
+                                        height={400}
+                                        className="w-full h-56 rounded-md mb-4"
+                                    />
+                                    <div className='p-4'>
+                                        <Link href={`/blogs/${blog._id}`} className="text-gray-700 mb-3 font-bold hover:text-blue-600 hover:underline duration-200">
+                                            {blog.title.length > 35
+                                                ? blog.title.slice(0, 35) + '...'
+                                                : blog.title}
+                                        </Link>
+                                        <p className="text-gray-700 mb-3  ">
+                                            {blog.description.length > 60
+                                                ? blog.description.slice(0, 60) + '...'
+                                                : blog.description}
+                                        </p>
+                                        <p className="text-gray-500 text-sm">
+                                            Published on: {new Date(blog.createdAt).toDateString()}
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
                 </div>
             </div>
 
