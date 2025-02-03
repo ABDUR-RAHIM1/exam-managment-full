@@ -4,7 +4,7 @@ export const contextApi = createContext()
 
 export default function Context({ children }) {
 
-    const [noticeData, setNoticeData] = useState(""); 
+    const [noticeData, setNoticeData] = useState("");
 
     const [manageData, setManageData] = useState(null);
     const [cart, setCart] = useState(null)
@@ -12,17 +12,19 @@ export default function Context({ children }) {
 
 
     /// dashboard 
-    const [dashArrowClick, setDashArrowClick] = useState(false)
+    const [dashArrowClick, setDashArrowClick] = useState(false);
+    const [accessUserInfo, setAccessUserInfo] = useState(null); // user er _id pathanor jonno jonno
     /// dashboard end
 
-    const value = { 
+    const value = {
         noticeData, setNoticeData,
         manageData, setManageData,
         cart, setCart,
         examTimeMatch, setExamTimeMatch,
 
         // dashboard start
-        dashArrowClick, setDashArrowClick
+        dashArrowClick, setDashArrowClick,
+        accessUserInfo, setAccessUserInfo
         // dashboard End
     }
 

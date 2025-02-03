@@ -22,9 +22,9 @@ const RegistrationPage = () => {
 
     useEffect(() => {
         if (token) {
-            toast.info("You are already logged in!");
+            toast.info("আপনি ইতিমধ্যেই লগ ইন করেছেন");
             setTimeout(() => {
-                router.push("/profile");
+                router.push("/profile/upcoming-exam");
             }, 1000);
         }
     }, [token]);
@@ -75,7 +75,7 @@ const RegistrationPage = () => {
                 }
                 Cookies.set("userToken", result.token);
                 router.refresh();
-                router.push("/profile");
+                router.push("/profile/upcoming-exam");
             } else {
                 toast.error(result.message); // Handle failure case
             }
@@ -123,8 +123,8 @@ const RegistrationPage = () => {
                 {/*  form Wrappper */}
                 <div className=' w-full md:w-[50%]'>
                     <div className=' my-4 w-full rounded-full overflow-hidden '>
-                        <button onClick={() => handleNaviagteForm("register")} className={`${isClick ? "bg-purple-300 " : "bg-purple-600 "} w-[50%] py-3 px-4 font-medium text-white uppercase`}>Register</button>
-                        <button onClick={() => handleNaviagteForm("login")} className={` ${!isClick ? "bg-blue-300" : "bg-blue-500"} w-[50%] py-3 px-4 font-medium text-white uppercase`}>Login</button>
+                        <button onClick={() => handleNaviagteForm("register")} className={`${isClick ? "bg-purple-600 " : "bg-purple-300 "} w-[50%] py-3 px-4 font-medium text-white uppercase`}>Register</button>
+                        <button onClick={() => handleNaviagteForm("login")} className={` ${!isClick ? "bg-blue-600" : "bg-blue-300"} w-[50%] py-3 px-4 font-medium text-white uppercase`}>Login</button>
                     </div>
                     <form onSubmit={handleSubmit} className="space-y-6">
                         {isClick && (

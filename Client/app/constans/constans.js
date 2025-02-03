@@ -20,9 +20,13 @@ const publicCourseGet = "/admin/course/all"
 const resetUserPass = "/user/reset"
 const getAlluser = "/user/all"
 const getMyProfileInfo = "/user/me"
+const giveAccessCourse = "/user/access/" // only admin use this (use middlewere)
+
 const purchaseCourse = "/user/course/purchase"
 const purchaseCourseAll = "/user/purchase"  // admin dashboard - page -(course/purchase)
 const purchaseCourseMe = "/user/course/get-purchase"
+const purchaseDelete = "/user/course/delete-purchase"
+
 const getPaymentHsitoryWithCourse = "/user/course/get-purchase-payment"
 const getMyblog = "/user/blog/me";
 const putBlogStatus = "/user/blog/status/"
@@ -117,7 +121,7 @@ export {
     // user start 
     resetUserPass,
     getAlluser,
-    getMyProfileInfo, purchaseCourse, purchaseCourseAll, purchaseCourseMe, getPaymentHsitoryWithCourse, getMyblog, putBlogStatus, deleteBlog,
+    getMyProfileInfo, giveAccessCourse, purchaseCourse, purchaseCourseAll, purchaseCourseMe, purchaseDelete, getPaymentHsitoryWithCourse, getMyblog, putBlogStatus, deleteBlog,
     createOpinion, getMyOpinion, getAllOpinion, deleteMyOpinion, updateMyOpinion,
     // user end 
 
@@ -127,7 +131,6 @@ export {
 
     deleteUser,
     addLogo, getLogo, deleteLogo,
-
 
     adminCreateCourse,
     getCourseById,

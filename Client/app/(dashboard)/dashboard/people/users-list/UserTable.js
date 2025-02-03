@@ -4,16 +4,29 @@ import { deleteUser } from "@/app/constans/constans";
 import { demoProfilePhoto } from "@/app/DemoData/DemoImg";
 import DeleteAction from "@/app/helpers/Actions/admin/DeleteAction";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
-import { MdDelete } from "react-icons/md";
+import UserAccessModal from "./UserAccessModal";
+import { contextApi } from "@/app/contextApi/Context";
 
 export default function UserTable({ data }) {
+    const { setAccessUserInfo } = useContext(contextApi)
     const [userData, setUserData] = useState([]);
+    const [showModal, setShowModal] = useState(false)
 
     useEffect(() => {
         setUserData(data); // Set initial data
     }, [data]);
+
+    const handleShowModal = (userInfo) => {
+        setShowModal(!showModal);
+        setAccessUserInfo(userInfo)
+    }
+
+    const handleCloseModal = () => {
+        setShowModal(false)
+    }
+
 
     // Define table columns
     const columns = [
@@ -42,20 +55,26 @@ export default function UserTable({ data }) {
 
         {
             name: "College",
-            selector: (row) => row.collage,
+            selector: (row) => row.collage || "N/A",
         },
         {
             name: "Address",
-            selector: (row) => row.address,
+            selector: (row) => row.address || "N/A",
         },
         {
             name: "Payment Status",
             cell: (row) =>
-                row.isPayment ? (
-                    <span style={{ color: "green" }}>Paid</span>
+                row.paymentStatus ? (
+                    <span className="px-2 py-1 rounded-sm bg-green-200 text-green-700">Paid</span>
                 ) : (
-                    <span style={{ color: "red" }}>Unpaid</span>
+                    <span className="px-2 py-1 rounded-sm bg-red-200 text-red-700">Unpaid</span>
                 ),
+        },
+        {
+            name: "Update Access",
+            selector: row => <button onClick={() => handleShowModal(row)} className=" px-3 font-semibold py-1 rounded-md text-sm bg-blue-600 text-white">
+                Edit
+            </button>
         },
         {
             name: "Actions",
@@ -68,6 +87,11 @@ export default function UserTable({ data }) {
 
     return (
         <div>
+            {showModal &&
+                < UserAccessModal
+                    handleCloseModal={handleCloseModal}
+                />
+            }
             <h2>User Management</h2>
             <DataTable
                 columns={columns}

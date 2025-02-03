@@ -1,7 +1,10 @@
 import React from 'react'
+import DeletePurchase from './DeletePurchase'
 
 export default function Settings() {
     return (
-        <div className=' w-full h-screen text-red-500 flex items-center justify-center text-2xl'>Settings Page Is Under Proccesing !</div>
+        <div className=' w-full h-screen text-red-500'>
+             <DeletePurchase/>
+        </div>
     )
 }

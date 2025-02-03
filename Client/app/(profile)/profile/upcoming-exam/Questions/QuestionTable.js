@@ -51,7 +51,7 @@ export default function QuestionTable({ questions }) {
     ]
 
     return (
-        <div>
+        <div className=' my-5'>
             <DataTable
                 title={"আপনার পরীক্ষা সমূহ"}
                 columns={columns}

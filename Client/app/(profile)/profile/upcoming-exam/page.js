@@ -51,20 +51,18 @@ async function UpcomingExamPage() {
                                 className="rounded-lg w-auto h-auto m-auto shadow-md"
                             />
                         </div>
+
+                        <Questions
+                            courseId={result?._id}
+                        />
                     </div>
+
+
             };
 
 
-            {/*    Paid and free questions start here */}
-            {/* Paid Questions List */}
-            {/* <div className="flex items-center justify-between flex-wrap gap-3 md:gap-6">
-                {questions?.map((question) => (
-                    <QuestionCard key={question._id} question={question} />
-                ))}
-            </div> */}
-            <Questions
-                courseId={result._id}
-            />
+            {/*    Paid and free questions Table (parents) start here */}
+           
 
             {/*  free */}
 
