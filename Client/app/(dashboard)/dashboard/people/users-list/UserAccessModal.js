@@ -94,7 +94,7 @@ export default function UserAccessModal({ handleCloseModal }) {
                             <option value="">Select a Course</option>
                             {
                                 courseList && courseList.map((course) => (
-                                    <option value={course._id}>
+                                    <option key={course._id} value={course._id}>
                                         {course.title}
                                     </option>
                                 ))

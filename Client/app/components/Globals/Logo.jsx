@@ -12,7 +12,7 @@ export default function Logo({ path }) {
         const getData = async () => {
             const { status, result } = await getLogoData();
             if (status === 200) {
-                setLogoImage(result.logo)
+                setLogoImage(result?.logo)
             }
         };
         getData();

@@ -1,5 +1,6 @@
 
 import { useState } from "react";
+import { IMGBB_API } from "../constans/constans";
 
 export default function useFileUploader() {
     const [imgUrl, setImgUrl] = useState("");
@@ -26,7 +27,7 @@ export default function useFileUploader() {
                 status: 102,
             });
 
-            const response = await fetch("https://api.imgbb.com/1/upload?key=862850e874b9b92bba3bbba84383b4dd", {
+            const response = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API}`, {
                 method: "POST",
                 // mode: 'no-cors',
                 body: form,

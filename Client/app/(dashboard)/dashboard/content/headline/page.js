@@ -6,7 +6,7 @@ import AddHeadline from '../ContentForms/AddHeadline'
 import Headline from '../ManageComponent/Headline'
 
 export default async function Headlines() {
-    const { status, result } = await getDataHandler(getHeadline);
+    const { status, result } = await getDataHandler();
 
     if (status !== 200 || !result) {
         return <NoDataFound />

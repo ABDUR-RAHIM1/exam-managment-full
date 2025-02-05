@@ -1,7 +1,7 @@
 
 export const API_URL = "http://localhost:8500/api";
-
 // export const API_URL = process.env.NEXT_PUBLIC_API_URL+"/api";
+export const IMGBB_API = process.env.NEXT_PUBLIC_IMGBB_API_KEY;
 
 /// <============== tokens name  =============>
 // 1. userToken name ======>
@@ -101,8 +101,8 @@ const getAbout = "/content/about/get"
 const updateAbout = "/content/about/update/"
 const deleteAbout = "/content/about/delete/"
 
-
-
+const bookMethodsAll = process.env.NEXT_PUBLIC_BOOK_METHODS;
+const bookGetOne = process.env.BOOK_GET_BY_ID
 
 // contents End 
 
@@ -152,6 +152,7 @@ export {
     createLink, getLinks, updateLink, deleteLink,
     createWhy, getWhy, getWhyById, updateWhy, deleteWhy,
     createAbout, getAbout, updateAbout, deleteAbout,
+    bookMethodsAll,bookGetOne,
 
     /// results / questions
     getResultAll, getResultMe, getResultById, deleteResult

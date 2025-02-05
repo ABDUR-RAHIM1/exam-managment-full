@@ -20,6 +20,34 @@ async function UpcomingExamPage() {
 
     return (
         <div className=" w-full min-h-screen bg-white">
+            {/*    Paid and free questions Table (parents) start here */}
+
+            <div>
+                {
+                    status !== 404 &&
+                    <Questions
+                        courseId={result?._id}
+                    />
+
+                }
+            </div>
+
+            <hr className=" my-5" />
+            <div className="mx-2">
+                <h3 className=" text-center my-3"> Free Questions</h3>
+                <div className=" my-5 flex items-center justify-between flex-wrap gap-3 md:gap-6">
+                    {
+                        freeQuestion.status === 404 ?
+                            <p>{freeQuestion.result?.message}</p>
+                            :
+                            freeQuestion.result?.map((question) => (
+                                <QuestionCard key={question._id} question={question} />
+                            ))
+                    }
+                </div>
+            </div>
+
+
             {
                 status === 404 ?
                     <p className="p-4 text-red-500 font-bold text-xl">
@@ -52,34 +80,12 @@ async function UpcomingExamPage() {
                             />
                         </div>
 
-                        <Questions
-                            courseId={result?._id}
-                        />
+
                     </div>
 
 
             };
 
-
-            {/*    Paid and free questions Table (parents) start here */}
-           
-
-            {/*  free */}
-
-            <hr className=" my-5" />
-            <div>
-                <h3 className=" text-center my-3"> Free Questions</h3>
-                <div className=" my-5 flex items-center justify-between flex-wrap gap-3 md:gap-6">
-                    {
-                        freeQuestion.status === 404 ?
-                            <p>{freeQuestion.result?.message}</p>
-                            :
-                            freeQuestion.result?.map((question) => (
-                                <QuestionCard key={question._id} question={question} />
-                            ))
-                    }
-                </div>
-            </div>
 
             {/*    Paid and free questions End here */}
 

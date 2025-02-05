@@ -1,5 +1,5 @@
 "use client"
-import { postDataHandler } from '@/app/actions/users/postData';
+import { postDataHandler } from '@/app/actions/admin/postData';
 import { createCourseInfo, updateCourseInfo } from '@/app/constans/constans';
 import { contextApi } from '@/app/contextApi/Context';
 import useFileUploader from '@/app/helpers/fileUploader';
@@ -38,7 +38,7 @@ export default function AddCourseInfo() {
         }
 
     };
-    console.log(formData)
+ 
     useEffect(() => {
         if (imgUrl) {
             setFormData({
@@ -93,8 +93,7 @@ export default function AddCourseInfo() {
             }
 
         } catch (error) {
-            toast.error("Failed To Post!");
-            console.log(error)
+            toast.error("Failed To Post!"); 
         } finally {
             setPosting(false)
         }

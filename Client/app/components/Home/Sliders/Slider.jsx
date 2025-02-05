@@ -53,7 +53,7 @@ export default function Slider() {
         <div className="w-full z-[-1]">
             <Fade>
                 {
-                    status === 200 ?
+                    status === 200 && sliders && sliders.length > 0 ?
 
                         (
                             sliders.map((fadeImage, index) => (
