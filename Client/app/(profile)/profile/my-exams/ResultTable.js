@@ -87,12 +87,12 @@ export default function ResultTable({ data }) {
                 Details
             </Link>
         },
-        {
-            name: "Download",
-            selector: row => <Link href={`/results/pdf/${row._id}`} className=' flex items-center gap-1 py-1 px-2 bg-blue-500 text-white rounded-sm'>
-                PDF <MdDownload className='' />
-            </Link>
-        },
+        // {
+        //     name: "Download",
+        //     selector: row => <Link href={`/results/pdf/${row._id}`} className=' flex items-center gap-1 py-1 px-2 bg-blue-500 text-white rounded-sm'>
+        //         PDF <MdDownload className='' />
+        //     </Link>
+        // },
     ]
 
 

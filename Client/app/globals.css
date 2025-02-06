@@ -53,6 +53,16 @@ body {
 
 
   /*  common css */
+label{
+  @apply block text-sm capitalize font-medium text-gray-700 
+}
+  .aboutFormCardTitle {
+    @apply  text-lg font-bold  
+  }
+  .aboutFormCard{
+    @apply  my-5 w-full flex items-center justify-between flex-wrap  gap-4 border p-3
+  }
+
   .bgGradient {
     @apply bg-gradient-to-r from-blue-100 to-purple-100
   }

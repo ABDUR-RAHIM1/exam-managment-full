@@ -161,10 +161,10 @@ const Details = (props) => {
 
                 ))}
             </ul>
-            <div className="bg-green-100 mt-4 p-3 rounded text-sm ">
-                <p className='text-green-600'>
-                    {clarification}
-                </p>
+            <div className="bg-green-100 mt-4 p-3 rounded text-sm">
+                {clarification?.split("\n").map((line, index) => (
+                    <p key={index} className="text-green-600 my-3 whitespace-pre-line">{line}</p>
+                ))}
             </div>
         </div>
     )

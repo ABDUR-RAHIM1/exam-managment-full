@@ -1,6 +1,6 @@
 
-export const API_URL = "http://localhost:8500/api";
-// export const API_URL = process.env.NEXT_PUBLIC_API_URL+"/api";
+// export const API_URL = "http://localhost:8500/api";
+export const API_URL = process.env.NEXT_PUBLIC_API_URL+"/api";
 export const IMGBB_API = process.env.NEXT_PUBLIC_IMGBB_API_KEY;
 
 /// <============== tokens name  =============>
@@ -96,10 +96,15 @@ const getWhyById = "/content/whychoose/get"
 const updateWhy = "/content/whychoose/update/"
 const deleteWhy = "/content/whychoose/delete/"
 
-const createAbout = "/content/about/create"
-const getAbout = "/content/about/get"
-const updateAbout = "/content/about/update/"
-const deleteAbout = "/content/about/delete/"
+
+
+const aboutPageMethods = process.env.NEXT_PUBLIC_ABOUT_PAGE;
+// const aboutPageMethods = "/content/aboutpage/";
+
+// const createAbout = "/content/about/create"
+// const getAbout = "/content/about/get"
+// const updateAbout = "/content/about/update/"
+// const deleteAbout = "/content/about/delete/"
 
 const bookMethodsAll = process.env.NEXT_PUBLIC_BOOK_METHODS;
 const bookGetOne = process.env.BOOK_GET_BY_ID
@@ -151,8 +156,8 @@ export {
     createCourseInfo, getCourseInfo, updateCourseInfo, deleteCourseInfo,
     createLink, getLinks, updateLink, deleteLink,
     createWhy, getWhy, getWhyById, updateWhy, deleteWhy,
-    createAbout, getAbout, updateAbout, deleteAbout,
-    bookMethodsAll,bookGetOne,
+    aboutPageMethods,
+    bookMethodsAll, bookGetOne,
 
     /// results / questions
     getResultAll, getResultMe, getResultById, deleteResult

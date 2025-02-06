@@ -92,7 +92,7 @@ export default function AddBook() {
 
     return (
         <div className='w-full bg-gray-100 p-5'>
-            <div className='bg-white py-5 px-2 w-full md:w-[50%] m-auto '>
+            <div className='bg-white p-5 w-full md:w-[50%] m-auto '>
                 <Form_title_button text={"Upload PDF Book"} />
                 <form onSubmit={handleSubmit}>
                     <div className='my-4'>

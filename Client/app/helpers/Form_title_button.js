@@ -18,7 +18,7 @@ export default function Form_title_button({ text }) {
             }
             </h1>
             {isEditable &&
-                <button onClick={handleClearData} className='py-1 px-2 rounded-sm mx-2 border border-red-300 text-sm font-bold'>Add Mood</button>}
+                <button onClick={handleClearData} className='py-1 px-2 rounded-md mx-2 border border-gray-400 bg-gray-200 text-sm font-bold'>Add Mood</button>}
         </div>
     )
 }

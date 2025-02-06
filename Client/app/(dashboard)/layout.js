@@ -11,7 +11,7 @@ export const metadata = defaultSeo
 
 export default function DashboardLayout({ children }) {
     return (
-        <html lang="en" cz-shortcut-listen>
+        <html lang="en">
             <body className="bg-gray-200 h-screen md:overflow-hidden text-gray-900">
                 <Context>
                     <ToastContainer />
