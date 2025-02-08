@@ -117,6 +117,9 @@ const getResultMe = "/results/get/me"
 const getResultById = "/results/get/"
 const deleteResult = "/results/delete/"    // for admin if needed
 
+// const seoPostUpdate =process.env.SEO_POST_UPDATE;
+const seoPostUpdate = "/admin/seo/"
+
 
 export {
     // public start
@@ -160,6 +163,9 @@ export {
     bookMethodsAll, bookGetOne,
 
     /// results / questions
-    getResultAll, getResultMe, getResultById, deleteResult
+    getResultAll, getResultMe, getResultById, deleteResult,
+
+
+    seoPostUpdate
 
 }

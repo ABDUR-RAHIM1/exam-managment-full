@@ -7,7 +7,16 @@ import DashNav from "./dashboard/dashboardComponent/DashNav";
 import Sidebar from "./dashboard/dashboardComponent/Sidebar";
 import { defaultSeo } from "@/seo/defaultSeo";
 
-export const metadata = defaultSeo
+export async function generateMetadata() {
+    return {
+        title: defaultSeo.title,
+        description: defaultSeo.description,
+        keywords: defaultSeo.keywords.join(", "),
+        authors: defaultSeo.authors,
+        robots: defaultSeo.robots,
+        icons: defaultSeo.icons,
+    };
+}
 
 export default function DashboardLayout({ children }) {
     return (

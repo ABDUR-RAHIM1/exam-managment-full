@@ -1,7 +1,6 @@
 export const defaultSeo = {
     title: "TickMarkQ - Online Exam Management System",
-    description:
-        "TickMarkQ - The ultimate online exam management system. Conduct exams, get instant results, access automatic grading, read blogs, and explore our PDF book reader.",
+    description: "TickMarkQ - The ultimate online exam management system. Conduct exams, get instant results, access automatic grading, read blogs, and explore our PDF book reader.",
     keywords: [
         "online exam",
         "TickMarkQ",
@@ -19,4 +18,4 @@ export const defaultSeo = {
     icons: {
         icon: '/logo.png',
     },
-}
+};

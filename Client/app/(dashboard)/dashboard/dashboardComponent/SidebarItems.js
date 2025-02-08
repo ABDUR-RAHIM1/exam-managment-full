@@ -72,7 +72,8 @@ const items = [
     {
         parentItem: "Settings",
         childItem: [
-            { icon: <CiSettings />, item: "Profile Settings", path: "/dashboard/settings" }
+            { icon: <CiSettings />, item: "Profile Settings", path: "/dashboard/settings" },
+            { icon: <CiSettings />, item: "Seo", path: "/dashboard/settings/seo" },
         ],
     },
 ];
