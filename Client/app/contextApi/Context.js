@@ -6,8 +6,7 @@ export default function Context({ children }) {
 
     const [noticeData, setNoticeData] = useState("");
 
-    const [manageData, setManageData] = useState(null);
-    const [cart, setCart] = useState(null)
+    const [manageData, setManageData] = useState(null); 
     const [examTimeMatch, setExamTimeMatch] = useState("")
 
 
@@ -18,8 +17,7 @@ export default function Context({ children }) {
 
     const value = {
         noticeData, setNoticeData,
-        manageData, setManageData,
-        cart, setCart,
+        manageData, setManageData, 
         examTimeMatch, setExamTimeMatch,
 
         // dashboard start

@@ -5,15 +5,19 @@ import { postDataHandler } from "@/app/actions/users/postData";
 import { deleteBlog, putBlogStatus } from "@/app/constans/constans";
 import { noImg } from "@/app/DemoData/DemoImg";
 import DeleteAction from "@/app/helpers/Actions/admin/DeleteAction";
+import EditAction from "@/app/helpers/Actions/admin/EditAction";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
-import { MdDelete } from "react-icons/md";
 import { toast } from "react-toastify";
 
 export default function BlogTable({ blogs }) {
+    const path = usePathname();
     const [blogData, setBlogData] = useState([]);
     const [loading, setLoading] = useState(false);
+
+    const adminPath = path?.split("/").pop();
 
     useEffect(() => {
         if (blogs) {
@@ -105,9 +109,13 @@ export default function BlogTable({ blogs }) {
             ),
             sortable: true,
         },
+        adminPath === "admin" && {
+            name: "Edit",
+            selector: (row) => <EditAction data={row} path={"/dashboard/people/blogs/add-blog"} />,
+        },
         {
             name: "Delete",
-            selector: (row) => <DeleteAction route={deleteBlog + row._id} />, 
+            selector: (row) => <DeleteAction route={deleteBlog + row._id} />,
         },
     ];
 

@@ -1,6 +1,6 @@
 
-// export const API_URL = "http://localhost:8500/api";
-export const API_URL = process.env.NEXT_PUBLIC_API_URL+"/api";
+export const API_URL = "http://localhost:8500/api";
+// export const API_URL = process.env.NEXT_PUBLIC_API_URL+"/api";
 export const IMGBB_API = process.env.NEXT_PUBLIC_IMGBB_API_KEY;
 
 /// <============== tokens name  =============>
@@ -44,6 +44,9 @@ const adminRegister = "/admin/auth/register"   //  admin-auth create  new admin 
 const getAllAdminModaretors = "/admin/auth/get/all"
 const deleteAdminModaretor = "/admin/auth/delete/"
 
+const adminCreatePutBlog = "/user/blogs/admin/"
+const getAdminModaretorBlogs = "/user/blog/admin/me"
+
 const deleteUser = "/user/delete/"
 
 const addLogo = "/admin/logo/create"
@@ -62,7 +65,6 @@ const freeQuestionGetAll = "/admin/question/free/all"
 const questionDetailsById = "/admin/question/details/"
 const questionDelete = "/admin/question/delete/"
 const questionUpdate = "/admin/question/update/"
-const getAdminModaretorBlogs = "/user/blog/admin/me"
 
 // contents start 
 const postSliders = "/content/slider/create"
@@ -136,6 +138,8 @@ export {
     adminVerify,
     adminLogin,
     adminRegister, getAllAdminModaretors, deleteAdminModaretor,
+
+    adminCreatePutBlog,
 
     deleteUser,
     addLogo, getLogo, deleteLogo,

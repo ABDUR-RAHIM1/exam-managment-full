@@ -2,12 +2,11 @@ import { getDataByQuery } from '@/app/actions/users/getDataByQuary';
 import NoDataFound from '@/app/components/Globals/NoDataFound';
 import React from 'react';
 import CourseCard from '../../CourseCard';
-import Cart from '@/app/components/Globals/Cart';
 
 // For dynamic services category items 
 export default async function ServicesCategory({ params }) {
     const { category } = params;
- 
+
     // Fetch data based on the category
     const { status, result } = await getDataByQuery(category);
 
@@ -20,7 +19,7 @@ export default async function ServicesCategory({ params }) {
         <div className="w-full relative z-50 bg-gray-100 min-h-screen py-10">
             {/* Title */}
             <h1 className="text-center text-3xl font-bold text-gray-800 mb-6">
-                All Courses of
+                আমাদের কোর্স সমূহ
                 <span className="ml-3 text-blue-800 font-bold">{category}</span>
             </h1>
 
@@ -35,8 +34,6 @@ export default async function ServicesCategory({ params }) {
                 )}
             </div>
 
-            {/* Cart */}
-            <Cart bgColor="bg-blue-600" textColor="text-black" />
         </div>
     );
 }

@@ -8,7 +8,6 @@ import adminRouter from './route/admin/adminAuthRoute.js';
 import courseRouter from './route/admin/adminCourseRoute.js';
 import questionRouter from './route/admin/adminQuestionRoute.js';
 import resultRouter from './route/admin/resultRoute.js';
-import purchaseRouter from './route/users/purchaseRoute.js';
 import opinionRouter from './route/users/opinionRoute.js';
 import sliderRouter from './route/admin/sliderRoute.js';
 import headlineRouter from './route/admin/headlineRoute.js';
@@ -19,6 +18,8 @@ import whyChooseRouter from './route/contents/whyChooseRoutejs';
 import logoRouter from './route/admin/logoRoute.js';
 import bookRouter from './route/contents/bookRoute.js';
 import aboutRouter from './route/contents/aboutRoute.js';
+import seoRouter from './route/admin/seoRoute.js'; 
+import bkashRouter from './route/bkash/bkashRoute.js';
 
 dotenv.config();
 
@@ -38,7 +39,6 @@ app.get("/", (req, res) => {
 // User Routes
 app.use("/api/user", userRouter);
 app.use("/api/user", blogRouter);
-app.use("/api/user/course", purchaseRouter);
 app.use("/api/user/opinion", opinionRouter);
 
 
@@ -63,6 +63,14 @@ app.use("/api/content/books" , bookRouter)
 
 /// results / user and admin
 app.use("/api/results", resultRouter)
+
+// seo route
+app.use("/api/admin/seo" , seoRouter)
+
+app.use("/api/bkash" , bkashRouter)
+
+//  bkash route for testing
+// app.use("/api/bkash" , bkashRouter)
 
 
 // Handle undefined routes

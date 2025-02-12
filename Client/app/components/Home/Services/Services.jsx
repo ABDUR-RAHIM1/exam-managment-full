@@ -1,7 +1,6 @@
 import { getDataHandler } from '@/app/actions/users/getData'
 import { getCourseInfo } from '@/app/constans/constans'
-import { demoImg } from '@/app/DemoData/DemoImg'
-import servicesData from '@/app/DemoData/ServicesData'
+import { demoImg } from '@/app/DemoData/DemoImg' 
 import Heading from '@/app/helpers/Heading'
 import Image from 'next/image'
 import Link from 'next/link'

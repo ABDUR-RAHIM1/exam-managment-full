@@ -18,14 +18,12 @@ export default async function ResultsDetails({ params }) {
     const minusMark = 0.25
 
     return (
-        <div className='bgGradient overflow-hidden'>
+        <div className='bg-gradient-to-r from-blue-50 to-indigo-100 min-h-screen p-6'>
 
-            <div className="max-w-4xl mx-auto bg-white my-10 shadow-lg rounded-lg p-6">
+            <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6">
                 {result && (
                     <div>
-                        {/* Question Header */}
                         <div className="border-b-2 pb-4 mb-6">
-                            {/* Website Name and Logo */}
                             <div className="flex items-center justify-between flex-wrap">
                                 <div className="flex items-center mb-4 md:mb-0">
                                     <Logo path={`/results/${questionId}`} />
@@ -35,87 +33,69 @@ export default async function ResultsDetails({ params }) {
                                 </p>
                             </div>
 
-                            {/* Title */}
-                            <h2 className="font-extrabold my-4 text-3xl sm:text-4xl md:text-5xl text-center text-indigo-700 tracking-wide ">
+                            <h2 className="font-extrabold my-4 text-3xl sm:text-4xl md:text-5xl text-center text-indigo-700 tracking-wide drop-shadow-md">
                                 Result Sheet
                             </h2>
 
-                            <div className="bg-gradient-to-r my-5 from-blue-50 to-indigo-100 p-6 rounded-lg shadow-md flex items-center justify-between flex-wrap">
+                            <div className="bg-gradient-to-r my-5 from-blue-100 to-indigo-200 p-6 rounded-lg shadow-md flex items-center justify-between flex-wrap">
                                 <div className='flex-1 mb-4 md:mb-0'>
-                                    {/* Category */}
                                     <h3 className="text-xl md:text-2xl font-bold text-gray-800 my-3">
                                         <span className="text-indigo-500">Category:</span> {result.questionCategory}
                                     </h3>
-
-                                    {/* Course */}
                                     <h4 className="text-lg md:text-xl font-semibold text-gray-700 my-2">
                                         <span className="text-indigo-500">Course:</span> {result.questionTitle}
                                     </h4>
-
-                                    {/* Minus Mark */}
                                     <h4 className="text-lg md:text-xl font-medium text-red-500 my-2">
                                         <span className="text-gray-600">Minus Mark:</span> {minusMark}
                                     </h4>
-
-                                    {/* Total Mark */}
                                     <h4 className="text-lg md:text-xl font-medium text-green-600 my-2">
                                         <span className="text-gray-600">Total Mark:</span> {result.totalMark}
                                     </h4>
-                                    {/* Result / passed/ failed */}
-                                    <div className="text-lg md:text-xl font-medium text-green-600 my-4">
-                                        {
-                                            result.isPass ?
-                                                <span className='py-2 px-3 bg-green-300 text-green-600 rounded-sm'>Passed</span>
-                                                :
-                                                <span className='py-2 px-3 bg-red-600 text-gray-300 rounded-md'>Failed</span>
-                                        }
+
+                                    <div className="text-lg md:text-xl font-medium my-4">
+                                        {result.isPass ? (
+                                            <span className='py-2 px-4 bg-green-500 text-white rounded-md'>Passed</span>
+                                        ) : (
+                                            <span className='py-2 px-4 bg-red-500 text-white rounded-md'>Failed</span>
+                                        )}
                                     </div>
                                 </div>
 
-                                <div className='flex-1 flex items-center flex-col gap-4'>
-                                    <div className='flex items-center gap-2'>
-                                        <p>Correct:</p>
-                                        <span className='w-[20px] h-[20px] inline-block rounded-full bg-green-600' />
+                                <div className='flex-1 flex flex-col gap-3'>
+                                    <div className='flex items-center justify-start gap-3 w-full'>
+                                        <p className="text-gray-700 font-medium min-w-[80px]">Correct:</p>
+                                        <span className='w-[20px] h-[20px] inline-block rounded-full bg-green-500' />
                                     </div>
-                                    <div className='flex items-center gap-2'>
-                                        <p>Wrong:</p>
-                                        <span className='w-[20px] h-[20px] inline-block rounded-full bg-red-600' />
+                                    <div className='flex items-center justify-start gap-3 w-full'>
+                                        <p className="text-gray-700 font-medium min-w-[80px]">Wrong:</p>
+                                        <span className='w-[20px] h-[20px] inline-block rounded-full bg-red-500' />
                                     </div>
-                                    <div className='flex items-center gap-2'>
-                                        <p>Suggest:</p>
-                                        <span className='w-[20px] h-[20px] inline-block rounded-full bg-blue-600' />
+                                    <div className='flex items-center justify-start gap-3 w-full'>
+                                        <p className="text-gray-700 font-medium min-w-[80px]">Suggest:</p>
+                                        <span className='w-[20px] h-[20px] inline-block rounded-full bg-blue-500' />
                                     </div>
                                 </div>
+
                             </div>
 
-                            {/* Date and Time */}
-                            <div className="flex items-center justify-end mt-4 text-sm text-gray-500">
-                                <div className="bg-blue-50 text-blue-600 px-4 py-2 rounded-md shadow-sm font-medium">
-                                    Exam Summary
-                                </div>
+                            <div className="flex justify-between bg-blue-100 p-4 rounded-md text-lg text-gray-700 font-medium mb-8 shadow">
+                                <p><span className="font-bold text-blue-600">Submit:</span> {result.rightAnswers + result.wrongAnswers}</p>
+                                <p><span className="font-bold text-green-600">Right:</span> {result.rightAnswers}</p>
+                                <p><span className="font-bold text-red-600">Wrong:</span> {result.wrongAnswers}</p>
+                                <p><span className="font-bold text-black">Skip:</span> {result.skip || 0}</p>
                             </div>
-                        </div>
 
-
-                        {/* Summary */}
-                        <div className="flex justify-between bg-blue-50 p-4 rounded-md text-lg text-gray-700 font-medium mb-8">
-                            <p><span className="font-bold text-blue-600">Submit:</span> {result.rightAnswers + result.wrongAnswers}</p>
-                            <p><span className="font-bold text-green-600">Right:</span> {result.rightAnswers}</p>
-                            <p><span className="font-bold text-red-600">Wrong:</span> {result.wrongAnswers}</p>
-                            <p><span className="font-bold text-black">Skip:</span> {result.skip || 0}</p>
-                        </div>
-
-                        {/* Questions and Answers */}
-                        <div>
-                            {result.questions.map((question, i) => (
-                                <Details key={i} question={question} index={i} />
-                            ))}
+                            <div>
+                                {result.questions.map((question, i) => (
+                                    <Details key={i} question={question} index={i} />
+                                ))}
+                            </div>
                         </div>
                     </div>
                 )}
             </div>
-
         </div>
+
     )
 }
 

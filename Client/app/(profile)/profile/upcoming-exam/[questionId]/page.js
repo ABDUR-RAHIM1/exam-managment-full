@@ -158,7 +158,8 @@ export default function ExamPage({ params }) {
             questionCategory: formData.questionCategory,
             questionTitle: formData.questionTitle,
             courseId: formData.courseId,
-            passMark: isPass,
+            passMark: formData.passMark,
+            isPass: isPass,
             questions: result, // Sending all question data with answers and correctness
             rightAnswers: rightAnswers, // Total correct answers
             skip: skip,
@@ -167,7 +168,7 @@ export default function ExamPage({ params }) {
             atATime: examAtATime
         };
 
-
+        console.log(resultData)
         try {
             const { status, result } = await postDataHandler(resultData, "POST", "/results/submit_question");
 
@@ -259,6 +260,10 @@ export default function ExamPage({ params }) {
                                 <tr className="border-b border-gray-200">
                                     <td className="font-semibold py-2 px-4 border-r border-gray-200">Course:</td>
                                     <td className="py-2 px-4">{formData.questionTitle}</td>
+                                </tr>
+                                <tr className="border-b border-gray-200">
+                                    <td className="font-semibold py-2 px-4 border-r border-gray-200">Pass Mark:</td>
+                                    <td className="py-2 px-4">{formData.passMark}</td>
                                 </tr>
                                 <tr className="border-b border-gray-200">
                                     <td className="font-semibold py-2 px-4 border-r border-gray-200">Exam Date:</td>

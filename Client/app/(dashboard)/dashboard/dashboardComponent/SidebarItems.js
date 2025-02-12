@@ -51,6 +51,7 @@ const items = [
     {
         parentItem: "Blogs",
         childItem: [
+            { icon: <BsFillPeopleFill />, item: "Post Blogs", path: "/dashboard/people/blogs/add-blog " },
             { icon: <BsFillPeopleFill />, item: "Admin Blogs", path: "/dashboard/people/blogs/admin " },
             { icon: <BsFillPeopleFill />, item: "Public Blogs", path: "/dashboard/people/blogs/public " },
         ],

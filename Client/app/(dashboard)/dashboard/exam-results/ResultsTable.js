@@ -6,6 +6,7 @@ import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component'
 
+//  dashboard
 export default function ResultsTable({ data }) {
     const [status, setStatus] = useState("atATime")
     const [resultData, setResultData] = useState([])
@@ -31,68 +32,80 @@ export default function ResultsTable({ data }) {
         }
     }, [status, resultData]);
 
-
-
     const columns = [
         {
-            name: "Name",
+            name: "নাম",
             selector: row => row.user?.name
         },
+        // {
+        //     name: "Category",
+        //     selector: row => row.questionCategory
+        // },
         {
-            name: "Category",
-            selector: row => row.questionCategory
-        },
-        {
-            name: "Course",
+            name: "কোর্স ",
             selector: row => row.questionTitle
         },
         {
-            name: "Skip",
-            selector: row => <p className=' text-black-600 bg-black text-white px-2 font-bold rounded-md'>
+            name: "স্কিপ ",
+            selector: row => <p className='text-white bg-gray-800 border border-gray-600 px-2 font-bold rounded-md'>
                 {row.skip || 0}
             </p>
         },
         {
-            name: "Right A",
-            selector: row => <p className=' text-green-600 bg-green-100 px-2 font-bold rounded-md'>
+            name: "সঠিক ",
+            selector: row => <p className='text-green-700 bg-green-200 border border-green-500 px-2 font-bold rounded-md'>
                 {row.rightAnswers}
             </p>
         },
         {
-            name: "Wrong A",
-            selector: row => <p className=' text-red-600 bg-red-100 px-2 font-bold rounded-md'>
+            name: "ভুল ",
+            selector: row => <p className='text-red-700 bg-red-200 border border-red-500 px-2 font-bold rounded-md'>
                 {row.wrongAnswers}
             </p>
         },
         {
-            name: "Total Q",
-            selector: row => <p className=' text-blue-600 bg-blue-100 px-2  font-bold rounded-md'>
-                {row.wrongAnswers + row.rightAnswers}
+            name: "মোট প্রশ্ন",
+            selector: row => <p className='text-blue-800 bg-blue-200 border border-blue-500 px-2 font-bold rounded-md'>
+                {row.wrongAnswers + row.rightAnswers + row.skip}
             </p>
         },
         {
-            name: "Total Mark",
-            selector: row => <p className='text-yellow-600 bg-yellow-200 px-2 font-bold rounded-md'>
+            name: "পেয়েছে",
+            selector: row => <p className='text-yellow-800 bg-yellow-400 border border-yellow-600 px-2 font-bold rounded-md'>
                 {row.totalMark ? row.totalMark : "N/A"}
             </p>
         },
         {
-            name: "Status",
-            selector: row => <span className={`${row.atATime ? "bg-green-500" : " bg-red-500"} p-1 text-white`}>
+            name: "পাস মার্ক ",
+            selector: row => <p className='text-yellow-800 bg-yellow-400 border border-yellow-600 px-2 font-bold rounded-md'>
+                {row.passMark ? row.passMark : "N/A"}
+            </p>
+        },
+        {
+            name: "রেজাল্ট ",
+            selector: row => <span className={`${row.isPass ? "bg-green-600 hover:bg-green-700" : "bg-red-600 hover:bg-red-700"} p-2 px-3 text-white rounded-md inline-block`}>
                 {
-                    row.atATime ? "Yes" : "No"
+                    row.isPass ? "পাশ" : "ফেল"
                 }
             </span>
         },
         {
-            name: "View",
+            name: "নির্ধারিত সময়ে ",
+            selector: row => <span className={`${row.atATime ? "bg-green-500" : " bg-red-500"} p-1 text-white`}>
+                {
+                    row.atATime ? "হ্যা" : "না"
+                }
+            </span>
+        },
+        {
+            name: "বিস্তারিত",
             selector: row => <Link href={`/results/${row._id}`} className=' inline-block py-2 px-3 bg-blue-700 text-white rounded-md font-bold'>
                 Details
             </Link>
         },
         role === "admin" &&
         {
-            name: "Delete",
+            name: "ডিলিট ",
             selector: row => <DeleteAction route={deleteResult + row._id} />
         },
 

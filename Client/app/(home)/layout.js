@@ -6,10 +6,22 @@ import "../globals.css"
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import Context from "../contextApi/Context";
-import { defaultSeo } from "@/seo/defaultSeo";
+import { defaultSeo, getSeo } from "@/seo/defaultSeo";
 import ChatBox from "../components/Globals/ChatBox";
 
-export const metadata = defaultSeo
+export async function generateMetadata() {
+  const data = await getSeo();
+  const seoData = data && Object.keys(data).length > 0 ? data : defaultSeo;
+
+  return {
+    title: seoData.title,
+    description: seoData.description,
+    keywords: seoData.keywords.join(', '),
+    icons: seoData.icons,
+    authors: [{ name: "TickMarkQ Team", url: "https://www.tickmarkq.com" }],
+    robots: "index, follow",
+  }
+}
 
 export default function RootLayout({ children }) {
   return (
@@ -20,7 +32,7 @@ export default function RootLayout({ children }) {
           <ToastContainer />
           {children}
           <Footer />
-              <ChatBox />
+          <ChatBox />
         </Context>
       </body>
     </html>

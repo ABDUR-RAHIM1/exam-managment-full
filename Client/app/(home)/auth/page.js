@@ -123,8 +123,8 @@ const RegistrationPage = () => {
                 {/*  form Wrappper */}
                 <div className=' w-full md:w-[50%]'>
                     <div className=' my-4 w-full rounded-full overflow-hidden '>
-                        <button onClick={() => handleNaviagteForm("register")} className={`${isClick ? "bg-purple-600 " : "bg-purple-300 "} w-[50%] py-3 px-4 font-medium text-white uppercase`}>Register</button>
-                        <button onClick={() => handleNaviagteForm("login")} className={` ${!isClick ? "bg-blue-600" : "bg-blue-300"} w-[50%] py-3 px-4 font-medium text-white uppercase`}>Login</button>
+                        <button onClick={() => handleNaviagteForm("register")} className={`${isClick ? "bg-purple-600 " : "bg-purple-300 "} w-[50%] py-3 px-4 font-medium text-white `}>Sign up</button>
+                        <button onClick={() => handleNaviagteForm("login")} className={` ${!isClick ? "bg-blue-600" : "bg-blue-300"} w-[50%] py-3 px-4 font-medium text-white `}>Login</button>
                     </div>
                     <form onSubmit={handleSubmit} className="space-y-6">
                         {isClick && (
@@ -175,7 +175,7 @@ const RegistrationPage = () => {
                             className={` ${isClick ? "bg-purple-600" : "bg-blue-600"} py-2 px-5 text-center font-semibold my-3 rounded-md  w-full text-white`}
                             disabled={loading}
                         >
-                            {loading ? <Spinner /> : (isClick ? "Register" : "Login")}
+                            {loading ? <Spinner /> : (isClick ? "Sign up" : "Login")}
                         </button>
 
                         {

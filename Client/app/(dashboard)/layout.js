@@ -5,18 +5,22 @@ import { ToastContainer } from 'react-toastify';
 import Context from "../contextApi/Context";
 import DashNav from "./dashboard/dashboardComponent/DashNav";
 import Sidebar from "./dashboard/dashboardComponent/Sidebar";
-import { defaultSeo } from "@/seo/defaultSeo";
+import { defaultSeo, getSeo } from "@/seo/defaultSeo";
 
 export async function generateMetadata() {
+    const data = await getSeo();
+    const seoData = data && Object.keys(data).length > 0 ? data : defaultSeo;
+
     return {
-        title: defaultSeo.title,
-        description: defaultSeo.description,
-        keywords: defaultSeo.keywords.join(", "),
-        authors: defaultSeo.authors,
-        robots: defaultSeo.robots,
-        icons: defaultSeo.icons,
-    };
+        title: seoData.title,
+        description: seoData.description,
+        keywords: seoData.keywords.join(', '),
+        icons: seoData.icons,
+        authors: [{ name: "TickMarkQ Team", url: "https://www.tickmarkq.com" }],
+        robots: "index, follow",
+    }
 }
+
 
 export default function DashboardLayout({ children }) {
     return (

@@ -4,9 +4,21 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import Context from "../contextApi/Context";
 import MobileNavbar from "../components/Globals/Navbar/Navbar";
-import { defaultSeo } from "@/seo/defaultSeo";
+import { defaultSeo, getSeo } from "@/seo/defaultSeo";
 
-export const metadata = defaultSeo
+export async function generateMetadata() {
+  const data = await getSeo();
+  const seoData = data && Object.keys(data).length > 0 ? data : defaultSeo;
+
+  return {
+    title: seoData.title,
+    description: seoData.description,
+    keywords: seoData.keywords.join(', '),
+    icons: seoData.icons,
+    authors: [{ name: "TickMarkQ Team", url: "https://www.tickmarkq.com" }],
+    robots: "index, follow",
+  }
+}
 
 export default function ProfileLayout({ children }) {
 
