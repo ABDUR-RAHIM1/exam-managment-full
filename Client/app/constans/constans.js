@@ -1,6 +1,6 @@
 
-export const API_URL = "http://localhost:8500/api";
-// export const API_URL = process.env.NEXT_PUBLIC_API_URL+"/api";
+// export const API_URL = "http://localhost:8500/api";
+export const API_URL = process.env.NEXT_PUBLIC_API_URL+"/api";
 export const IMGBB_API = process.env.NEXT_PUBLIC_IMGBB_API_KEY;
 
 /// <============== tokens name  =============>
@@ -23,7 +23,8 @@ const getMyProfileInfo = "/user/me"
 const giveAccessCourse = "/user/access/" // only admin use this (use middlewere)
 
 const purchaseCourse = "/user/course/purchase"
-const purchaseCourseAll = "/user/purchase"  // admin dashboard - page -(course/purchase)
+const purchaseCourseAll = "/user/purchase"  // admin dashboard - page -(course/purchase) 
+
 const purchaseCourseMe = "/user/course/get-purchase"
 const purchaseDelete = "/user/course/delete-purchase"
 

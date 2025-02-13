@@ -26,6 +26,7 @@ export default function UserAccessModal({ handleCloseModal }) {
     useEffect(() => {
         const fetchData = async () => {
             const { status, result } = await getAllCourse();
+
             if (status === 200) {
                 setCouseList(result)
             }
@@ -34,7 +35,7 @@ export default function UserAccessModal({ handleCloseModal }) {
         fetchData();
     }, []);
 
-    console.log(formData)
+  
     //  auto fill FormData from UserOld info
     useEffect(() => {
         if (Object.keys(accessUserInfo).length > 0) {
@@ -45,7 +46,7 @@ export default function UserAccessModal({ handleCloseModal }) {
             })
         }
     }, [accessUserInfo])
-
+console.log(formData)
     const handleSubmit = async (e) => {
         e.preventDefault();
         setPostLoading(true)

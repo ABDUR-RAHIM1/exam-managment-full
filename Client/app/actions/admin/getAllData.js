@@ -18,4 +18,17 @@ export const getAllData = async (endpoint) => {
         status: resposnse.status,
         result: data
     }
+};
+
+export const getAllDataWithoutToken = async (endpoint) => {
+    const resposnse = await fetch(API_URL + endpoint, {
+        cache: "no-store",
+    });
+
+    const data = await resposnse.json();
+
+    return {
+        status: resposnse.status,
+        result: data
+    }
 }
