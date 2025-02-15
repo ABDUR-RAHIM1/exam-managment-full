@@ -63,6 +63,7 @@ const items = [
             { icon: <BsFillPeopleFill />, item: "Headline", path: "/dashboard/content/headline" },
             { icon: <BsFillPeopleFill />, item: "Notice", path: "/dashboard/content/notice-board" },
             { icon: <BsFillPeopleFill />, item: "Quick Links", path: "/dashboard/content/quick-links" },
+            { icon: <BsFillPeopleFill />, item: "Resourse", path: "/dashboard/content/free-resourse" },
             { icon: <BsFillPeopleFill />, item: "Course Info", path: "/dashboard/content/course-info" },
             { icon: <BsFillPeopleFill />, item: "Why Choose", path: "/dashboard/content/why-choose" },
             { icon: <BsFillPeopleFill />, item: "About Page", path: "/dashboard/content/about" },

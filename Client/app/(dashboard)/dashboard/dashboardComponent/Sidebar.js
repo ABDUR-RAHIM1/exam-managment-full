@@ -15,7 +15,7 @@ export default function Sidebar() {
             className={`${dashArrowClick ? "w-[80px] px-5" : "w-[200px] pr-5"} pt-20
                 h-screen overflow-y-scroll sidebar-scrollbar transition-all duration-300 border-r border-gray-300`}
         >
-           
+        
             <ul>
                 {items.map((item, index) => (
                     <div key={index} className="my-4">

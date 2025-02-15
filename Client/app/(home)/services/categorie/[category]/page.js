@@ -3,9 +3,11 @@ import NoDataFound from '@/app/components/Globals/NoDataFound';
 import React from 'react';
 import CourseCard from '../../CourseCard';
 
-// For dynamic services category items 
+// For dynamic home services category items 
 export default async function ServicesCategory({ params }) {
     const { category } = params;
+
+    const courseName = category ? decodeURIComponent(category) : "";
 
     // Fetch data based on the category
     const { status, result } = await getDataByQuery(category);
@@ -20,7 +22,7 @@ export default async function ServicesCategory({ params }) {
             {/* Title */}
             <h1 className="text-center text-3xl font-bold text-gray-800 mb-6">
                 আমাদের কোর্স সমূহ
-                <span className="ml-3 text-blue-800 font-bold">{category}</span>
+                <span className="ml-3 text-blue-800 font-bold">{courseName}</span>
             </h1>
 
             {/* Courses Grid */}

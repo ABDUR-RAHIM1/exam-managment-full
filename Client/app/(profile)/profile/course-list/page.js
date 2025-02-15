@@ -4,7 +4,8 @@ import { publicCourseGet } from '@/app/constans/constans';
 import NoDataFound from '@/app/components/Globals/NoDataFound';
 import CourseCard from './CourseCard';
 
-export default async function CourseListHomePage() {
+//  profile page
+export default async function CourseListProfilePage() {
     const { result } = await getDataHandler(publicCourseGet)
 
     if (result && result.length < 1) {

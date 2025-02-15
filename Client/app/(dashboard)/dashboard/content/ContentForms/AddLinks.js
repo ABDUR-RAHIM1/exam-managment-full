@@ -1,6 +1,6 @@
 "use client"
-import { postDataHandler } from '@/app/actions/users/postData';
-import { createHeadline, createLink, updateHeadline, updateLink } from '@/app/constans/constans';
+import { postDataHandler } from '@/app/actions/admin/postData';
+import { createLink, createResourse, updateLink, updateResourse } from '@/app/constans/constans';
 import { contextApi } from '@/app/contextApi/Context';
 import Form_title_button from '@/app/helpers/Form_title_button';
 import Spinner from '@/app/helpers/Spinner';
@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import React, { useContext, useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
 
-export default function AddLinks() {
+export default function AddLinks({ page }) {
     const router = useRouter();
     const { manageData } = useContext(contextApi)
     const [posting, setPosting] = useState(false);
@@ -41,7 +41,10 @@ export default function AddLinks() {
         e.preventDefault();
         setPosting(true)
         try {
-            const { status, result } = await postDataHandler(formData, "POST", createLink);
+
+            const apiEndpoint = page === "freeResourse" ? createResourse : createLink
+
+            const { status, result } = await postDataHandler(formData, "POST", apiEndpoint);
 
             if (status === 200 || status === 201) {
                 toast.success(result.message);
@@ -63,7 +66,8 @@ export default function AddLinks() {
         e.preventDefault();
         setPosting(true)
         try {
-            const { status, result } = await postDataHandler(formData, "PUT", updateLink + formData._id);
+            const apiEndpoint = page === "freeResourse" ? updateResourse + formData._id : updateLink + formData._id
+            const { status, result } = await postDataHandler(formData, "PUT", apiEndpoint);
 
             if (status === 200 || status === 201) {
                 toast.success(result.message);
@@ -71,7 +75,7 @@ export default function AddLinks() {
             } else {
                 toast.error(result.message)
             }
-        } catch (error) { 
+        } catch (error) {
             toast.error("Failed To Update Link")
         } finally {
             setPosting(false)
@@ -84,8 +88,8 @@ export default function AddLinks() {
             <form onSubmit={
                 isEditable ? handleUpdateHeadline : handleSubmitHeadline
             } className=' bg-white py-5 px-2 w-full md:w-[50%] m-auto'>
- 
-                  <Form_title_button text={"Link"} />
+
+                <Form_title_button text={page === "freeResourse" ? "free resourse" : "Link"} />
 
                 <div className='my-3'>
                     <label htmlFor="title">Title</label>

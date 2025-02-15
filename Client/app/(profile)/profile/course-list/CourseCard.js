@@ -9,10 +9,13 @@ export default function CourseCard(props) {
     const { category, title, desc, books, duration, schedule, regularPrice, offerPrice, note, questions } = props.courseData;
     const [showDetails, setShowDetails] = useState(false);
 
+   
+
+
     return (
         <div className="w-full md:w-[48%] bg-white rounded-lg shadow-lg overflow-hidden">
             <div className="p-4">
-            <div className="flex items-center justify-between flex-wrap my-2">
+                <div className="flex items-center justify-between flex-wrap my-2">
                     <div title="Course Category" className="bg-blue-500 text-white text-xs font-bold uppercase py-1 px-3 rounded-full inline-block mb-2">
                         {category}
                     </div>
@@ -22,37 +25,43 @@ export default function CourseCard(props) {
                 <p className="text-gray-700 text-sm mb-4">
                     {desc}
                 </p>
-                <div className="flex mb-2 items-center justify-between">
-                    <div className="text-red-500 line-through">BDT- {regularPrice}</div>
-                    <div className="text-blue-500 font-bold text-lg">BDT-{offerPrice}</div>
+                {/* Price Section */}
+                <div className="mt-6 flex justify-center items-center space-x-3">
+                    <span className="text-2xl font-semibold text-gray-800">Price:</span>
+                    <span className="text-xl text-red-600 font-bold">BDT {offerPrice}</span>
+                    <span className="text-lg line-through text-gray-500">BDT {regularPrice}</span>
+                </div>
+                <div className="mt-4 text-center">
+                    <span className="text-lg font-medium text-gray-700 bg-gray-200 px-4 py-2 rounded-full">⏳ কোর্সটি চলবে: {duration}</span>
                 </div>
 
                 <button
                     onClick={() => setShowDetails(!showDetails)}
-                    className="bg-gray-300 text-gray-700 text-sm font-bold uppercase py-1 px-3 rounded-full mb-3"
+                    className="bg-gray-300 text-gray-700 text-sm font-bold uppercase py-1 px-3 rounded-full my-3"
                 >
-                   {showDetails ? 'বিস্তারিত বন্ধ করুন' : 'বিস্তারিত দেখুন'}
+                    {showDetails ? 'বিস্তারিত বন্ধ করুন' : 'বিস্তারিত দেখুন'}
                 </button>
 
                 {showDetails && (
                     <div className="mt-2 space-y-2">
-                        <div>
-                            <span className="font-bold">Books:</span>
-                            <ul className="list-disc list-inside text-gray-700 mt-1">
-                                {books && books.length > 0
-                                    ? books.map((book, index) => <li key={index}>{book}</li>)
-                                    : "Not Available"}
-                            </ul>
+                        {/* Books List */}
+                        <div className="mt-6 bg-gray-100 p-2 md:p-4 rounded-lg shadow">
+                            <h3 className="text-lg font-bold text-red-700 mb-2">📚 যে বইগুলো থেকে পরীক্ষা নেওয়া হবে:</h3>
+                            <p className="text-sm text-gray-700 whitespace-pre-line">
+                                {books?.map((book, index) => (
+                                    <span key={index} className="block px-3 py-1 bg-white shadow-sm rounded-md my-1">
+                                        📖 {book}
+                                    </span>
+                                ))}
+                            </p>
                         </div>
-                        <div>
-                            <span className="font-bold">Duration:</span> {duration || "Not Specified"}
-                        </div>
+
                         <div className=' flex items-end justify-end'>
                             <Link href={{
                                 pathname: `/profile/course-list/routine`,
                                 query: { routine: schedule }
                             }}
-                                className=' py-2 px-3 font-bold bg-red-500 rounded-md text-gray-200 italic border-2 border-red-800'>
+                                className=' py-2 px-3 font-bold bg-blue-500 rounded-md text-gray-200 italic border-1 border-blue-800 shadow-md'>
                                 Routine
                             </Link>
                         </div>

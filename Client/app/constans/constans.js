@@ -46,7 +46,7 @@ const getAllAdminModaretors = "/admin/auth/get/all"
 const deleteAdminModaretor = "/admin/auth/delete/"
 
 const adminCreatePutBlog = "/user/blogs/admin/"
-const getAdminModaretorBlogs = "/user/blog/admin/me"
+const getAdminModaretorBlogs = "/user/blogs/admin/me"
 
 const deleteUser = "/user/delete/"
 
@@ -92,6 +92,11 @@ const createLink = "/content/quickLinks/create"
 const getLinks = "/content/quickLinks/get"
 const updateLink = "/content/quickLinks/update/"
 const deleteLink = "/content/quickLinks/delete/"
+
+const createResourse = "/content/freeresourse/create"  
+const getResourse = "/content/freeresourse/get"
+const updateResourse = "/content/freeresourse/update/"
+const deleteResourse = "/content/freeresourse/delete/"
 
 const createWhy = "/content/whychoose/create"
 const getWhy = "/content/whychoose/get-all"
@@ -163,6 +168,8 @@ export {
     createNotice, getNotice, updateNotice, deleteNotice,
     createCourseInfo, getCourseInfo, updateCourseInfo, deleteCourseInfo,
     createLink, getLinks, updateLink, deleteLink,
+    createResourse, getResourse , updateResourse , deleteResourse,
+
     createWhy, getWhy, getWhyById, updateWhy, deleteWhy,
     aboutPageMethods,
     bookMethodsAll, bookGetOne,
